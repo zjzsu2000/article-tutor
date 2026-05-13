@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 // TODO(v0.3): expose a small settings UI so the student (or parent) can
 // pick rate (slow / normal / fast) and a preferred voice. Persist in
 // localStorage. Keep the same defaults below as the "normal" preset.
-const DEFAULT_RATE = 0.8;
+const DEFAULT_RATE = 0.7;
 const DEFAULT_PITCH = 1.0;
 const DEFAULT_VOLUME = 1.0;
 
