@@ -11,7 +11,14 @@ export type Dict = {
   nav: { topics: string; vocabulary: string };
   home: { title: string; subtitle: string; topicsHeading: string };
   topicCard: { cta: string };
-  article: { backToTopics: string; minRead: string; tip: string };
+  article: {
+    backToTopics: string;
+    minRead: string;
+    tip: string;
+    readAloud: string;
+    stopReading: string;
+    ttsUnsupported: string;
+  };
   panel: {
     nothingSelected: string;
     nothingSelectedHint: string;
@@ -23,6 +30,7 @@ export type Dict = {
     chineseTranslation: string;
     grammar: string;
     play: string;
+    playSentence: string;
     save: string;
     saved: string;
     close: string;
@@ -55,6 +63,9 @@ const zh: Dict = {
     backToTopics: "← 返回主题列表",
     minRead: "分钟阅读",
     tip: "提示：点击单个单词可查看释义；点击句子的其他位置可查看译文与语法。",
+    readAloud: "🔊 朗读全文",
+    stopReading: "⏹ 停止",
+    ttsUnsupported: "当前浏览器不支持朗读",
   },
   panel: {
     nothingSelected: "尚未选择内容",
@@ -68,6 +79,7 @@ const zh: Dict = {
     chineseTranslation: "中文翻译",
     grammar: "语法解析",
     play: "🔊 朗读",
+    playSentence: "🔊 朗读句子",
     save: "+ 加入生词本",
     saved: "✓ 已保存 — 点击移除",
     close: "关闭",
@@ -100,6 +112,9 @@ const en: Dict = {
     backToTopics: "← All topics",
     minRead: "min read",
     tip: "Tip: click a single word for its meaning, or click anywhere else in a sentence to see its translation.",
+    readAloud: "🔊 Read aloud",
+    stopReading: "⏹ Stop",
+    ttsUnsupported: "Speech is not supported in this browser",
   },
   panel: {
     nothingSelected: "Nothing selected yet",
@@ -113,6 +128,7 @@ const en: Dict = {
     chineseTranslation: "Translation",
     grammar: "Grammar",
     play: "🔊 Play",
+    playSentence: "🔊 Play sentence",
     save: "+ Save to vocabulary",
     saved: "✓ Saved — tap to remove",
     close: "Close",

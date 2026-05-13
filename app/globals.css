@@ -34,4 +34,7 @@ body {
   .sentence-row.is-active {
     @apply bg-blue-50;
   }
+  .sentence-row.is-reading {
+    @apply bg-amber-100;
+  }
 }

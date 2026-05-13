@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { Sentence, WordEntry } from "@/lib/types";
 import { isSaved, removeWord, saveWord } from "@/lib/storage";
 import { getDict, type Locale } from "@/lib/i18n";
+import { ttsSpeak, useTTSState } from "@/lib/tts";
 
 type Selection =
   | { kind: "word"; entry: WordEntry }
@@ -87,14 +88,8 @@ function WordView({
   onToggleSave: () => void;
 }) {
   const t = getDict(locale);
-  const speak = () => {
-    if (typeof window === "undefined" || !window.speechSynthesis) return;
-    const u = new SpeechSynthesisUtterance(entry.word);
-    u.lang = "en-US";
-    u.rate = 0.9;
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(u);
-  };
+  const { supported } = useTTSState();
+  const speak = () => ttsSpeak(entry.word);
 
   return (
     <div>
@@ -106,14 +101,16 @@ function WordView({
       </div>
       <div className="mt-1 flex items-center gap-2">
         <span className="text-sm text-slate-600">{entry.pronunciation}</span>
-        <button
-          type="button"
-          onClick={speak}
-          className="rounded-md border border-slate-200 px-2 py-0.5 text-xs text-slate-600 hover:bg-slate-50"
-          aria-label={t.panel.play}
-        >
-          {t.panel.play}
-        </button>
+        {supported && (
+          <button
+            type="button"
+            onClick={speak}
+            className="rounded-md border border-slate-200 px-2 py-0.5 text-xs text-slate-600 hover:bg-slate-50"
+            aria-label={t.panel.play}
+          >
+            {t.panel.play}
+          </button>
+        )}
       </div>
 
       <div className="mt-4 space-y-3 text-sm">
@@ -151,9 +148,21 @@ function SentenceView({
   locale: Locale;
 }) {
   const t = getDict(locale);
+  const { supported } = useTTSState();
+  const speak = () => ttsSpeak(sentence.text);
   return (
     <div>
       <p className="text-base leading-relaxed text-slate-900">{sentence.text}</p>
+      {supported && (
+        <button
+          type="button"
+          onClick={speak}
+          className="mt-3 inline-flex items-center gap-1 rounded-md border border-slate-200 px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50"
+          aria-label={t.panel.playSentence}
+        >
+          {t.panel.playSentence}
+        </button>
+      )}
       <div className="mt-4 space-y-3 text-sm">
         <Field label={t.panel.chineseTranslation} body={sentence.translation} />
         <Field label={t.panel.grammar} body={sentence.grammar} />
