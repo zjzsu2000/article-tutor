@@ -2,6 +2,14 @@
 
 import { useEffect, useState } from "react";
 
+// Defaults tuned for elementary / middle-school English learners.
+// TODO(v0.3): expose a small settings UI so the student (or parent) can
+// pick rate (slow / normal / fast) and a preferred voice. Persist in
+// localStorage. Keep the same defaults below as the "normal" preset.
+const DEFAULT_RATE = 0.8;
+const DEFAULT_PITCH = 1.0;
+const DEFAULT_VOLUME = 1.0;
+
 type Listener = (speaking: boolean) => void;
 const listeners = new Set<Listener>();
 let currentVoice: SpeechSynthesisVoice | null = null;
@@ -45,6 +53,8 @@ function queueUtterance(
   u.lang = "en-US";
   if (currentVoice) u.voice = currentVoice;
   u.rate = rate;
+  u.pitch = DEFAULT_PITCH;
+  u.volume = DEFAULT_VOLUME;
   if (onProgress) {
     u.onstart = () => {
       if (myId === sequenceId) onProgress();
@@ -66,7 +76,7 @@ export function ttsSpeak(text: string, opts?: { rate?: number }) {
   window.speechSynthesis.cancel();
   const myId = ++sequenceId;
   notify(true);
-  queueUtterance(text, opts?.rate ?? 0.9, myId, true);
+  queueUtterance(text, opts?.rate ?? DEFAULT_RATE, myId, true);
 }
 
 export function ttsSpeakSequence(
@@ -82,7 +92,7 @@ export function ttsSpeakSequence(
     const isLast = i === texts.length - 1;
     queueUtterance(
       t,
-      opts?.rate ?? 0.9,
+      opts?.rate ?? DEFAULT_RATE,
       myId,
       isLast,
       opts?.onProgress ? () => opts.onProgress!(i) : undefined
