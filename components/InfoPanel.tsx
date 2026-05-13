@@ -22,6 +22,7 @@ export default function InfoPanel({
 }) {
   const [saved, setSaved] = useState(false);
   const t = getDict(locale);
+  const { supported: ttsSupported } = useTTSState();
 
   useEffect(() => {
     if (selection?.kind === "word") {
@@ -59,6 +60,7 @@ export default function InfoPanel({
           entry={selection.entry}
           saved={saved}
           locale={locale}
+          ttsSupported={ttsSupported}
           onToggleSave={() => {
             if (saved) {
               removeWord(selection.entry.word);
@@ -70,7 +72,11 @@ export default function InfoPanel({
           }}
         />
       ) : (
-        <SentenceView sentence={selection.sentence} locale={locale} />
+        <SentenceView
+          sentence={selection.sentence}
+          locale={locale}
+          ttsSupported={ttsSupported}
+        />
       )}
     </aside>
   );
@@ -80,15 +86,16 @@ function WordView({
   entry,
   saved,
   locale,
+  ttsSupported,
   onToggleSave,
 }: {
   entry: WordEntry;
   saved: boolean;
   locale: Locale;
+  ttsSupported: boolean;
   onToggleSave: () => void;
 }) {
   const t = getDict(locale);
-  const { supported } = useTTSState();
   const speak = () => ttsSpeak(entry.word);
 
   return (
@@ -101,7 +108,7 @@ function WordView({
       </div>
       <div className="mt-1 flex items-center gap-2">
         <span className="text-sm text-slate-600">{entry.pronunciation}</span>
-        {supported && (
+        {ttsSupported && (
           <button
             type="button"
             onClick={speak}
@@ -143,21 +150,22 @@ function WordView({
 function SentenceView({
   sentence,
   locale,
+  ttsSupported,
 }: {
   sentence: Sentence;
   locale: Locale;
+  ttsSupported: boolean;
 }) {
   const t = getDict(locale);
-  const { supported } = useTTSState();
   const speak = () => ttsSpeak(sentence.text);
   return (
     <div>
       <p className="text-base leading-relaxed text-slate-900">{sentence.text}</p>
-      {supported && (
+      {ttsSupported && (
         <button
           type="button"
           onClick={speak}
-          className="mt-3 inline-flex items-center gap-1 rounded-md border border-slate-200 px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-50"
+          className="mt-3 inline-flex items-center gap-1 rounded-md border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
           aria-label={t.panel.playSentence}
         >
           {t.panel.playSentence}
