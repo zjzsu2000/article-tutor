@@ -158,6 +158,45 @@ export const articles: Article[] = [
           "'feeling happy and excited' 是现在分词短语，作伴随状语，表示主语回家时的状态。",
       },
     ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        question: "What does 'nervous' mean in the story?",
+        options: [
+          "Feeling worried or a little afraid",
+          "Feeling very tired",
+          "Feeling angry",
+          "Feeling cold",
+        ],
+        correctAnswer: "Feeling worried or a little afraid",
+        explanation:
+          "Lily felt nervous walking through the gate — she was a little scared on her first day.",
+      },
+      {
+        id: "q2",
+        type: "detail",
+        question: "Who shared her sandwich with Lily?",
+        options: ["A teacher", "Her sister", "A girl named Mia", "Her mother"],
+        correctAnswer: "A girl named Mia",
+        explanation:
+          "The story says: at lunchtime, a girl named Mia shared her sandwich with Lily.",
+      },
+      {
+        id: "q3",
+        type: "main_idea",
+        question: "What is the story mainly about?",
+        options: [
+          "Lily makes a new friend on her first day",
+          "How to pack a school lunch",
+          "What teachers do at school",
+          "How to find a classroom",
+        ],
+        correctAnswer: "Lily makes a new friend on her first day",
+        explanation:
+          "The story shows Lily moving from nervous to happy, and ending the day with a new friend.",
+      },
+    ],
   },
   {
     id: "elephant-nose",
@@ -222,6 +261,50 @@ export const articles: Article[] = [
         translation: "如果没有这条神奇的鼻子，大象就没法吃东西、喝水，也没法和家人一起玩。",
         grammar:
           "'Without...' 表示一种「假设没有……」的虚拟条件。三个并列动词 'eat, drink, or play' 共享情态动词 'could not'。",
+      },
+    ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        question: "What is a 'trunk' in the story?",
+        options: [
+          "An elephant's long nose",
+          "An elephant's tail",
+          "An elephant's ear",
+          "A box for travel",
+        ],
+        correctAnswer: "An elephant's long nose",
+        explanation:
+          "The second sentence tells us the long nose is called a trunk.",
+      },
+      {
+        id: "q2",
+        type: "detail",
+        question: "How many small muscles are inside an elephant's trunk?",
+        options: [
+          "More than 100",
+          "More than 1,000",
+          "More than 40,000",
+          "More than a million",
+        ],
+        correctAnswer: "More than 40,000",
+        explanation:
+          "The article says: more than forty thousand small muscles inside.",
+      },
+      {
+        id: "q3",
+        type: "main_idea",
+        question: "What is the main idea of the article?",
+        options: [
+          "Elephants live in Africa and Asia",
+          "Baby elephants are cute",
+          "An elephant's trunk is amazing and very useful",
+          "Elephants are the largest animals in the world",
+        ],
+        correctAnswer: "An elephant's trunk is amazing and very useful",
+        explanation:
+          "Most of the article describes what the trunk can do — drink, lift, eat, greet, protect.",
       },
     ],
   },
@@ -290,6 +373,46 @@ export const articles: Article[] = [
           "'when...' 是定语从句，进一步说明 'in between'。'neither...nor...' 表示「既不……也不……」。",
       },
     ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        question: "What does 'tilt' mean in the article?",
+        options: [
+          "To lean to one side",
+          "To grow bigger",
+          "To spin in a circle",
+          "To stop moving",
+        ],
+        correctAnswer: "To lean to one side",
+        explanation:
+          "The article says Earth 'leans a little to one side' — that is what tilting means.",
+      },
+      {
+        id: "q2",
+        type: "detail",
+        question:
+          "When the part of Earth where you live tilts toward the sun, what season is it?",
+        options: ["Spring", "Summer", "Autumn", "Winter"],
+        correctAnswer: "Summer",
+        explanation:
+          "The article says: when your part of Earth tilts toward the sun, you get summer.",
+      },
+      {
+        id: "q3",
+        type: "main_idea",
+        question: "Why do we have seasons, according to the article?",
+        options: [
+          "Because the sun moves around Earth",
+          "Because Earth gets closer to the sun in summer",
+          "Because Earth tilts as it travels around the sun",
+          "Because the air changes color",
+        ],
+        correctAnswer: "Because Earth tilts as it travels around the sun",
+        explanation:
+          "This is the article's main answer, stated in the second sentence.",
+      },
+    ],
   },
   {
     id: "healthy-day",
@@ -354,6 +477,50 @@ export const articles: Article[] = [
         translation: "他总是说：「健康的一天造就健康的一生。」",
         grammar:
           "直接引语用引号引出。'make' 在这里是「造就，形成」的意思。",
+      },
+    ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        question: "What is a 'habit'?",
+        options: [
+          "Something you do often, usually without thinking",
+          "A special meal eaten on holidays",
+          "A type of outdoor game",
+          "A kind of clothing",
+        ],
+        correctAnswer: "Something you do often, usually without thinking",
+        explanation:
+          "Grandfather's 'simple habits' are the small things he does every day.",
+      },
+      {
+        id: "q2",
+        type: "detail",
+        question: "What does Grandfather drink first thing every morning?",
+        options: [
+          "Hot coffee",
+          "A big glass of warm water",
+          "Orange juice",
+          "Green tea",
+        ],
+        correctAnswer: "A big glass of warm water",
+        explanation:
+          "The article says: he wakes up early and drinks a big glass of warm water.",
+      },
+      {
+        id: "q3",
+        type: "main_idea",
+        question: "What is the main lesson of the story?",
+        options: [
+          "Grandfather is too old to exercise",
+          "Walking is the only way to stay healthy",
+          "Small daily habits can keep you healthy",
+          "You should never use your phone",
+        ],
+        correctAnswer: "Small daily habits can keep you healthy",
+        explanation:
+          "Grandfather's secret is several small habits — water, walking, vegetables, reading — done every day.",
       },
     ],
   },
@@ -422,6 +589,40 @@ export const articles: Article[] = [
           "'because' 引导原因状语从句。'bring sb. together' 表示「让某些人聚到一起」。",
       },
     ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        question:
+          "What does 'gather' mean in 'the whole family gathers for a big dinner'?",
+        options: ["To leave", "To come together", "To run fast", "To sleep"],
+        correctAnswer: "To come together",
+        explanation:
+          "When a family gathers, they all come to one place together.",
+      },
+      {
+        id: "q2",
+        type: "detail",
+        question: "What is inside the red envelopes?",
+        options: ["Candy", "Money", "Toy cars", "Photos"],
+        correctAnswer: "Money",
+        explanation: "The article says: red envelopes with money inside.",
+      },
+      {
+        id: "q3",
+        type: "main_idea",
+        question: "Why does the writer love the Spring Festival the most?",
+        options: [
+          "Because of the food only",
+          "Because of the fireworks only",
+          "Because it brings the whole family together",
+          "Because there is no school",
+        ],
+        correctAnswer: "Because it brings the whole family together",
+        explanation:
+          "The last sentence states this directly: 'it brings my whole family together.'",
+      },
+    ],
   },
   {
     id: "olympic-games",
@@ -486,6 +687,52 @@ export const articles: Article[] = [
         translation: "奥林匹克运动会提醒我们：体育能把来自不同地方的人们当作朋友聚到一起。",
         grammar:
           "'remind sb. that...' 中的 'that' 引导宾语从句。'bring sb. together as friends' 表示「让……作为朋友聚到一起」。",
+      },
+    ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        question: "What does 'ancient' mean?",
+        options: [
+          "Very new",
+          "Very far away",
+          "Very old, from long ago",
+          "Very small",
+        ],
+        correctAnswer: "Very old, from long ago",
+        explanation:
+          "'Ancient Greece' is a country from more than two thousand years ago.",
+      },
+      {
+        id: "q2",
+        type: "detail",
+        question: "Who brought the Olympic Games back in 1896?",
+        options: [
+          "A Greek king",
+          "A French man named Pierre de Coubertin",
+          "An American athlete",
+          "A Roman emperor",
+        ],
+        correctAnswer: "A French man named Pierre de Coubertin",
+        explanation:
+          "The article names Pierre de Coubertin and the year 1896 directly.",
+      },
+      {
+        id: "q3",
+        type: "main_idea",
+        question:
+          "What does the Olympic Games teach us, according to the article?",
+        options: [
+          "Greek athletes are the strongest",
+          "Running is the most important sport",
+          "Sport can bring people from different places together",
+          "Only men can take part in the games",
+        ],
+        correctAnswer:
+          "Sport can bring people from different places together",
+        explanation:
+          "This is the message in the last sentence — sport unites people as friends.",
       },
     ],
   },
@@ -554,6 +801,51 @@ export const articles: Article[] = [
           "'that' 引导宾语从句作 'learned' 的宾语。'does not have to' 表示「不必」，'has to' 表示「必须」。",
       },
     ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        question: "What is an 'inventor'?",
+        options: [
+          "A person who teaches science",
+          "A person who creates something new",
+          "A person who sells toys",
+          "A person who fixes cars",
+        ],
+        correctAnswer: "A person who creates something new",
+        explanation:
+          "Tom is called an inventor because he created a new kind of cup.",
+      },
+      {
+        id: "q2",
+        type: "detail",
+        question: "Why did Tom build a special cup?",
+        options: [
+          "To win a school prize",
+          "Because his grandmother's hands shake when she drinks",
+          "Because his old cup broke",
+          "For his science homework",
+        ],
+        correctAnswer:
+          "Because his grandmother's hands shake when she drinks",
+        explanation:
+          "Tom wanted to help his grandmother — that is the reason in the article.",
+      },
+      {
+        id: "q3",
+        type: "main_idea",
+        question: "What lesson does Tom learn at the end?",
+        options: [
+          "A great invention does not have to be big — it just has to help someone",
+          "You need expensive parts to invent things",
+          "Children cannot be inventors",
+          "Cups should always be made of plastic",
+        ],
+        correctAnswer:
+          "A great invention does not have to be big — it just has to help someone",
+        explanation: "This is exactly what the last sentence tells us.",
+      },
+    ],
   },
   {
     id: "robots-help",
@@ -618,6 +910,51 @@ export const articles: Article[] = [
         translation: "随着科技变得越来越好，机器人将来会以更多的方式帮助我们。",
         grammar:
           "'As' 引导时间状语从句，表示「随着……」。'even more' 是「更加」的强调形式。",
+      },
+    ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        question: "What does 'risky' mean in the article?",
+        options: [
+          "Easy and safe",
+          "Possibly causing harm",
+          "Quick and quiet",
+          "Far away",
+        ],
+        correctAnswer: "Possibly causing harm",
+        explanation:
+          "The article uses 'risky' for work that is too dangerous for humans.",
+      },
+      {
+        id: "q2",
+        type: "detail",
+        question: "How do robots help in hospitals, according to the article?",
+        options: [
+          "They only clean the floors",
+          "They carry medicine to patients and help doctors during operations",
+          "They drive ambulances",
+          "They sell food in the cafeteria",
+        ],
+        correctAnswer:
+          "They carry medicine to patients and help doctors during operations",
+        explanation:
+          "Sentence three lists these two specific hospital tasks for robots.",
+      },
+      {
+        id: "q3",
+        type: "main_idea",
+        question: "What is the main idea of the article?",
+        options: [
+          "Robots can do scary things",
+          "Robots are not useful at all",
+          "Robots help people in many ways every day",
+          "Robots only appear in movies",
+        ],
+        correctAnswer: "Robots help people in many ways every day",
+        explanation:
+          "The article gives many examples — factories, hospitals, homes, dangerous places — to make this point.",
       },
     ],
   },

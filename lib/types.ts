@@ -18,6 +18,17 @@ export type Sentence = {
   grammar: string;
 };
 
+export type QuestionType = "vocabulary" | "detail" | "main_idea";
+
+export type Question = {
+  id: string;
+  type: QuestionType;
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  explanation: string;
+};
+
 export type Article = {
   id: string;
   topicId: string;
@@ -26,6 +37,7 @@ export type Article = {
   level: "Beginner" | "Intermediate" | "Advanced";
   minutes: number;
   sentences: Sentence[];
+  quiz?: Question[];
 };
 
 export type WordEntry = {
