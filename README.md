@@ -5,10 +5,11 @@ topic, read an article, tap any word or sentence to see the meaning,
 translation, and grammar notes, and save words to a personal vocabulary
 list. Optional read-aloud helps with listening and pronunciation.
 
-This is the **main reading app**. A separate single-file **HTML sandbox**
-lives in its own repo for rapid ideation and hand-entered vocabulary
-experiments. The two are deliberately separate (see
-[Relation to the HTML sandbox](#relation-to-the-html-sandbox)).
+This is the **main reading app**. A separate single-page **Vocabulary
+Practice Sandbox** (单词复习沙盒) lives in its own repo and focuses on
+reviewing words, listening to examples, and hand-adding practice
+sentences. The two are deliberately separate (see
+[Relation to the Vocabulary Practice Sandbox](#relation-to-the-vocabulary-practice-sandbox)).
 
 ---
 
@@ -90,23 +91,44 @@ push-based and manual deploy notes.
 notes, the dictionary used for word lookups, and the per-article quiz
 data.
 
-## Relation to the HTML sandbox
+## Relation to the Vocabulary Practice Sandbox
 
-The HTML sandbox is a single-page experiment lab living in a different
-repo. It lets a learner or parent quickly hand-enter vocabulary,
-examples, and try ideas without going through a full build / deploy.
+The **Vocabulary Practice Sandbox** (单词复习沙盒) is a separate
+single-page repo, originally a quick HTML demo and now evolving into a
+companion learning surface focused on:
 
-The split is intentional:
+- reviewing words pulled from an article
+- listening to words and example sentences
+- adding similar example sentences as practice
+- warming up before tackling the main app's Challenge UI (闯关测试)
 
-| Concern | Main reading app (this repo) | HTML sandbox |
+The split is intentional and stays in place for now:
+
+| Concern | Main reading app (this repo) | Vocabulary Practice Sandbox |
 |---|---|---|
-| Audience | Learners reading curated content | Authors trying ideas |
+| Audience | Learners reading curated articles | Learners reviewing words and examples |
 | Stability | Stable, deployed, learnable | Free to break, fast iteration |
-| Content | Curated, reviewed | Anything goes |
+| Content | Curated, reviewed | Hand-entered or learner-added |
 | Stack | Next.js + Tailwind + static export | Single HTML + JS file |
+| Code relationship | Does **not** import from the sandbox | — |
 
-Good ideas tested in the sandbox can be promoted into curated content
-here.
+Intended learning flow once both surfaces are usable:
+
+```
+Read an article (main app)
+  → Review key vocabulary and example sentences (sandbox)
+  → Add or practice similar example sentences (sandbox)
+  → Start Challenge UI / 闯关测试 (main app)
+  → Wrong vocabulary questions flow back into vocabulary review
+```
+
+When a sandbox idea proves itself, it is expected to graduate into the
+main app as a proper React component (likely candidates:
+`VocabularyPractice`, `WordCard`, `ExampleSentencePractice`,
+`ArticlePracticePage`) — **not** by copying the single-file HTML
+implementation directly. See
+[`docs/product-notes/2026-05-16-feedback-and-roadmap.md`](./docs/product-notes/2026-05-16-feedback-and-roadmap.md)
+§5 for the full plan.
 
 ## Public content and copyright rule
 

@@ -14,10 +14,14 @@ school). Core experience: topic-based article reading with tap-a-word lookup,
 tap-a-sentence translation + grammar, read-aloud, and (next) a light
 post-reading quest.
 
-A separate **HTML sandbox** lives in a different repo, used for rapid
-ideation: a single-page tool for hand-entering vocabulary, examples, and
-quick experiments. Anything mentioned about the sandbox in this note is for
-context only — implementation of sandbox features happens in the other repo.
+A separate **Vocabulary Practice Sandbox** (单词复习沙盒) lives in its
+own repo. It is a lightweight surface for reviewing words from an article,
+listening to examples, and hand-adding similar example sentences as
+practice. It is **not** part of this main reading app's runtime — the
+main app does not import from it. Anything mentioned about the sandbox
+in this note is for context only; sandbox implementation lives in the
+other repo. See §5 for its role in the overall learning flow and the
+eventual migration plan into the main app.
 
 ### What is shipped in the main reading app
 
@@ -228,7 +232,69 @@ imported article
 
 ---
 
-## 5. Vocabulary library direction
+## 5. Vocabulary Practice Sandbox (separate repo)
+
+The **Vocabulary Practice Sandbox** (单词复习沙盒) is a companion
+learning surface that lives in its own repo. It is **not** part of this
+main reading app's runtime and the main app does not import from it.
+
+What it helps learners do:
+
+- Review key words pulled from an article
+- Listen to words and example sentences
+- Add or practice similar example sentences of their own
+- Warm up before tackling the Challenge UI (闯关测试) in the main app
+
+Why the split today:
+
+- The sandbox is allowed to iterate fast on input formats, practice
+  modes, and content shapes.
+- The main reading app stays curated, stable, and learnable.
+- Breaking changes in the sandbox cannot break the deployed reading
+  app, because nothing here depends on it.
+
+### Intended learning flow
+
+Once both surfaces are usable, a single learning session is expected to
+flow like this:
+
+```
+Read an article
+  → Review key vocabulary and example sentences (sandbox)
+  → Add or practice similar example sentences (sandbox)
+  → Start Challenge UI / 闯关测试 (main reading app)
+  → Wrong vocabulary questions flow back into vocabulary review
+```
+
+The exact handoff between surfaces (URL hand-off, shared content format,
+or shared local storage) is intentionally undecided. For now each
+surface is its own destination and the learner navigates manually.
+
+### Migration path: sandbox ideas → main app components
+
+When a sandbox idea proves itself in real use, the goal is to graduate
+it into the main reading app as a first-class component. Likely
+candidates, in a suggested order:
+
+- `VocabularyPractice` — list and drill the saved words from the
+  article
+- `WordCard` — the single-word view with audio, IPA, example, save
+- `ExampleSentencePractice` — listen and read along to example
+  sentences
+- `ArticlePracticePage` — a per-article post-reading practice page that
+  combines vocabulary review with the Challenge UI
+
+Migration rule: **do not copy the single-file HTML implementation
+directly into the main app.** Reshape the proven idea as proper React
+components that fit the main app's existing data layer (the `Article`,
+`Question`, and dictionary shapes in `lib/types.ts` and
+`lib/mockData.ts`) and styling conventions (Tailwind, the
+`sentence-row` / `word-token` patterns). The sandbox is the design lab;
+the main app is the production line.
+
+---
+
+## 6. Vocabulary library direction
 
 ### 5.1 For now
 
@@ -272,7 +338,7 @@ relatedPhrases
 
 ---
 
-## 6. Roles
+## 7. Roles
 
 Three complementary perspectives. Keep them distinct.
 
@@ -282,7 +348,7 @@ Three complementary perspectives. Keep them distinct.
 - Tries the site on real devices
 - Reports what's fun, what's confusing
 - Decides whether they keep coming back
-- May later co-author content in the creative sandbox
+- May later co-author content in the Vocabulary Practice Sandbox
 
 ### Parent or teacher reviewer (content / pedagogy)
 
@@ -300,7 +366,7 @@ Three complementary perspectives. Keep them distinct.
 
 ---
 
-## 7. AI-assisted development flow
+## 8. AI-assisted development flow
 
 ```
 clarify need + boundaries
@@ -327,7 +393,7 @@ Practice notes:
 
 ---
 
-## 8. Suggested roadmap
+## 9. Suggested roadmap
 
 > **Content-source note that applies across all rounds:** any reading
 > material added to the public deployment should be **original prose or
@@ -358,20 +424,27 @@ Kid-facing naming:
 - Q2: 细节小达人 / "Detail Expert"
 - Q3: 主旨小队长 / "Main Idea Captain"
 
-### v0.4 — Creative sandbox capabilities
+### v0.4 — Vocabulary Practice Sandbox capabilities (separate repo)
 
-- Add custom topics, articles, key words
-- Add example sentences with Chinese translation
-- Preview page
-- Edit / delete content
+(See §5 for the sandbox's role in the learning flow and the migration
+plan back into this main app.)
+
+In the sandbox repo, the focus is on:
+
+- Reviewing words pulled from an article
+- Listening to / repeating words and example sentences
+- Adding similar example sentences as practice
+- Custom topics, articles, and key-word entries for experimentation
+- Edit / delete of added content
 - Bulk word entry, e.g.
   ```
   word | meaning | English example | example translation
   ```
 
-(Implementation of this lives in the sandbox repo, not here; the main app
-only needs to be ready to consume content that graduates from sandbox to
-formal library.)
+Implementation lives in the sandbox repo, not here. The main app only
+needs to be ready to **consume** vocabulary-review content (or the
+shape of it) once a sandbox idea has stabilized and is migrated in as a
+proper React component.
 
 ### v0.5 — Article import
 
@@ -389,15 +462,17 @@ All client-side in `localStorage`. No backend required.
 
 ---
 
-## 9. Development principles
+## 10. Development principles
 
 1. **Small and focused.** Each round fixes one or two real pain points,
    not a feature batch.
 2. **Real-user signal first.** Whether a young learner keeps coming back
    matters more than the feature checklist.
-3. **Separate the formal app from the sandbox.** The main reading app
-   stays clean, stable, and learnable. The sandbox is allowed to experiment
-   quickly. The sandbox is in a separate repo.
+3. **Separate the main reading app from the Vocabulary Practice
+   Sandbox.** The main reading app stays clean, stable, and learnable.
+   The sandbox is allowed to experiment quickly and lives in its own
+   repo. Sandbox ideas graduate into the main app as proper React
+   components, not by copying single-file HTML.
 4. **Content quality leads.** Tech is the support; content choice decides
    whether learning actually happens.
 5. **Copyright-safe in public.** Public demos do not include large chunks
@@ -411,7 +486,7 @@ All client-side in `localStorage`. No backend required.
 
 ---
 
-## 10. Current task split (main reading app)
+## 11. Current task split (main reading app)
 
 ### Done / in progress
 
@@ -451,7 +526,7 @@ All client-side in `localStorage`. No backend required.
 
 ---
 
-## 11. Short-term suggested order
+## 12. Short-term suggested order
 
 1. Finish the main app's TTS fixes (this round).
 2. Redeploy and let a real young learner re-test.
