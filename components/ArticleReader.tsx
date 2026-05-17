@@ -1,10 +1,16 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Article, Sentence, WordEntry } from "@/lib/types";
 import { lookupWord } from "@/lib/mockData";
 import { getDict, type Locale } from "@/lib/i18n";
-import { ttsSpeakSequence, ttsStop, useTTSState } from "@/lib/tts";
+import {
+  ttsPause,
+  ttsResume,
+  ttsSpeakSequence,
+  ttsStop,
+  useTTSState,
+} from "@/lib/tts";
 import InfoPanel from "./InfoPanel";
 
 type Selection =
@@ -35,7 +41,13 @@ export default function ArticleReader({
   const [selection, setSelection] = useState<Selection>(null);
   const [readingIndex, setReadingIndex] = useState<number | null>(null);
   const t = getDict(locale);
-  const { supported, speaking } = useTTSState();
+  const { supported, speaking, paused, sequenceId } = useTTSState();
+  // Tracks the sequenceId of the article's own read-aloud, so we can tell
+  // whether the speech currently playing belongs to us or was started by
+  // something else (e.g. a word/sentence tap from InfoPanel).
+  const ownSeqRef = useRef<number | null>(null);
+  const isOurSpeech =
+    ownSeqRef.current !== null && ownSeqRef.current === sequenceId;
 
   const tokenized = useMemo(
     () =>
@@ -49,10 +61,13 @@ export default function ArticleReader({
   // Stop any speech when switching to a different article (or unmounting).
   useEffect(() => () => ttsStop(), [article.id]);
 
-  // Clear the reading highlight whenever speech actually stops.
+  // Clear the reading highlight when speech stops OR when another caller
+  // takes over the TTS engine (e.g. a word tap mid-article).
   useEffect(() => {
-    if (!speaking) setReadingIndex(null);
-  }, [speaking]);
+    if (!speaking || !isOurSpeech) {
+      setReadingIndex(null);
+    }
+  }, [speaking, isOurSpeech]);
 
   const handleWord = (raw: string, sentenceId: string, idx: number) => {
     const entry = lookupWord(raw, locale);
@@ -71,37 +86,71 @@ export default function ArticleReader({
     });
   };
 
-  const handleReadAloud = () => {
-    if (speaking) {
-      ttsStop();
+  const handlePrimary = () => {
+    if (!speaking || !isOurSpeech) {
+      const id = ttsSpeakSequence(
+        article.sentences.map((s) => s.text),
+        { onProgress: setReadingIndex }
+      );
+      ownSeqRef.current = id;
       return;
     }
-    ttsSpeakSequence(
-      article.sentences.map((s) => s.text),
-      { onProgress: setReadingIndex }
-    );
+    if (paused) {
+      ttsResume();
+    } else {
+      ttsPause();
+    }
   };
+
+  const handleStop = () => {
+    ttsStop();
+    ownSeqRef.current = null;
+  };
+
+  const showActiveControls = supported && speaking && isOurSpeech;
+  const primaryLabel = !showActiveControls
+    ? t.article.readAloud
+    : paused
+      ? t.article.resume
+      : t.article.pause;
+  const primaryClass = !showActiveControls
+    ? "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+    : paused
+      ? "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+      : "border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100";
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px]">
       <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
         <header className="mb-5 border-b border-slate-100 pb-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap items-start justify-between gap-2">
             <div className="text-xs font-semibold uppercase tracking-wide text-brand-600">
               {t.level[article.level]} · {article.minutes} {t.article.minRead}
             </div>
-            {supported && (
-              <button
-                type="button"
-                onClick={handleReadAloud}
-                className={`inline-flex items-center gap-1 rounded-md border px-2.5 py-1 text-xs font-medium transition-colors ${
-                  speaking
-                    ? "border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100"
-                    : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
-                }`}
-              >
-                {speaking ? t.article.stopReading : t.article.readAloud}
-              </button>
+            {supported ? (
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={handlePrimary}
+                  className={`inline-flex items-center gap-1 rounded-md border px-2.5 py-1 text-xs font-medium transition-colors ${primaryClass}`}
+                >
+                  {primaryLabel}
+                </button>
+                {showActiveControls && (
+                  <button
+                    type="button"
+                    onClick={handleStop}
+                    className="inline-flex items-center gap-1 rounded-md border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-medium text-rose-700 transition-colors hover:bg-rose-100"
+                    aria-label={t.article.stopReading}
+                  >
+                    {t.article.stopReading}
+                  </button>
+                )}
+              </div>
+            ) : (
+              <p className="max-w-md rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-800">
+                {t.article.ttsUnsupported}
+              </p>
             )}
           </div>
           <h1 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">

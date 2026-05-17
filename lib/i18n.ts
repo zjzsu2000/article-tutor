@@ -17,6 +17,8 @@ export type Dict = {
     tip: string;
     readAloud: string;
     stopReading: string;
+    pause: string;
+    resume: string;
     ttsUnsupported: string;
   };
   panel: {
@@ -65,7 +67,10 @@ const zh: Dict = {
     tip: "提示：点击单个单词可查看释义；点击句子的其他位置可查看译文与语法。",
     readAloud: "🔊 朗读全文",
     stopReading: "⏹ 停止",
-    ttsUnsupported: "当前浏览器不支持朗读",
+    pause: "⏸ 暂停",
+    resume: "▶ 继续",
+    ttsUnsupported:
+      "当前浏览器暂不支持朗读功能，可以换其他浏览器或设备试试。阅读、点词和点句子功能仍可正常使用。",
   },
   panel: {
     nothingSelected: "尚未选择内容",
@@ -114,7 +119,10 @@ const en: Dict = {
     tip: "Tip: click a single word for its meaning, or click anywhere else in a sentence to see its translation.",
     readAloud: "🔊 Read aloud",
     stopReading: "⏹ Stop",
-    ttsUnsupported: "Speech is not supported in this browser",
+    pause: "⏸ Pause",
+    resume: "▶ Resume",
+    ttsUnsupported:
+      "Speech is not supported in this browser. You can try another browser or device. Reading, word lookup, and sentence explanation still work.",
   },
   panel: {
     nothingSelected: "Nothing selected yet",
