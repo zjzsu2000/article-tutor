@@ -12,6 +12,7 @@ import {
   useTTSState,
 } from "@/lib/tts";
 import InfoPanel from "./InfoPanel";
+import ArticleQuiz from "./ArticleQuiz";
 
 type Selection =
   | { kind: "word"; entry: WordEntry; key: string }
@@ -121,6 +122,7 @@ export default function ArticleReader({
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px]">
+      <div>
       <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
         <header className="mb-5 border-b border-slate-100 pb-4">
           <div className="flex flex-wrap items-start justify-between gap-2">
@@ -198,6 +200,9 @@ export default function ArticleReader({
 
         <p className="mt-6 text-xs text-slate-400">{t.article.tip}</p>
       </article>
+
+      <ArticleQuiz article={article} locale={locale} />
+      </div>
 
       <InfoPanel
         selection={selection}

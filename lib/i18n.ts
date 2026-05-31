@@ -47,6 +47,26 @@ export type Dict = {
     remove: string;
     loading: string;
   };
+  quiz: {
+    heading: string;
+    intro: string;
+    start: string;
+    progress: (cur: number, total: number) => string;
+    types: Record<"vocabulary" | "detail" | "main_idea", string>;
+    correct: string;
+    incorrect: string;
+    explanationLabel: string;
+    correctAnswerLabel: string;
+    yourWrongLabel: string;
+    labelSep: string;
+    next: string;
+    finish: string;
+    result: (score: number, total: number) => string;
+    resultPerfect: string;
+    resultGood: string;
+    resultTry: string;
+    restart: string;
+  };
   level: Record<"Beginner" | "Intermediate" | "Advanced", string>;
   switcher: { label: string; zh: string; en: string };
 };
@@ -98,6 +118,30 @@ const zh: Dict = {
     browse: "浏览主题",
     remove: "移除",
     loading: "加载中…",
+  },
+  quiz: {
+    heading: "闯关测试",
+    intro: "读完啦？来闯三关，看看你都读懂了多少。",
+    start: "开始闯关 →",
+    progress: (cur, total) => `第 ${cur} / ${total} 关`,
+    types: {
+      vocabulary: "单词小侦探",
+      detail: "细节小达人",
+      main_idea: "主旨小队长",
+    },
+    correct: "答对啦！🎉",
+    incorrect: "再想想，看看下面的提示～",
+    explanationLabel: "提示",
+    correctAnswerLabel: "正确答案",
+    yourWrongLabel: "你的选择（不正确）",
+    labelSep: "：",
+    next: "下一关 →",
+    finish: "看看结果 →",
+    result: (score, total) => `闯关完成：${score} / ${total} 关`,
+    resultPerfect: "太厉害啦，全部答对！🏆",
+    resultGood: "很棒，再读一遍可以做得更好哦！👍",
+    resultTry: "没关系，回到文章再读一读，然后再来闯关～💪",
+    restart: "再闯一次",
   },
   level: { Beginner: "初级", Intermediate: "中级", Advanced: "高级" },
   switcher: { label: "语言", zh: "中文", en: "EN" },
@@ -152,6 +196,30 @@ const en: Dict = {
     browse: "Browse topics",
     remove: "Remove",
     loading: "Loading…",
+  },
+  quiz: {
+    heading: "Challenge",
+    intro: "Finished reading? Take on three quick challenges and see how much you understood.",
+    start: "Start the challenge →",
+    progress: (cur, total) => `Challenge ${cur} / ${total}`,
+    types: {
+      vocabulary: "Word Detective",
+      detail: "Detail Expert",
+      main_idea: "Main Idea Captain",
+    },
+    correct: "That's right! 🎉",
+    incorrect: "Not quite — check the hint below.",
+    explanationLabel: "Hint",
+    correctAnswerLabel: "Correct answer",
+    yourWrongLabel: "Your choice (incorrect)",
+    labelSep: ": ",
+    next: "Next →",
+    finish: "See your result →",
+    result: (score, total) => `Done: ${score} / ${total} correct`,
+    resultPerfect: "Amazing — a perfect score! 🏆",
+    resultGood: "Nice work! Read it again to do even better. 👍",
+    resultTry: "No worries — read the article once more, then try again. 💪",
+    restart: "Try again",
   },
   level: {
     Beginner: "Beginner",

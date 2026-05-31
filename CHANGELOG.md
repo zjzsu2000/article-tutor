@@ -8,6 +8,26 @@ a SemVer-strict library.
 
 ---
 
+## [v0.3] — 2026-05-28
+
+### Added
+
+- **Challenge UI / 闯关测试**: the per-article quiz data shipped in v0.2 now
+  has a kid-friendly interface below the article reader.
+  - Progressive single-question reveal (one question at a time).
+  - Immediate per-answer feedback: the correct option turns green, a wrong
+    pick turns red, and the question's explanation shows as a hint.
+  - Kid-facing question names by type: 单词小侦探 / Word Detective
+    (vocabulary), 细节小达人 / Detail Expert (detail), 主旨小队长 / Main
+    Idea Captain (main idea).
+  - Encouraging result card with the score and a "try again" reset. No
+    leaderboard, no timer, no forced ordering.
+- **Quiz progress in `localStorage`** (`english_study.quizProgress`, keyed
+  per article): answered questions and the current position are restored
+  when the learner reopens an article.
+
+---
+
 ## [v0.2] — 2026-05-16
 
 ### Added

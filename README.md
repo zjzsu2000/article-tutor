@@ -42,9 +42,9 @@ list, in the browser, no account needed.
 - Sentence-level highlight while the full article is playing
 - Friendly fallback notice on browsers without Web Speech API support
 - Slowed default speech rate (0.7) for early learners
-- Per-article quiz data structure (3 questions: vocabulary, detail, main
-  idea) — UI **not yet** implemented (planned for v0.3 as Challenge UI /
-  闯关测试)
+- Challenge UI / 闯关测试: 3 questions per article (vocabulary, detail, main
+  idea), revealed one at a time with immediate feedback; progress saved in
+  `localStorage`
 
 See [`CHANGELOG.md`](./CHANGELOG.md) for version history and
 [`docs/product-notes/2026-05-16-feedback-and-roadmap.md`](./docs/product-notes/2026-05-16-feedback-and-roadmap.md)
@@ -185,7 +185,7 @@ suspension, and keeps the content base reusable.
 - 朗读全文时当前句子高亮
 - 不支持 Web Speech API 的浏览器显示友好提示
 - 默认朗读语速 0.7，照顾低龄学习者
-- 每篇文章 3 道闯关测试数据已就绪（vocabulary / detail / main_idea），UI 待 v0.3
+- 闯关测试 UI：每篇文章 3 道题（单词小侦探 / 细节小达人 / 主旨小队长），逐题作答、即时反馈，进度存 `localStorage`
 
 ## 公开内容版权规则
 
