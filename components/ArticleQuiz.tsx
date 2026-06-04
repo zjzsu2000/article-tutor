@@ -3,9 +3,12 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Article, Question } from "@/lib/types";
 import { getDict, type Locale } from "@/lib/i18n";
+import { selectAttempt } from "@/lib/quiz";
 import {
   clearQuizProgress,
+  loadQuizHistory,
   loadQuizProgress,
+  recordQuizHistory,
   saveQuizProgress,
 } from "@/lib/storage";
 
@@ -20,72 +23,92 @@ export default function ArticleQuiz({
 }) {
   const t = getDict(locale);
   const quiz = article.quiz;
-  const total = quiz?.length ?? 0;
 
-  const [answers, setAnswers] = useState<(string | null)[]>(() =>
-    new Array(total).fill(null)
-  );
+  // The selected questions for the current attempt (a small random subset of
+  // article.quiz), with the chosen option per question kept in parallel.
+  const [attempt, setAttempt] = useState<Question[]>([]);
+  const [answers, setAnswers] = useState<(string | null)[]>([]);
   const [current, setCurrent] = useState(0);
   const [phase, setPhase] = useState<Phase>("intro");
 
-  // Restore progress for this article on mount / article change.
+  // Restore a saved attempt on mount / article change. Randomized generation
+  // only ever happens later in event handlers (Start / Try again), never
+  // during render or SSR, so the server-rendered intro stays deterministic
+  // and there is no hydration mismatch.
   useEffect(() => {
-    if (!quiz || total === 0) return;
     const saved = loadQuizProgress(article.id);
-    // Normalize defensively: only accept null, or a string that is still a
-    // valid option for that question. Anything else (legacy/malformed data
-    // like numbers, booleans, objects, or stale option text) resets to null
-    // so we never treat junk as "answered".
-    const restored: (string | null)[] =
-      saved && saved.answers.length === total
-        ? saved.answers.map((a, i) =>
-            typeof a === "string" && quiz[i].options.includes(a) ? a : null
-          )
-        : new Array<string | null>(total).fill(null);
-    setAnswers(restored);
-
-    const firstUnanswered = restored.findIndex((a) => a === null);
-    if (firstUnanswered === -1) {
-      setPhase("done");
-      setCurrent(total - 1);
-    } else if (restored.some((a) => a !== null)) {
-      setPhase("quiz");
-      setCurrent(firstUnanswered);
-    } else {
-      setPhase("intro");
-      setCurrent(0);
+    if (saved) {
+      const resolved = saved.questionIds.map((id) =>
+        quiz?.find((q) => q.id === id)
+      );
+      if (resolved.length > 0 && resolved.every(Boolean)) {
+        const qs = resolved as Question[];
+        // Normalize answers defensively against each question's options.
+        const ans = saved.answers.map((a, i) =>
+          typeof a === "string" && qs[i].options.includes(a) ? a : null
+        );
+        setAttempt(qs);
+        setAnswers(ans);
+        const firstUnanswered = ans.findIndex((a) => a === null);
+        if (firstUnanswered === -1) {
+          setPhase("done");
+          setCurrent(qs.length - 1);
+        } else {
+          setPhase("quiz");
+          setCurrent(firstUnanswered);
+        }
+        return;
+      }
     }
-  }, [article.id, total, quiz]);
-
-  const score = useMemo(() => {
-    if (!quiz) return 0;
-    return quiz.reduce(
-      (acc, q, i) => (answers[i] === q.correctAnswer ? acc + 1 : acc),
-      0
-    );
-  }, [quiz, answers]);
-
-  if (!quiz || total === 0) return null;
-
-  const persist = (next: (string | null)[]) => {
-    setAnswers(next);
-    saveQuizProgress(article.id, { answers: next });
-  };
-
-  const handleStart = () => {
-    setPhase("quiz");
+    // Nothing valid saved → start from the intro with no attempt yet.
+    setAttempt([]);
+    setAnswers([]);
     setCurrent(0);
+    setPhase("intro");
+  }, [article.id, quiz]);
+
+  const score = useMemo(
+    () =>
+      attempt.reduce(
+        (acc, q, i) => (answers[i] === q.correctAnswer ? acc + 1 : acc),
+        0
+      ),
+    [attempt, answers]
+  );
+
+  if (!quiz || quiz.length === 0) return null;
+
+  const beginAttempt = (picked: Question[]) => {
+    if (picked.length === 0) return;
+    const ids = picked.map((q) => q.id);
+    const ans = new Array<string | null>(picked.length).fill(null);
+    setAttempt(picked);
+    setAnswers(ans);
+    setCurrent(0);
+    setPhase("quiz");
+    saveQuizProgress(article.id, { questionIds: ids, answers: ans });
+    recordQuizHistory(article.id, ids);
   };
+
+  // Build a fresh attempt, preferring questions not seen recently.
+  const generate = () =>
+    selectAttempt(quiz, loadQuizHistory(article.id));
+
+  const handleStart = () => beginAttempt(generate());
 
   const handleAnswer = (choice: string) => {
-    if (answers[current] !== null) return; // already answered
+    if (answers[current] != null) return; // already answered
     const next = [...answers];
     next[current] = choice;
-    persist(next);
+    setAnswers(next);
+    saveQuizProgress(article.id, {
+      questionIds: attempt.map((q) => q.id),
+      answers: next,
+    });
   };
 
   const handleNext = () => {
-    if (current >= total - 1) {
+    if (current >= attempt.length - 1) {
       setPhase("done");
     } else {
       setCurrent((c) => c + 1);
@@ -93,11 +116,8 @@ export default function ArticleQuiz({
   };
 
   const handleRestart = () => {
-    const cleared = new Array<string | null>(total).fill(null);
     clearQuizProgress(article.id);
-    setAnswers(cleared);
-    setCurrent(0);
-    setPhase("intro");
+    beginAttempt(generate()); // new random set, recent ones avoided
   };
 
   return (
@@ -122,28 +142,64 @@ export default function ArticleQuiz({
         </div>
       )}
 
-      {phase === "quiz" && (
-        <QuestionCard
-          question={quiz[current]}
-          index={current}
-          total={total}
-          chosen={answers[current]}
-          locale={locale}
-          onAnswer={handleAnswer}
-          onNext={handleNext}
-          isLast={current === total - 1}
-        />
+      {phase === "quiz" && attempt.length > 0 && (
+        <div className="mt-4">
+          <StepDots attempt={attempt} answers={answers} current={current} />
+          <QuestionCard
+            question={attempt[current]}
+            index={current}
+            total={attempt.length}
+            chosen={answers[current]}
+            locale={locale}
+            onAnswer={handleAnswer}
+            onNext={handleNext}
+            isLast={current === attempt.length - 1}
+          />
+        </div>
       )}
 
       {phase === "done" && (
         <Result
           score={score}
-          total={total}
+          total={attempt.length}
           locale={locale}
           onRestart={handleRestart}
         />
       )}
     </section>
+  );
+}
+
+// Small visual progress indicator: one dot per question in the attempt.
+// Decorative only — the textual "Challenge x / y" chip carries the same
+// information for screen readers.
+function StepDots({
+  attempt,
+  answers,
+  current,
+}: {
+  attempt: Question[];
+  answers: (string | null)[];
+  current: number;
+}) {
+  return (
+    <div className="mb-3 flex items-center gap-1.5" aria-hidden="true">
+      {attempt.map((q, i) => {
+        const a = answers[i];
+        let cls = "bg-slate-200";
+        if (a != null) {
+          cls = a === q.correctAnswer ? "bg-emerald-400" : "bg-rose-400";
+        }
+        const ring =
+          i === current ? "ring-2 ring-brand-400 ring-offset-1" : "";
+        return (
+          <span
+            key={q.id}
+            className={`h-2 w-2 rounded-full transition-colors ${cls} ${ring}`}
+          />
+        );
+      })}
+    </div>
   );
 }
 
@@ -171,7 +227,7 @@ function QuestionCard({
   const isCorrect = chosen === question.correctAnswer;
 
   return (
-    <div className="mt-4">
+    <div>
       <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
         <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-slate-600">
           {t.quiz.progress(index + 1, total)}
@@ -237,7 +293,7 @@ function QuestionCard({
         <div
           role="status"
           aria-live="polite"
-          className={`mt-4 rounded-lg border px-4 py-3 text-sm leading-relaxed ${
+          className={`quiz-pop mt-4 rounded-lg border px-4 py-3 text-sm leading-relaxed ${
             isCorrect
               ? "border-emerald-200 bg-emerald-50 text-emerald-800"
               : "border-amber-200 bg-amber-50 text-amber-800"
@@ -290,16 +346,19 @@ function Result({
   onRestart: () => void;
 }) {
   const t = getDict(locale);
-  const message =
-    score === total
-      ? t.quiz.resultPerfect
-      : score >= Math.ceil(total / 2)
-        ? t.quiz.resultGood
-        : t.quiz.resultTry;
+  const perfect = total > 0 && score === total;
+  const message = perfect
+    ? t.quiz.resultPerfect
+    : score >= Math.ceil(total / 2)
+      ? t.quiz.resultGood
+      : t.quiz.resultTry;
 
   return (
-    <div className="mt-4 text-center">
-      <p className="text-2xl font-bold text-slate-900">
+    <div className="quiz-pop mt-4 text-center">
+      <div className="text-3xl" aria-hidden="true">
+        {perfect ? "🏆" : "🎉"}
+      </div>
+      <p className="mt-1 text-2xl font-bold text-slate-900">
         {t.quiz.result(score, total)}
       </p>
       <p className="mt-2 text-sm text-slate-600">{message}</p>

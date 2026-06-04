@@ -196,6 +196,40 @@ export const articles: Article[] = [
         explanation:
           "The story shows Lily moving from nervous to happy, and ending the day with a new friend.",
       },
+      {
+        id: "q4",
+        type: "tense",
+        question:
+          "\"Mia shared her sandwich with Lily.\" What tense is 'shared'?",
+        options: [
+          "Past tense",
+          "Present tense",
+          "Future tense",
+          "A command",
+        ],
+        correctAnswer: "Past tense",
+        explanation:
+          "'shared' is the past form of 'share'. The story already happened, so it uses the past tense.",
+      },
+      {
+        id: "q5",
+        type: "singular_plural",
+        question:
+          "Lily made one friend. If she made more, we would say she made many ___?",
+        options: ["friends", "friend", "friendes", "friendies"],
+        correctAnswer: "friends",
+        explanation:
+          "Most nouns become plural by adding -s: one friend → many friends.",
+      },
+      {
+        id: "q6",
+        type: "detail",
+        question: "How did Lily feel at the very start of the day?",
+        options: ["Nervous", "Angry", "Sleepy", "Bored"],
+        correctAnswer: "Nervous",
+        explanation:
+          "At the beginning Lily felt nervous walking through the gate.",
+      },
     ],
   },
   {
@@ -306,6 +340,24 @@ export const articles: Article[] = [
         explanation:
           "Most of the article describes what the trunk can do — drink, lift, eat, greet, protect.",
       },
+      {
+        id: "q4",
+        type: "comparative",
+        question:
+          "An elephant's trunk is very strong. Compared with a human arm, a trunk is ___.",
+        options: ["stronger", "strongest", "more strong", "strongly"],
+        correctAnswer: "stronger",
+        explanation:
+          "Short adjectives add -er to compare two things: strong → stronger.",
+      },
+      {
+        id: "q5",
+        type: "singular_plural",
+        question: "We see one elephant. If we see more, we say we see two ___?",
+        options: ["elephants", "elephant", "elephantes", "elephanties"],
+        correctAnswer: "elephants",
+        explanation: "Add -s to make the plural: one elephant → two elephants.",
+      },
     ],
   },
   {
@@ -411,6 +463,31 @@ export const articles: Article[] = [
         correctAnswer: "Because Earth tilts as it travels around the sun",
         explanation:
           "This is the article's main answer, stated in the second sentence.",
+      },
+      {
+        id: "q4",
+        type: "comparative",
+        question:
+          "In summer the days are long. In winter, the days are ___ than in summer.",
+        options: ["shorter", "shortest", "more short", "shortly"],
+        correctAnswer: "shorter",
+        explanation:
+          "Short adjectives add -er to compare two things: short → shorter.",
+      },
+      {
+        id: "q5",
+        type: "tense",
+        question:
+          "\"Earth tilts as it travels around the sun.\" What tense are 'tilts' and 'travels'?",
+        options: [
+          "Simple present",
+          "Simple past",
+          "Future",
+          "Present continuous",
+        ],
+        correctAnswer: "Simple present",
+        explanation:
+          "These are facts that are always true, so the article uses the simple present tense.",
       },
     ],
   },

@@ -18,7 +18,14 @@ export type Sentence = {
   grammar: string;
 };
 
-export type QuestionType = "vocabulary" | "detail" | "main_idea";
+export type QuestionType =
+  | "vocabulary"
+  | "detail"
+  | "main_idea"
+  | "grammar"
+  | "tense"
+  | "singular_plural"
+  | "comparative";
 
 export type Question = {
   id: string;

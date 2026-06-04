@@ -38,3 +38,25 @@ body {
     @apply bg-amber-100;
   }
 }
+
+/* One-shot entrance for quiz feedback / result — subtle, kid-friendly. */
+@keyframes quiz-pop {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.quiz-pop {
+  animation: quiz-pop 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quiz-pop {
+    animation: none;
+  }
+}

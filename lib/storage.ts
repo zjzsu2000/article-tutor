@@ -2,9 +2,20 @@ import type { SavedWord, WordEntry } from "./types";
 
 const KEY = "english_study.savedWords";
 const QUIZ_KEY = "english_study.quizProgress";
+const QUIZ_HISTORY_KEY = "english_study.quizHistory";
 
-// Chosen option string per question (null = not yet answered).
-export type QuizProgress = { answers: (string | null)[] };
+// How many recently shown question ids to remember per article, used to
+// reduce repeats when building a new attempt.
+const HISTORY_CAP = 6;
+
+// The in-progress (or finished) Challenge attempt for one article: the
+// selected question ids, in order, plus the chosen option per question
+// (null = not yet answered). Storing the ids lets a reload resume the same
+// attempt instead of re-randomizing.
+export type QuizProgress = {
+  questionIds: string[];
+  answers: (string | null)[];
+};
 
 type QuizProgressMap = Record<string, QuizProgress>;
 
@@ -22,7 +33,15 @@ function loadQuizMap(): QuizProgressMap {
 
 export function loadQuizProgress(articleId: string): QuizProgress | null {
   const entry = loadQuizMap()[articleId];
-  return entry && Array.isArray(entry.answers) ? entry : null;
+  if (
+    !entry ||
+    !Array.isArray(entry.questionIds) ||
+    !Array.isArray(entry.answers) ||
+    entry.questionIds.length !== entry.answers.length
+  ) {
+    return null; // absent, legacy (no questionIds), or malformed
+  }
+  return entry;
 }
 
 export function saveQuizProgress(
@@ -40,6 +59,36 @@ export function clearQuizProgress(articleId: string): void {
   const map = loadQuizMap();
   delete map[articleId];
   window.localStorage.setItem(QUIZ_KEY, JSON.stringify(map));
+}
+
+type QuizHistoryMap = Record<string, string[]>;
+
+function loadQuizHistoryMap(): QuizHistoryMap {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = window.localStorage.getItem(QUIZ_HISTORY_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+export function loadQuizHistory(articleId: string): string[] {
+  const entry = loadQuizHistoryMap()[articleId];
+  return Array.isArray(entry) ? entry.filter((x) => typeof x === "string") : [];
+}
+
+// Record the question ids shown in an attempt, most-recent-first, deduped
+// and capped, so the next attempt can prefer fresher questions.
+export function recordQuizHistory(articleId: string, ids: string[]): void {
+  if (typeof window === "undefined") return;
+  const map = loadQuizHistoryMap();
+  const prev = Array.isArray(map[articleId]) ? map[articleId] : [];
+  const merged = [...ids, ...prev.filter((id) => !ids.includes(id))];
+  map[articleId] = merged.slice(0, HISTORY_CAP);
+  window.localStorage.setItem(QUIZ_HISTORY_KEY, JSON.stringify(map));
 }
 
 export function loadSavedWords(): SavedWord[] {

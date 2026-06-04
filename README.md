@@ -42,9 +42,13 @@ list, in the browser, no account needed.
 - Sentence-level highlight while the full article is playing
 - Friendly fallback notice on browsers without Web Speech API support
 - Slowed default speech rate (0.7) for early learners
-- Challenge UI / 闯关测试: 3 questions per article (vocabulary, detail, main
-  idea), revealed one at a time with immediate feedback; progress saved in
-  `localStorage`
+- Challenge UI / 闯关测试: each attempt draws a small random set of 3
+  questions — it tries to include one vocabulary, one comprehension
+  (detail / main idea), and one grammar-style question (grammar / tense /
+  singular-plural / comparative) when available, and backfills from the
+  other available types if an article has no grammar-style question yet —
+  revealed one at a time with immediate feedback; recent questions are
+  avoided and the attempt + progress are saved in `localStorage`
 
 See [`CHANGELOG.md`](./CHANGELOG.md) for version history and
 [`docs/product-notes/2026-05-16-feedback-and-roadmap.md`](./docs/product-notes/2026-05-16-feedback-and-roadmap.md)
@@ -185,7 +189,7 @@ suspension, and keeps the content base reusable.
 - 朗读全文时当前句子高亮
 - 不支持 Web Speech API 的浏览器显示友好提示
 - 默认朗读语速 0.7，照顾低龄学习者
-- 闯关测试 UI：每篇文章 3 道题（单词小侦探 / 细节小达人 / 主旨小队长），逐题作答、即时反馈，进度存 `localStorage`
+- 闯关测试 UI：每次随机抽一小组共 3 道题，尽量包含 1 道单词 + 1 道理解 + 1 道语法类（语法 / 时态 / 单复数 / 比较级）；若该文章暂无语法类题目，则从其他可用题型补足到 3 道。逐题作答、即时反馈，避免重复最近题目，本次抽题与进度都存 `localStorage`
 
 ## 公开内容版权规则
 

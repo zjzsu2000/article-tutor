@@ -8,6 +8,39 @@ a SemVer-strict library.
 
 ---
 
+## [v0.3.1] — 2026-06-04
+
+### Added
+
+- **Grammar-style question types**: `grammar`, `tense`, `singular_plural`,
+  and `comparative` join `vocabulary` / `detail` / `main_idea`. Each has a
+  kid-friendly name (e.g. 时态小专家 / Tense Detective, 比较级小高手 /
+  Compare Champ). Articles do **not** need every type.
+- **Per-attempt random question selection** (`lib/quiz.ts`): each Challenge
+  attempt draws a small set — one vocabulary, one comprehension
+  (detail / main idea), one grammar-group question — picking randomly when
+  a group has several, and backfilling to keep three when a group is empty
+  (so existing articles are not shortened).
+- **Recent-question avoidance**: recently shown question ids are remembered
+  per article (`english_study.quizHistory`) and de-prioritized on the next
+  attempt, with graceful fallback when a group is small.
+- **Seed grammar questions** added to three articles (first day at school,
+  the elephant's trunk, why we have seasons) to demonstrate the new types.
+- **Light interactivity**: a step-dot progress indicator, a subtle
+  entrance animation on feedback and the result card (respecting
+  `prefers-reduced-motion`), and a small celebration mark on completion.
+  No audio added.
+
+### Changed
+
+- The Challenge now resumes the **exact same attempt** after a reload: the
+  selected question ids and answers are stored together
+  (`english_study.quizProgress` now holds `{ questionIds, answers }`).
+  Older progress without `questionIds` is treated as stale and a fresh
+  attempt is generated. "Try again" now produces a new random set.
+
+---
+
 ## [v0.3] — 2026-05-28
 
 ### Added

@@ -52,7 +52,16 @@ export type Dict = {
     intro: string;
     start: string;
     progress: (cur: number, total: number) => string;
-    types: Record<"vocabulary" | "detail" | "main_idea", string>;
+    types: Record<
+      | "vocabulary"
+      | "detail"
+      | "main_idea"
+      | "grammar"
+      | "tense"
+      | "singular_plural"
+      | "comparative",
+      string
+    >;
     correct: string;
     incorrect: string;
     explanationLabel: string;
@@ -128,6 +137,10 @@ const zh: Dict = {
       vocabulary: "单词小侦探",
       detail: "细节小达人",
       main_idea: "主旨小队长",
+      grammar: "语法小能手",
+      tense: "时态小专家",
+      singular_plural: "单复数小卫士",
+      comparative: "比较级小高手",
     },
     correct: "答对啦！🎉",
     incorrect: "再想想，看看下面的提示～",
@@ -206,6 +219,10 @@ const en: Dict = {
       vocabulary: "Word Detective",
       detail: "Detail Expert",
       main_idea: "Main Idea Captain",
+      grammar: "Grammar Whiz",
+      tense: "Tense Detective",
+      singular_plural: "Plural Patrol",
+      comparative: "Compare Champ",
     },
     correct: "That's right! 🎉",
     incorrect: "Not quite — check the hint below.",
