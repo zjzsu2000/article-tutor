@@ -1,0 +1,49 @@
+# Review Checklist
+
+Use this checklist before accepting Claude Code or other builder changes.
+
+## Scope
+
+- The diff matches the brief.
+- The change stayed in one reviewable task.
+- No unrelated refactors or cleanup were bundled in.
+- Existing features were not removed, disabled, or weakened without explicit approval.
+
+## Files Changed
+
+- Review `git status --short`.
+- Review `git diff --stat`.
+- Confirm every changed file belongs to the task.
+- Confirm generated artifacts such as `.next/` or `out/` were not added.
+
+## Verification
+
+- Builder reported command results.
+- Builder did not mark the task complete only because files were generated.
+- `npx tsc --noEmit` passed, or any skip/failure is explained.
+- `npm run build` passed for code changes, especially because this app uses static export.
+- `npm run lint` passed if available, or any existing limitation is documented.
+- Manual checks were done for behavior that automation cannot cover.
+
+## UX And Content Quality
+
+- Learner-facing text is age-appropriate for Chinese-native elementary or middle-school learners.
+- Quiz answers are unambiguous and each `correctAnswer` exactly matches one option.
+- UI copy is encouraging, not exam-like.
+- All user-facing strings go through `lib/i18n.ts`.
+- Accessibility is not reduced: keyboard use, labels, color-independent feedback, and reduced-motion handling remain intact.
+
+## Config Safety
+
+- Human approval is present before any commit, push, or deploy.
+- No accidental deployment, auth, secrets, hosting, environment, or package-manager config changes.
+- No backend, API route, middleware, database, or server runtime was introduced.
+- `output: "export"` remains compatible.
+- No credentials, tokens, private endpoints, or local-only paths were committed.
+
+## Docs And Release State
+
+- `docs/checkpoint.md` was updated after meaningful changes.
+- Release note or changelog was updated for user-visible behavior changes.
+- Review package or review prompt was updated if the next round needs focused review.
+- Suggested commit message matches the actual diff.
