@@ -599,6 +599,30 @@ export const articles: Article[] = [
         explanation:
           "Grandfather's secret is several small habits — water, walking, vegetables, reading — done every day.",
       },
+      {
+        id: "q4",
+        type: "tense",
+        question: "\"Every morning, he wakes up early.\" What tense is 'wakes'?",
+        options: [
+          "Simple present",
+          "Simple past",
+          "Future",
+          "Present continuous",
+        ],
+        correctAnswer: "Simple present",
+        explanation:
+          "Grandfather does this every morning, so it is a habit. Habits use the simple present, adding -s for he/she/it (wake → wakes).",
+      },
+      {
+        id: "q5",
+        type: "singular_plural",
+        question:
+          "Grandfather drinks one glass of water. If he drinks two, they are two ___?",
+        options: ["glasses", "glass", "glasss", "glassies"],
+        correctAnswer: "glasses",
+        explanation:
+          "Nouns ending in -s, -ss, -sh, or -ch add -es in the plural: one glass → two glasses.",
+      },
     ],
   },
   {

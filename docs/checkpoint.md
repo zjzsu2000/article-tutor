@@ -16,23 +16,24 @@ Last updated: 2026-06-04
 
 ## Last Completed Change
 
+- Added two grammar-style Challenge questions (tense + singular/plural) to the `healthy-day` article in `lib/mockData.ts`. Content-only change; no app behavior, config, or dependencies changed. Verified with `npx tsc --noEmit` and `npm run build` (both pass); `npm run lint` skipped (see Known Issues).
 - v0.3.1 added grammar-style question types, per-attempt random selection, attempt persistence by question id, recent-question history, step dots, subtle quiz animation, and seed grammar questions for three articles.
 - Current scaffold adds documentation for AI-agent workflow, review gating, project checkpointing, and lightweight task tracking.
 
 ## Known Issues
 
-- Grammar-style questions are seeded only for a subset of articles; articles without grammar questions backfill attempts from available question types.
+- Grammar-style questions are seeded for 4 of 8 articles (`first-day`, `elephant-nose`, `why-seasons`, `healthy-day`); the remaining articles backfill attempts from available question types until they get grammar content.
+- `npm run lint` is not configured: `next lint` drops into an interactive ESLint setup prompt and exits non-zero. Treat it as unavailable until ESLint is set up (a config/dependency change requiring explicit approval); use `npx tsc --noEmit` and `npm run build` as the working checks.
 - Vocabulary auto-save on wrong quiz answers is planned but not implemented.
 - TTS depends on browser Web Speech API support and may not work on all devices.
 - The content set is small and should keep following the public-content copyright rule.
 
 ## Next Small Tasks
 
-- Add grammar-style Challenge questions to the remaining articles, one or two articles per round.
+- Add grammar-style Challenge questions to the remaining articles (`favorite-festival`, `olympic-games`, `young-inventor`, `robots-help`), one or two articles per round.
 - Add focused review prompts for new learner-facing content before merging.
 - Improve Challenge-to-vocabulary flow, such as saving missed vocabulary questions, in a separate scoped round.
 - Add a minimal manual QA checklist for mobile reading, quiz, and TTS behavior.
-- Review whether `npm run lint` works reliably with the current Next.js version and document any known limitation.
 
 ## Verification Commands
 
