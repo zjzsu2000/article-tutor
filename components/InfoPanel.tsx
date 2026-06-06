@@ -102,34 +102,47 @@ function WordView({
     <div>
       <div className="flex items-baseline gap-2">
         <h3 className="text-2xl font-bold text-slate-900">{entry.word}</h3>
-        <span className="text-sm italic text-slate-500">
-          {entry.partOfSpeech}
-        </span>
-      </div>
-      <div className="mt-1 flex items-center gap-2">
-        <span className="text-sm text-slate-600">{entry.pronunciation}</span>
-        {ttsSupported && (
-          <button
-            type="button"
-            onClick={speak}
-            className="rounded-md border border-slate-200 px-2 py-0.5 text-xs text-slate-600 hover:bg-slate-50"
-            aria-label={t.panel.play}
-          >
-            {t.panel.play}
-          </button>
+        {entry.partOfSpeech && (
+          <span className="text-sm italic text-slate-500">
+            {entry.partOfSpeech}
+          </span>
         )}
       </div>
+      {entry.pronunciation && (
+        <div className="mt-1 flex items-center gap-2">
+          <span className="text-sm text-slate-600">{entry.pronunciation}</span>
+          {ttsSupported && (
+            <button
+              type="button"
+              onClick={speak}
+              className="rounded-md border border-slate-200 px-2 py-0.5 text-xs text-slate-600 hover:bg-slate-50"
+              aria-label={t.panel.play}
+            >
+              {t.panel.play}
+            </button>
+          )}
+        </div>
+      )}
 
       <div className="mt-4 space-y-3 text-sm">
-        <Field label={t.panel.definition} body={entry.definition} />
+        {entry.definition && (
+          <Field label={t.panel.definition} body={entry.definition} />
+        )}
         <Field label={t.panel.chinese} body={entry.translation} />
-        <div>
-          <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-            {t.panel.example}
+        {entry.collocation && (
+          <Field label={t.panel.collocation} body={entry.collocation} />
+        )}
+        {entry.example && (
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              {t.panel.example}
+            </div>
+            <p className="mt-1 italic text-slate-800">"{entry.example}"</p>
+            {entry.exampleTranslation && (
+              <p className="mt-1 text-slate-600">{entry.exampleTranslation}</p>
+            )}
           </div>
-          <p className="mt-1 italic text-slate-800">"{entry.example}"</p>
-          <p className="mt-1 text-slate-600">{entry.exampleTranslation}</p>
-        </div>
+        )}
       </div>
 
       <button

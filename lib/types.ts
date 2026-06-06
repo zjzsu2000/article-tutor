@@ -68,12 +68,14 @@ export type WeeklyStory = {
 
 export type WordEntry = {
   word: string;
-  pronunciation: string;
-  partOfSpeech: string;
-  definition: string;
-  translation: string;
-  example: string;
-  exampleTranslation: string;
+  translation: string; // Chinese meaning — the one always-present field
+  pronunciation?: string;
+  partOfSpeech?: string;
+  definition?: string; // English definition, when available
+  example?: string;
+  exampleTranslation?: string;
+  collocation?: string; // 搭配, when available
+  sourceWeek?: number; // set for Weekly Stories vocabulary
 };
 
 export type SavedWord = WordEntry & { savedAt: number };

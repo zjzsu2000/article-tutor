@@ -71,13 +71,17 @@ export default function VocabularyClient({ locale }: { locale: Locale }) {
                     <h2 className="truncate text-lg font-semibold text-slate-900">
                       {w.word}
                     </h2>
-                    <span className="text-xs italic text-slate-500">
-                      {w.partOfSpeech}
-                    </span>
+                    {w.partOfSpeech && (
+                      <span className="text-xs italic text-slate-500">
+                        {w.partOfSpeech}
+                      </span>
+                    )}
                   </div>
-                  <p className="mt-0.5 text-xs text-slate-500">
-                    {w.pronunciation}
-                  </p>
+                  {w.pronunciation && (
+                    <p className="mt-0.5 text-xs text-slate-500">
+                      {w.pronunciation}
+                    </p>
+                  )}
                 </div>
                 <div className="flex shrink-0 items-center gap-1">
                   <button
@@ -97,13 +101,17 @@ export default function VocabularyClient({ locale }: { locale: Locale }) {
                   </button>
                 </div>
               </div>
-              <p className="mt-2 text-sm text-slate-700">{w.definition}</p>
+              {w.definition && (
+                <p className="mt-2 text-sm text-slate-700">{w.definition}</p>
+              )}
               <p className="mt-1 text-sm font-medium text-slate-900">
                 {w.translation}
               </p>
-              <p className="mt-2 text-xs italic text-slate-500">
-                "{w.example}"
-              </p>
+              {w.example && (
+                <p className="mt-2 text-xs italic text-slate-500">
+                  "{w.example}"
+                </p>
+              )}
             </li>
           ))}
         </ul>

@@ -39,6 +39,7 @@ export type Dict = {
     sentence: string;
     definition: string;
     chinese: string;
+    collocation: string;
     example: string;
     chineseTranslation: string;
     grammar: string;
@@ -48,6 +49,7 @@ export type Dict = {
     saved: string;
     close: string;
     noEntry: string;
+    notInDict: string;
   };
   vocabulary: {
     title: string;
@@ -128,6 +130,7 @@ const zh: Dict = {
     sentence: "句子",
     definition: "英文释义",
     chinese: "中文",
+    collocation: "搭配",
     example: "例句",
     chineseTranslation: "中文翻译",
     grammar: "语法解析",
@@ -137,6 +140,7 @@ const zh: Dict = {
     saved: "✓ 已保存 — 点击移除",
     close: "关闭",
     noEntry: "暂无词条。当前为模拟数据，仅词典中的常用词有详细信息。",
+    notInDict: "这个词还没有收录，后面会补充。",
   },
   vocabulary: {
     title: "我的生词本",
@@ -216,6 +220,7 @@ const en: Dict = {
     sentence: "Sentence",
     definition: "Definition",
     chinese: "Chinese",
+    collocation: "Collocation",
     example: "Example",
     chineseTranslation: "Translation",
     grammar: "Grammar",
@@ -226,6 +231,7 @@ const en: Dict = {
     close: "Close",
     noEntry:
       "No entry yet. This is mock data — only highlighted vocabulary has details.",
+    notInDict: "This word is not in the dictionary yet.",
   },
   vocabulary: {
     title: "My Vocabulary",

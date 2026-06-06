@@ -1,5 +1,6 @@
 import type { Article, Topic, WeeklyStory, WordEntry } from "./types";
 import { defaultLocale, getDict, type Locale } from "./i18n";
+import { weeklyDictionary } from "./weeklyDictionary";
 
 export const topics: Topic[] = [
   {
@@ -2772,18 +2773,57 @@ export function getTopic(id: string): Topic | undefined {
   return topics.find((t) => t.id === id);
 }
 
+// Build base-form candidates for a word so simple inflections still match a
+// dictionary entry. Conservative: only strips when the result stays long
+// enough, and a candidate only "wins" later if it actually exists in a
+// dictionary, which keeps false positives (e.g. "as" -> "a") from showing.
+function candidateForms(key: string): string[] {
+  const forms = [key];
+  const add = (f: string) => {
+    if (f.length >= 3 && !forms.includes(f)) forms.push(f);
+  };
+  if (key.length >= 4) {
+    if (key.endsWith("ies")) add(key.slice(0, -3) + "y"); // stories -> story
+    if (key.endsWith("ied")) add(key.slice(0, -3) + "y"); // tried -> try
+    // "-es" only when the stem ends in a sibilant (the real -es plural/verb
+    // rule), so we don't manufacture junk stems like "choic" or "mistak".
+    let esHandled = false;
+    if (key.endsWith("es") && /(?:s|x|z|ch|sh)$/.test(key.slice(0, -2))) {
+      add(key.slice(0, -2)); // wishes -> wish, boxes -> box, classes -> class
+      esHandled = true;
+    }
+    // Generic "-s" only if the sibilant "-es" branch didn't already handle the
+    // word (otherwise we'd add a residual stem like "wishe"). Skip "ss" words.
+    if (!esHandled && key.endsWith("s") && !key.endsWith("ss"))
+      add(key.slice(0, -1)); // shoes -> shoe, choices -> choice, mistakes -> mistake
+    if (key.endsWith("ed")) {
+      add(key.slice(0, -2)); // wanted -> want
+      add(key.slice(0, -1)); // lived -> live
+      const b = key.slice(0, -2);
+      if (b.length >= 3 && b[b.length - 1] === b[b.length - 2])
+        add(b.slice(0, -1)); // stopped -> stop
+    }
+    if (key.endsWith("ing")) {
+      add(key.slice(0, -3)); // asking -> ask
+      add(key.slice(0, -3) + "e"); // making -> make
+      const b = key.slice(0, -3);
+      if (b.length >= 3 && b[b.length - 1] === b[b.length - 2])
+        add(b.slice(0, -1)); // running -> run
+    }
+  }
+  return forms;
+}
+
+// Lookup priority: Weekly Stories dictionary, then the general dictionary —
+// each tried with the exact key first, then normalized (de-inflected) forms.
+// (A per-article vocabulary tier could be added in front of these later.)
+// Falls back to a friendly "not in the dictionary yet" entry.
 export function lookupWord(raw: string, locale: Locale = defaultLocale): WordEntry {
   const key = raw.toLowerCase().replace(/[^a-z']/g, "");
-  const found = dictionary[key];
-  if (found) return found;
+  for (const form of candidateForms(key)) {
+    const hit = weeklyDictionary[form] ?? dictionary[form];
+    if (hit) return hit;
+  }
   const t = getDict(locale);
-  return {
-    word: raw,
-    pronunciation: "—",
-    partOfSpeech: "—",
-    definition: t.panel.noEntry,
-    translation: locale === "zh" ? "暂无释义" : "No translation yet",
-    example: "—",
-    exampleTranslation: "—",
-  };
+  return { word: raw, translation: t.panel.notInDict };
 }
