@@ -1,4 +1,4 @@
-import type { Article, Topic, WordEntry } from "./types";
+import type { Article, Topic, WeeklyStory, WordEntry } from "./types";
 import { defaultLocale, getDict, type Locale } from "./i18n";
 
 export const topics: Topic[] = [
@@ -1059,6 +1059,621 @@ export const articles: Article[] = [
       },
     ],
   },
+
+  // ── Weekly Stories track (每周小故事) ──────────────────────────────
+  // Original graded retellings inspired by the weekly source stories, kept
+  // copyright-safe for public deployment (no verbatim source prose).
+  {
+    id: "weekly-1-friendship",
+    topicId: "weekly-stories",
+    track: "weekly-stories",
+    weekNumber: 1,
+    title: "The Power of Friendship",
+    chineseTitle: "友谊的力量",
+    subtitle:
+      "A nervous dancer, a failed exam, and a friend who would not let her give up.",
+    focus: {
+      zh: "友谊与坚持：用鼓励战胜想放弃的心情。",
+      en: "Friendship & persistence: encouragement beats the urge to give up.",
+    },
+    level: "Intermediate",
+    minutes: 4,
+    sentences: [
+      {
+        id: "s1",
+        text: "Laura, a classmate of mine, is so generous that she helps anyone who asks.",
+        translation: "我的同学劳拉非常大方，谁向她求助她都会帮。",
+        grammar:
+          "'so ... that ...' 表示「如此……以至于」。'who asks' 是定语从句，修饰 anyone。",
+      },
+      {
+        id: "s2",
+        text: "The two of us share one hobby: we are both fond of dancing ballet.",
+        translation: "我们俩有一个共同的爱好：都喜欢跳芭蕾。",
+        grammar:
+          "冒号引出具体内容。'be fond of (doing) sth' 意为「喜爱（做）某事」，of 后接名词或动名词。",
+      },
+      {
+        id: "s3",
+        text: "On the morning of my first dance exam, my hands were shaking — I felt nervous and anxious.",
+        translation: "第一次舞蹈考试那天早上，我的手一直发抖——我感到紧张又焦虑。",
+        grammar: "破折号用于补充说明。'feel + 形容词' 描述感受。",
+      },
+      {
+        id: "s4",
+        text: "I lost count of my mistakes that day, and in the end I did not pass.",
+        translation: "那天我数不清自己犯了多少错，最后没能通过。",
+        grammar:
+          "一般过去时 'lost / did not pass' 叙述已经发生的事。'lose count of' 意为「数不清」。",
+      },
+      {
+        id: "s5",
+        text: "Such a disappointing result left me feeling embarrassed, and a small voice inside kept telling me to quit.",
+        translation: "这么令人失望的结果让我感到难堪，心里有个小声音一直叫我放弃。",
+        grammar: "'leave sb doing sth' 表示「使某人一直处于某种状态」。",
+      },
+      {
+        id: "s6",
+        text: "But when I finally opened up to Laura, she did not laugh — she just listened.",
+        translation: "可当我终于向劳拉敞开心扉时，她没有笑话我——只是静静地听。",
+        grammar: "'open up to sb' 意为「向某人敞开心扉」。破折号引出补充说明。",
+      },
+      {
+        id: "s7",
+        text: "\"Quitting now is something you'll regret,\" she told me gently, pulling me into a hug.",
+        translation: "「现在放弃，你会后悔的，」她轻声对我说，把我拉进怀里抱住。",
+        grammar:
+          "'something you'll regret' 中 you'll regret 是省略 that 的定语从句。'pulling...' 是现在分词作伴随状语。",
+      },
+      {
+        id: "s8",
+        text: "Later she gave me a little present to comfort me: brand-new ballet shoes and a short handwritten note.",
+        translation: "后来她送了我一份小礼物来安慰我：一双崭新的芭蕾舞鞋和一张手写的小便条。",
+        grammar: "不定式 'to comfort me' 表目的。冒号引出礼物的具体内容。",
+      },
+      {
+        id: "s9",
+        text: "Reading her warm words, I slowly grew calm and confident again.",
+        translation: "读着她暖心的话，我慢慢平静下来，也重新找回了自信。",
+        grammar: "'Reading...' 现在分词短语作状语，表示伴随动作。'grow + 形容词' 表示「逐渐变得」。",
+      },
+      {
+        id: "s10",
+        text: "Knowing I had such a reliable friend to encourage me, I gathered the courage to step onto the stage once more — and this time I passed.",
+        translation:
+          "知道自己有这样一位可靠的朋友鼓励我，我鼓起勇气再次走上舞台——这一次我通过了。",
+        grammar:
+          "'Knowing...' 现在分词作状语。'gather the courage to do sth' 意为「鼓起勇气做某事」。",
+      },
+    ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        question: "In the story, what does 'nervous' mean?",
+        options: [
+          "Worried and a little afraid",
+          "Very happy",
+          "Extremely tired",
+          "Angry",
+        ],
+        correctAnswer: "Worried and a little afraid",
+        explanation:
+          "Before the exam she felt nervous and anxious — worried and a little afraid.",
+      },
+      {
+        id: "q2",
+        type: "detail",
+        question: "Why did the narrator fail the first exam?",
+        options: [
+          "She made many mistakes",
+          "She arrived too late",
+          "She forgot her shoes",
+          "She was sick that day",
+        ],
+        correctAnswer: "She made many mistakes",
+        explanation:
+          "The story says she lost count of her mistakes that day and did not pass.",
+      },
+      {
+        id: "q3",
+        type: "main_idea",
+        question: "What is the story mainly about?",
+        options: [
+          "A friend's encouragement helps her not give up",
+          "How to buy ballet shoes",
+          "Why exams are unfair",
+          "How to dance ballet perfectly",
+        ],
+        correctAnswer: "A friend's encouragement helps her not give up",
+        explanation:
+          "Laura comforts and encourages her until she finds the courage to try again.",
+      },
+      {
+        id: "q4",
+        type: "tense",
+        question:
+          "\"I lost count of my mistakes that day, and in the end I did not pass.\" What tense is used?",
+        options: [
+          "Simple past",
+          "Simple present",
+          "Future",
+          "Present continuous",
+        ],
+        correctAnswer: "Simple past",
+        explanation:
+          "'lost' and 'did not pass' are past forms — the events already happened.",
+      },
+      {
+        id: "q5",
+        type: "vocabulary",
+        question:
+          "\"We are both fond of dancing ballet.\" What does 'be fond of' mean?",
+        options: [
+          "To like something very much",
+          "To be afraid of something",
+          "To be tired of something",
+          "To forget something",
+        ],
+        correctAnswer: "To like something very much",
+        explanation:
+          "'be fond of' is a set phrase meaning to like or love something.",
+      },
+    ],
+  },
+  {
+    id: "weekly-2-stupid-mistake",
+    topicId: "weekly-stories",
+    track: "weekly-stories",
+    weekNumber: 2,
+    title: "A Stupid Mistake",
+    chineseTitle: "一个愚蠢的错误",
+    subtitle:
+      "A homeless cat, a bossy brother, and a lesson about caring for animals.",
+    focus: {
+      zh: "善待动物 · 不要想当然行事。",
+      en: "Caring for animals and not acting carelessly.",
+    },
+    level: "Intermediate",
+    minutes: 4,
+    sentences: [
+      {
+        id: "s1",
+        text: "Everybody makes mistakes — yes, even the cleverest people you know.",
+        translation: "每个人都会犯错——是的，连你认识的最聪明的人也会。",
+        grammar:
+          "'Everybody' 作主语视为单数，谓语用第三人称单数 'makes'。破折号用于补充强调。",
+      },
+      {
+        id: "s2",
+        text: "Take my elder brother George: top of his class, yet he often forgets the most basic common sense.",
+        translation: "就拿我哥哥乔治来说：班里第一名，却常常忘记最基本的常识。",
+        grammar:
+          "'Take ... :' 用来举例，「拿……来说」。'yet' 表示转折，「却」。",
+      },
+      {
+        id: "s3",
+        text: "One morning a thin, homeless cat wandered onto our balcony and surprised us all.",
+        translation: "一天早上，一只瘦瘦的流浪猫溜进了我们的阳台，把大家都吓了一跳。",
+        grammar: "形容词 'thin, homeless' 并列修饰 cat。'wander onto' 意为「溜达到……上」。",
+      },
+      {
+        id: "s4",
+        text: "Our smiles faded the moment we realised it had swallowed our pet goldfish — we were really annoyed.",
+        translation: "可当我们发现它把我们的宠物金鱼吞掉时，笑容立刻消失了——我们非常恼火。",
+        grammar:
+          "'the moment...' 引导时间状语从句，「一……就……」。'had swallowed' 是过去完成时。",
+      },
+      {
+        id: "s5",
+        text: "Before long the cat started shaking all over, and we were completely confused, with no idea how to help.",
+        translation: "没过多久，猫开始浑身发抖，我们彻底懵了，不知道该怎么帮它。",
+        grammar:
+          "'Before long' 意为「不久」。'be confused' 意为「感到困惑」；'with no idea how to...' 补充说明。",
+      },
+      {
+        id: "s6",
+        text: "\"A cold, obviously. Just feed it some cold medicine,\" my bossy brother announced, as if he were a doctor.",
+        translation: "「显然是感冒了。喂点感冒药就行，」我那爱发号施令的哥哥宣布道，仿佛他是个医生。",
+        grammar: "'as if + 虚拟语气'（were）表示与事实相反的假设。",
+      },
+      {
+        id: "s7",
+        text: "Minutes later came the frightening part: no matter what we did, the cat simply would not wake up.",
+        translation: "几分钟后，可怕的事情来了：不管我们怎么做，猫就是醒不过来。",
+        grammar:
+          "'no matter what...' 引导让步状语从句。'would not' 表示「怎么也不……」。",
+      },
+      {
+        id: "s8",
+        text: "Feeling ashamed of our foolish choice, we rushed the cat to the animal hospital.",
+        translation: "我们为自己愚蠢的决定感到惭愧，急忙把猫送到了动物医院。",
+        grammar: "'Feeling ashamed...' 现在分词短语作状语，表示原因。",
+      },
+      {
+        id: "s9",
+        text: "A gentle vet worked hard and saved the cat, and at last we felt relieved.",
+        translation: "一位温柔的兽医尽力救活了那只猫，我们终于松了一口气。",
+        grammar: "并列句用 and 连接。'feel relieved' 意为「感到宽慰」。",
+      },
+      {
+        id: "s10",
+        text: "Happily, we decided to keep the cat and look after it ourselves.",
+        translation: "我们高高兴兴地决定把猫留下来，亲自照顾它。",
+        grammar: "副词 'Happily' 修饰整句。'look after' 意为「照顾」，'ourselves' 是反身代词。",
+      },
+      {
+        id: "s11",
+        text: "Now whenever I tell this story, I hope it inspires people to care for animals wisely — and never act without thinking.",
+        translation: "现在每当我讲起这个故事，我都希望它能激励大家明智地爱护动物——永远不要不经思考就行动。",
+        grammar:
+          "'whenever' 引导时间状语从句。'inspire sb to do sth' 意为「激励某人做某事」。",
+      },
+    ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        question: "What does 'annoyed' mean?",
+        options: ["Slightly angry", "Very happy", "Very tired", "Hungry"],
+        correctAnswer: "Slightly angry",
+        explanation:
+          "They felt annoyed — slightly angry — when the cat ate their goldfish.",
+      },
+      {
+        id: "q2",
+        type: "detail",
+        question: "Why did the cat stop waking up?",
+        options: [
+          "They gave it cold medicine by mistake",
+          "It was very old",
+          "It ran away",
+          "It was only sleeping",
+        ],
+        correctAnswer: "They gave it cold medicine by mistake",
+        explanation:
+          "After the brother told them to give it cold medicine, the cat would not wake up.",
+      },
+      {
+        id: "q3",
+        type: "detail",
+        question: "Where did they first find the cat?",
+        options: ["On the balcony", "In the kitchen", "At school", "In the garden"],
+        correctAnswer: "On the balcony",
+        explanation: "They were amazed to find a homeless cat on their balcony.",
+      },
+      {
+        id: "q4",
+        type: "main_idea",
+        question: "What lesson does the story teach?",
+        options: [
+          "Protect animals in the right way and don't act carelessly",
+          "Cats make bad pets",
+          "Smart people never make mistakes",
+          "Older brothers are always right",
+        ],
+        correctAnswer:
+          "Protect animals in the right way and don't act carelessly",
+        explanation:
+          "The narrator ends by asking everyone to care for animals properly.",
+      },
+      {
+        id: "q5",
+        type: "grammar",
+        question:
+          "\"Everybody makes mistakes.\" Why does 'make' take an -s here?",
+        options: [
+          "Because 'everybody' is treated as third-person singular",
+          "Because it is past tense",
+          "Because it is plural",
+          "Because it is a question",
+        ],
+        correctAnswer:
+          "Because 'everybody' is treated as third-person singular",
+        explanation:
+          "Indefinite pronouns like 'everybody' are singular, so the verb adds -s.",
+      },
+      {
+        id: "q6",
+        type: "vocabulary",
+        question: "What does 'common sense' mean?",
+        options: [
+          "The ability to make good, sensible decisions",
+          "A kind of money",
+          "A school subject",
+          "A type of cold",
+        ],
+        correctAnswer: "The ability to make good, sensible decisions",
+        explanation:
+          "George studies well but sometimes lacks common sense — good, practical judgement.",
+      },
+    ],
+  },
+  {
+    id: "weekly-3-digital-watch",
+    topicId: "weekly-stories",
+    track: "weekly-stories",
+    weekNumber: 3,
+    title: "A Digital Watch",
+    chineseTitle: "一块电子表",
+    subtitle: "London weather is hard to trust — could a smart watch help?",
+    focus: {
+      zh: "天气与科技：用科技应对多变的天气。",
+      en: "Weather & technology: using tech to handle changing weather.",
+    },
+    level: "Intermediate",
+    minutes: 4,
+    sentences: [
+      {
+        id: "s1",
+        text: "For more than a year now, my cousin has lived in London, and she still cannot get used to its weather.",
+        translation: "我表姐在伦敦已经住了一年多，却仍然适应不了那里的天气。",
+        grammar:
+          "现在完成时 'has lived' 表示从过去持续到现在。'get used to sth' 意为「适应」。",
+      },
+      {
+        id: "s2",
+        text: "What bothers her most is the damp, humid air and a weather forecast she can never trust.",
+        translation: "最让她烦恼的是那潮湿的空气，还有一个她永远无法信任的天气预报。",
+        grammar:
+          "'What bothers her most' 是主语从句。'she can never trust' 是定语从句，修饰 forecast。",
+      },
+      {
+        id: "s3",
+        text: "In a single day, she says, the temperature can fall fast, swinging from a mild breeze to a freezing wind.",
+        translation: "她说，在同一天里气温就可能骤降，从温和的微风变成刺骨的寒风。",
+        grammar: "'swinging from A to B' 是现在分词短语，描述变化。'mild / freezing' 形容天气。",
+      },
+      {
+        id: "s4",
+        text: "During a video call last week, she told me about a clever gadget called a digital watch.",
+        translation: "上周视频通话时，她跟我说起一个叫「电子表」的聪明小玩意儿。",
+        grammar:
+          "'During...' 介词短语作时间状语。过去分词 'called a digital watch' 作后置定语。",
+      },
+      {
+        id: "s5",
+        text: "\"My job sends me all over the place, and the weather can really affect my plans,\" she explained.",
+        translation: "「我的工作要去很多地方，天气真的会影响我的计划，」她解释道。",
+        grammar: "'send sb somewhere' 表示「派某人去某处」。'affect' 是及物动词，「影响」。",
+      },
+      {
+        id: "s6",
+        text: "She said the watch could tell her the weather anywhere she went, helping her make wise choices.",
+        translation: "她说这块表无论她走到哪里都能告诉她天气，帮她做出明智的选择。",
+        grammar:
+          "间接引语中 can → could。'anywhere she went' 引导地点状语从句。'helping...' 现在分词作结果状语。",
+      },
+      {
+        id: "s7",
+        text: "It can even warn you to carry an umbrella and predict which hours of tomorrow will be sunny.",
+        translation: "它甚至能提醒你带伞，还能预测明天哪几个时段会是晴天。",
+        grammar: "'warn sb to do sth' 意为「提醒某人做某事」。'which hours...' 引导宾语从句。",
+      },
+      {
+        id: "s8",
+        text: "\"It can't be cheap,\" I said, \"but a watch like that truly deserves its price.\"",
+        translation: "「这肯定不便宜，」我说，「不过这样一块表确实值这个价。」",
+        grammar: "'can't be' 表示否定推测，「肯定不」。'deserve' 意为「值得」。",
+      },
+      {
+        id: "s9",
+        text: "Then she shared the best news: the watch was on sale that weekend, with a discount if you bought two.",
+        translation: "接着她说出了最棒的消息：那块表周末打折，而且买两块还有优惠。",
+        grammar: "冒号引出具体内容。'with a discount if...' 补充说明条件。",
+      },
+      {
+        id: "s10",
+        text: "\"Count me in — let's get one each!\" I said, but she had a small problem.",
+        translation: "「算我一个——咱们一人买一块吧！」我说，但她遇到了点小麻烦。",
+        grammar: "'Count me in' 意为「算我一个」。'each' 表示「每人一块」。",
+      },
+      {
+        id: "s11",
+        text: "She had already arranged an important meeting that weekend, so she asked me to buy both watches and keep one for myself.",
+        translation: "她那个周末已经安排了一个重要的会议，所以她请我把两块表都买下来，自己留一块。",
+        grammar:
+          "过去完成时 'had arranged' 表示在过去某动作之前已完成。'ask sb to do sth'。",
+      },
+      {
+        id: "s12",
+        text: "\"No problem,\" I told her. Now I can't wait for the weekend to try my own new digital watch.",
+        translation: "「没问题，」我对她说。现在我都等不及周末去试试我自己的新电子表了。",
+        grammar:
+          "'can't wait to do sth' 表示「迫不及待想做某事」。'my own' 强调「我自己的」。",
+      },
+    ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        question: "The word 'humid' describes weather that is —",
+        options: [
+          "warm and wet",
+          "cold and dry",
+          "bright and sunny",
+          "windy and clear",
+        ],
+        correctAnswer: "warm and wet",
+        explanation:
+          "The cousin is bothered by London's damp, humid (warm and wet) air.",
+      },
+      {
+        id: "q2",
+        type: "detail",
+        question: "What can the digital watch do?",
+        options: [
+          "Report and predict the weather",
+          "Make phone calls only",
+          "Cook food",
+          "Translate languages",
+        ],
+        correctAnswer: "Report and predict the weather",
+        explanation:
+          "It reports the weather wherever she goes and predicts sunny times.",
+      },
+      {
+        id: "q3",
+        type: "main_idea",
+        question: "What is the story mainly about?",
+        options: [
+          "A smart watch that reports the weather",
+          "How to travel to London",
+          "Why goldfish need care",
+          "A ballet exam",
+        ],
+        correctAnswer: "A smart watch that reports the weather",
+        explanation:
+          "The whole chat is about a digital watch that can report and predict the weather.",
+      },
+      {
+        id: "q4",
+        type: "tense",
+        question:
+          "\"For more than a year now, my cousin has lived in London.\" What tense is 'has lived'?",
+        options: [
+          "Present perfect",
+          "Simple past",
+          "Simple present",
+          "Future",
+        ],
+        correctAnswer: "Present perfect",
+        explanation:
+          "'has lived' with 'for over a year' shows an action that started in the past and continues now — the present perfect.",
+      },
+      {
+        id: "q5",
+        type: "vocabulary",
+        question: "What does 'deserve' mean?",
+        options: [
+          "To be worth something",
+          "To forget something",
+          "To break something",
+          "To hurry",
+        ],
+        correctAnswer: "To be worth something",
+        explanation:
+          "\"It deserves the price\" means the watch is worth that price.",
+      },
+    ],
+  },
+];
+
+// The 18-week Weekly Stories index. Weeks 1–3 are fully integrated and link
+// to real articles; later weeks have no `articleId` yet and render as
+// "coming soon" cards, so they never create a broken route.
+export const weeklyStories: WeeklyStory[] = [
+  {
+    week: 1,
+    titleEn: "The Power of Friendship",
+    titleZh: "友谊的力量",
+    theme: { zh: "友谊与坚持", en: "Friendship & persistence" },
+    articleId: "weekly-1-friendship",
+  },
+  {
+    week: 2,
+    titleEn: "A Stupid Mistake",
+    titleZh: "一个愚蠢的错误",
+    theme: { zh: "善待动物 · 不要想当然", en: "Caring for animals" },
+    articleId: "weekly-2-stupid-mistake",
+  },
+  {
+    week: 3,
+    titleEn: "A Digital Watch",
+    titleZh: "一块电子表",
+    theme: { zh: "天气与科技", en: "Weather & technology" },
+    articleId: "weekly-3-digital-watch",
+  },
+  {
+    week: 4,
+    titleEn: "The Weather Must Be Crazy",
+    titleZh: "疯狂的天气",
+    theme: { zh: "多变的天气", en: "Strange, changing weather" },
+  },
+  {
+    week: 5,
+    titleEn: "Boss Day",
+    titleZh: "老板日",
+    theme: { zh: "职业体验", en: "Jobs & roles" },
+  },
+  {
+    week: 6,
+    titleEn: "A Policeman and His Diving Coach",
+    titleZh: "警察和他的潜水教练",
+    theme: { zh: "勇气与救援", en: "Courage & rescue" },
+  },
+  {
+    week: 7,
+    titleEn: "A Cool Surprise Party",
+    titleZh: "酷酷的惊喜派对",
+    theme: { zh: "惊喜与友情", en: "A surprise party" },
+  },
+  {
+    week: 8,
+    titleEn: "A Silly Behaviour",
+    titleZh: "一个犯傻的举动",
+    theme: { zh: "诚实与反思", en: "Honesty & reflection" },
+  },
+  {
+    week: 9,
+    titleEn: "The Journey to London",
+    titleZh: "伦敦之旅",
+    theme: { zh: "旅行见闻", en: "A journey to London" },
+  },
+  {
+    week: 10,
+    titleEn: "Transport",
+    titleZh: "交通方式",
+    theme: { zh: "交通工具", en: "Ways to get around" },
+  },
+  {
+    week: 11,
+    titleEn: "Approaching the Earth",
+    titleZh: "走近地球",
+    theme: { zh: "太空与地球", en: "Space & the Earth" },
+  },
+  {
+    week: 12,
+    titleEn: "Let's Go to the Farm",
+    titleZh: "去农场吧",
+    theme: { zh: "农场的一天", en: "A day at the farm" },
+  },
+  {
+    week: 13,
+    titleEn: "Take Good Care of Your Body!",
+    titleZh: "照顾好你的身体！",
+    theme: { zh: "爱护身体", en: "Take care of your body" },
+  },
+  {
+    week: 14,
+    titleEn: "Sports Count a Lot",
+    titleZh: "运动很重要",
+    theme: { zh: "运动的意义", en: "Why sports matter" },
+  },
+  {
+    week: 15,
+    titleEn: "Our Environment Matters",
+    titleZh: "环境很重要",
+    theme: { zh: "保护环境", en: "Our environment matters" },
+  },
+  {
+    week: 16,
+    titleEn: "Rubbish Sorting",
+    titleZh: "垃圾分类",
+    theme: { zh: "垃圾分类", en: "Sorting rubbish" },
+  },
+  {
+    week: 17,
+    titleEn: "Communication and Technology",
+    titleZh: "沟通与科技",
+    theme: { zh: "沟通与科技", en: "Communication & technology" },
+  },
+  {
+    week: 18,
+    titleEn: "Robots",
+    titleZh: "机器人",
+    theme: { zh: "机器人", en: "Robots" },
+  },
 ];
 
 export const dictionary: Record<string, WordEntry> = {
@@ -1850,6 +2465,302 @@ export const dictionary: Record<string, WordEntry> = {
     translation: "未来",
     example: "What do you want to be in the future?",
     exampleTranslation: "你将来想做什么？",
+  },
+
+  // weekly-1: The Power of Friendship
+  generous: {
+    word: "generous",
+    pronunciation: "/ˈdʒenərəs/",
+    partOfSpeech: "adj.",
+    definition: "Happy to give or share with others.",
+    translation: "慷慨的；大方的",
+    example: "She is generous and always shares her snacks.",
+    exampleTranslation: "她很大方，总是分享自己的零食。",
+  },
+  fond: {
+    word: "fond",
+    pronunciation: "/fɒnd/",
+    partOfSpeech: "adj.",
+    definition: "Liking something a lot (usually 'be fond of').",
+    translation: "喜爱的",
+    example: "My sister is fond of painting.",
+    exampleTranslation: "我妹妹喜欢画画。",
+  },
+  anxious: {
+    word: "anxious",
+    pronunciation: "/ˈæŋkʃəs/",
+    partOfSpeech: "adj.",
+    definition: "Worried and uneasy about something.",
+    translation: "焦虑的；担心的",
+    example: "He felt anxious before the big game.",
+    exampleTranslation: "大赛前他感到焦虑。",
+  },
+  disappointing: {
+    word: "disappointing",
+    pronunciation: "/ˌdɪsəˈpɔɪntɪŋ/",
+    partOfSpeech: "adj.",
+    definition: "Not as good as you hoped.",
+    translation: "令人失望的",
+    example: "The movie had a disappointing ending.",
+    exampleTranslation: "这部电影的结局令人失望。",
+  },
+  embarrassed: {
+    word: "embarrassed",
+    pronunciation: "/ɪmˈbærəst/",
+    partOfSpeech: "adj.",
+    definition: "Feeling shy or uncomfortable in front of others.",
+    translation: "尴尬的；难为情的",
+    example: "I felt embarrassed when I forgot her name.",
+    exampleTranslation: "我忘了她的名字，感到很尴尬。",
+  },
+  comfort: {
+    word: "comfort",
+    pronunciation: "/ˈkʌmfət/",
+    partOfSpeech: "n. & v.",
+    definition: "To make someone feel better when they are sad.",
+    translation: "安慰；慰藉",
+    example: "She hugged the crying boy to comfort him.",
+    exampleTranslation: "她抱住哭泣的男孩安慰他。",
+  },
+  confident: {
+    word: "confident",
+    pronunciation: "/ˈkɒnfɪdənt/",
+    partOfSpeech: "adj.",
+    definition: "Sure that you can do something well.",
+    translation: "自信的",
+    example: "After practice, she felt confident on stage.",
+    exampleTranslation: "练习之后，她在台上很自信。",
+  },
+  encourage: {
+    word: "encourage",
+    pronunciation: "/ɪnˈkʌrɪdʒ/",
+    partOfSpeech: "v.",
+    definition: "To give someone hope, courage, or support.",
+    translation: "鼓励；激励",
+    example: "My teacher encouraged me to keep trying.",
+    exampleTranslation: "老师鼓励我继续努力。",
+  },
+  reliable: {
+    word: "reliable",
+    pronunciation: "/rɪˈlaɪəbl/",
+    partOfSpeech: "adj.",
+    definition: "Able to be trusted or depended on.",
+    translation: "可靠的；可信赖的",
+    example: "A reliable friend keeps their promises.",
+    exampleTranslation: "可靠的朋友会信守承诺。",
+  },
+  courage: {
+    word: "courage",
+    pronunciation: "/ˈkʌrɪdʒ/",
+    partOfSpeech: "n.",
+    definition: "Being brave when something is hard or scary.",
+    translation: "勇气；勇敢",
+    example: "It takes courage to try again after failing.",
+    exampleTranslation: "失败后再试一次需要勇气。",
+  },
+
+  // weekly-2: A Stupid Mistake
+  homeless: {
+    word: "homeless",
+    pronunciation: "/ˈhəʊmləs/",
+    partOfSpeech: "adj.",
+    definition: "Having no home to live in.",
+    translation: "无家可归的；流浪的",
+    example: "They gave food to the homeless cat.",
+    exampleTranslation: "他们给那只流浪猫喂食。",
+  },
+  annoyed: {
+    word: "annoyed",
+    pronunciation: "/əˈnɔɪd/",
+    partOfSpeech: "adj.",
+    definition: "A little angry.",
+    translation: "恼怒的；生气的",
+    example: "She was annoyed by the loud noise.",
+    exampleTranslation: "她被吵闹声弄得很恼火。",
+  },
+  guilty: {
+    word: "guilty",
+    pronunciation: "/ˈɡɪlti/",
+    partOfSpeech: "adj.",
+    definition: "Feeling bad because you did something wrong.",
+    translation: "内疚的；惭愧的",
+    example: "He felt guilty for breaking the cup.",
+    exampleTranslation: "他因为打碎杯子而感到内疚。",
+  },
+  confused: {
+    word: "confused",
+    pronunciation: "/kənˈfjuːzd/",
+    partOfSpeech: "adj.",
+    definition: "Not able to understand something clearly.",
+    translation: "困惑的；糊涂的",
+    example: "The map was hard to read and I got confused.",
+    exampleTranslation: "地图很难看懂，我被弄糊涂了。",
+  },
+  bossy: {
+    word: "bossy",
+    pronunciation: "/ˈbɒsi/",
+    partOfSpeech: "adj.",
+    definition: "Always telling other people what to do.",
+    translation: "爱指挥人的；专横的",
+    example: "My bossy cousin tells everyone where to sit.",
+    exampleTranslation: "我那爱指挥人的表弟告诉每个人该坐哪。",
+  },
+  ashamed: {
+    word: "ashamed",
+    pronunciation: "/əˈʃeɪmd/",
+    partOfSpeech: "adj.",
+    definition: "Feeling bad or sorry about something you did.",
+    translation: "惭愧的；羞愧的",
+    example: "He was ashamed of his rude words.",
+    exampleTranslation: "他为自己粗鲁的话感到惭愧。",
+  },
+  relieved: {
+    word: "relieved",
+    pronunciation: "/rɪˈliːvd/",
+    partOfSpeech: "adj.",
+    definition: "Glad that a worry or problem is over.",
+    translation: "宽慰的；放心的",
+    example: "I was relieved when the test was finally over.",
+    exampleTranslation: "考试终于结束，我松了一口气。",
+  },
+  gentle: {
+    word: "gentle",
+    pronunciation: "/ˈdʒentl/",
+    partOfSpeech: "adj.",
+    definition: "Kind and soft, not rough.",
+    translation: "温柔的；温和的",
+    example: "Be gentle when you hold the baby.",
+    exampleTranslation: "抱婴儿时要轻柔。",
+  },
+  inspire: {
+    word: "inspire",
+    pronunciation: "/ɪnˈspaɪə(r)/",
+    partOfSpeech: "v.",
+    definition: "To make someone want to do something good.",
+    translation: "激励；鼓舞",
+    example: "Her story inspired us to help others.",
+    exampleTranslation: "她的故事激励我们去帮助别人。",
+  },
+  elder: {
+    word: "elder",
+    pronunciation: "/ˈeldə(r)/",
+    partOfSpeech: "adj.",
+    definition: "Older (used for people in a family).",
+    translation: "年长的（家庭中）",
+    example: "My elder brother teaches me math.",
+    exampleTranslation: "我哥哥教我数学。",
+  },
+
+  common: {
+    word: "common",
+    pronunciation: "/ˈkɒmən/",
+    partOfSpeech: "adj.",
+    definition: "Happening often, or shared by many people.",
+    translation: "常见的；共同的",
+    example: "Rain is common here in spring.",
+    exampleTranslation: "这里春天常下雨。",
+  },
+  sense: {
+    word: "sense",
+    pronunciation: "/sens/",
+    partOfSpeech: "n.",
+    definition:
+      "Good judgement; the ability to think and decide sensibly. ('common sense' = practical good judgement.)",
+    translation: "判断力；理智（common sense 常识）",
+    example: "She had the good sense to ask an adult for help.",
+    exampleTranslation: "她很明智，懂得向大人求助。",
+  },
+
+  // weekly-3: A Digital Watch
+  humid: {
+    word: "humid",
+    pronunciation: "/ˈhjuːmɪd/",
+    partOfSpeech: "adj.",
+    definition: "Warm and wet (about weather).",
+    translation: "潮湿的；闷热的",
+    example: "Summers here are hot and humid.",
+    exampleTranslation: "这里的夏天又热又潮湿。",
+  },
+  climate: {
+    word: "climate",
+    pronunciation: "/ˈklaɪmət/",
+    partOfSpeech: "n.",
+    definition: "The usual weather of a place.",
+    translation: "气候",
+    example: "Hainan has a warm climate.",
+    exampleTranslation: "海南气候温暖。",
+  },
+  forecast: {
+    word: "forecast",
+    pronunciation: "/ˈfɔːkɑːst/",
+    partOfSpeech: "n. & v.",
+    definition: "A report of what the weather will be.",
+    translation: "预报；预测",
+    example: "The forecast says it will rain tomorrow.",
+    exampleTranslation: "天气预报说明天有雨。",
+  },
+  mild: {
+    word: "mild",
+    pronunciation: "/maɪld/",
+    partOfSpeech: "adj.",
+    definition: "Not too hot and not too cold; gentle.",
+    translation: "温和的；温暖的",
+    example: "We had a mild winter this year.",
+    exampleTranslation: "今年冬天很温和。",
+  },
+  breeze: {
+    word: "breeze",
+    pronunciation: "/briːz/",
+    partOfSpeech: "n.",
+    definition: "A light, gentle wind.",
+    translation: "微风；和风",
+    example: "A cool breeze blew from the sea.",
+    exampleTranslation: "海上吹来一阵凉爽的微风。",
+  },
+  freezing: {
+    word: "freezing",
+    pronunciation: "/ˈfriːzɪŋ/",
+    partOfSpeech: "adj.",
+    definition: "Very, very cold.",
+    translation: "极冷的；冰冻的",
+    example: "Wear a coat — it's freezing outside.",
+    exampleTranslation: "穿件外套——外面冷极了。",
+  },
+  affect: {
+    word: "affect",
+    pronunciation: "/əˈfekt/",
+    partOfSpeech: "v.",
+    definition: "To change or influence something.",
+    translation: "影响",
+    example: "Bad weather can affect our plans.",
+    exampleTranslation: "坏天气会影响我们的计划。",
+  },
+  wise: {
+    word: "wise",
+    pronunciation: "/waɪz/",
+    partOfSpeech: "adj.",
+    definition: "Able to make good, sensible decisions.",
+    translation: "明智的；充满智慧的",
+    example: "It was wise to bring an umbrella.",
+    exampleTranslation: "带伞是明智的。",
+  },
+  deserve: {
+    word: "deserve",
+    pronunciation: "/dɪˈzɜːv/",
+    partOfSpeech: "v.",
+    definition: "To be worth something because of what you did.",
+    translation: "值得；应得",
+    example: "You worked hard, so you deserve a rest.",
+    exampleTranslation: "你很努力，应该休息一下。",
+  },
+  predict: {
+    word: "predict",
+    pronunciation: "/prɪˈdɪkt/",
+    partOfSpeech: "v.",
+    definition: "To say what will happen in the future.",
+    translation: "预测；预言",
+    example: "Can the watch predict tomorrow's weather?",
+    exampleTranslation: "这块表能预测明天的天气吗？",
   },
 };
 

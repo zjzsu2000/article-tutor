@@ -155,10 +155,25 @@ export default function ArticleReader({
               </p>
             )}
           </div>
+          {article.track === "weekly-stories" && (
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
+              <span className="rounded-full bg-brand-50 px-2.5 py-0.5 font-semibold text-brand-700">
+                {t.home.weeklyHeading} · {t.weekly.week(article.weekNumber ?? 0)}
+              </span>
+              {article.chineseTitle && (
+                <span className="text-slate-500">{article.chineseTitle}</span>
+              )}
+            </div>
+          )}
           <h1 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
             {article.title}
           </h1>
           <p className="mt-2 text-slate-600">{article.subtitle}</p>
+          {article.focus && (
+            <p className="mt-1 text-sm text-slate-500">
+              🎯 {article.focus[locale]}
+            </p>
+          )}
         </header>
 
         <div className="space-y-2 text-lg leading-relaxed text-slate-800">

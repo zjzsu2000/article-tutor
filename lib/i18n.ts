@@ -9,8 +9,19 @@ export function isLocale(value: string): value is Locale {
 export type Dict = {
   htmlLang: string;
   nav: { topics: string; vocabulary: string };
-  home: { title: string; subtitle: string; topicsHeading: string };
+  home: {
+    title: string;
+    subtitle: string;
+    topicsHeading: string;
+    weeklyHeading: string;
+    weeklySubtitle: string;
+  };
   topicCard: { cta: string };
+  weekly: {
+    week: (n: number) => string;
+    comingSoon: string;
+    read: string;
+  };
   article: {
     backToTopics: string;
     minRead: string;
@@ -88,8 +99,16 @@ const zh: Dict = {
     subtitle:
       "选择一个主题开始阅读。点击任意单词可查看释义和翻译，点击句子可查看译文与语法分析。",
     topicsHeading: "主题",
+    weeklyHeading: "每周小故事",
+    weeklySubtitle:
+      "每周一个英语小故事，共 18 周。每篇都有逐句翻译、重点单词和闯关测试。",
   },
   topicCard: { cta: "开始阅读 →" },
+  weekly: {
+    week: (n) => `第 ${n} 周`,
+    comingSoon: "待上线",
+    read: "开始阅读 →",
+  },
   article: {
     backToTopics: "← 返回主题列表",
     minRead: "分钟阅读",
@@ -168,8 +187,16 @@ const en: Dict = {
     subtitle:
       "Pick a topic and start reading. Tap any word for a definition and translation, or tap a sentence to see how the grammar works.",
     topicsHeading: "Topics",
+    weeklyHeading: "Weekly Stories",
+    weeklySubtitle:
+      "One short English story each week, 18 weeks in all. Every story has sentence translations, key words, and a Challenge.",
   },
   topicCard: { cta: "Start reading →" },
+  weekly: {
+    week: (n) => `Week ${n}`,
+    comingSoon: "Coming soon",
+    read: "Start reading →",
+  },
   article: {
     backToTopics: "← All topics",
     minRead: "min read",
