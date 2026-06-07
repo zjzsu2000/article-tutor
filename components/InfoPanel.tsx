@@ -32,7 +32,7 @@ export default function InfoPanel({
 
   if (!selection) {
     return (
-      <aside className="hidden h-fit rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-sm text-slate-500 lg:block">
+      <aside className="hidden h-fit rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-sm text-slate-500 lg:block lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
         <p className="font-medium text-slate-700">{t.panel.nothingSelected}</p>
         <p className="mt-2 leading-relaxed">{t.panel.nothingSelectedHint}</p>
       </aside>
@@ -40,7 +40,7 @@ export default function InfoPanel({
   }
 
   return (
-    <aside className="h-fit rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <aside className="h-fit rounded-2xl border border-slate-200 bg-white p-5 shadow-sm lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
       <div className="mb-3 flex items-center justify-between">
         <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
           {selection.kind === "word" ? t.panel.word : t.panel.sentence}
@@ -108,9 +108,11 @@ function WordView({
           </span>
         )}
       </div>
-      {entry.pronunciation && (
+      {(entry.pronunciation || ttsSupported) && (
         <div className="mt-1 flex items-center gap-2">
-          <span className="text-sm text-slate-600">{entry.pronunciation}</span>
+          {entry.pronunciation && (
+            <span className="text-sm text-slate-600">{entry.pronunciation}</span>
+          )}
           {ttsSupported && (
             <button
               type="button"

@@ -70,6 +70,57 @@ export default function ArticleReader({
     }
   }, [speaking, isOurSpeech]);
 
+  // While the full article is reading, the side panel follows the currently
+  // spoken sentence so the learner can listen and read the translation at the
+  // same time. A manual word/sentence tap takes over until the next sentence
+  // boundary; when reading stops, the last sentence stays shown.
+  const readingSentence =
+    isOurSpeech && readingIndex != null
+      ? (article.sentences[readingIndex] ?? null)
+      : null;
+
+  const prevReadingRef = useRef<number | null>(null);
+  useEffect(() => {
+    if (
+      isOurSpeech &&
+      readingIndex != null &&
+      readingIndex !== prevReadingRef.current
+    ) {
+      setSelection(null); // auto-follow takes over at each new sentence
+    }
+    prevReadingRef.current = isOurSpeech ? readingIndex : null;
+  }, [isOurSpeech, readingIndex]);
+
+  const lastReadingRef = useRef<Sentence | null>(null);
+  useEffect(() => {
+    if (readingSentence) lastReadingRef.current = readingSentence;
+  }, [readingSentence]);
+
+  const wasReadingRef = useRef(false);
+  useEffect(() => {
+    const readingActive = isOurSpeech && speaking;
+    if (wasReadingRef.current && !readingActive) {
+      const last = lastReadingRef.current;
+      if (last) {
+        setSelection(
+          (cur) =>
+            cur ?? { kind: "sentence", sentence: last, key: `reading:${last.id}` }
+        );
+      }
+    }
+    wasReadingRef.current = readingActive;
+  }, [isOurSpeech, speaking]);
+
+  const effectiveSelection: Selection =
+    selection ??
+    (readingSentence
+      ? {
+          kind: "sentence",
+          sentence: readingSentence,
+          key: `reading:${readingSentence.id}`,
+        }
+      : null);
+
   const handleWord = (raw: string, sentenceId: string, idx: number) => {
     const entry = lookupWord(raw, locale);
     setSelection({
@@ -220,7 +271,7 @@ export default function ArticleReader({
       </div>
 
       <InfoPanel
-        selection={selection}
+        selection={effectiveSelection}
         onClose={() => setSelection(null)}
         locale={locale}
       />

@@ -30,6 +30,21 @@ const listeners = new Set<(s: TTSState) => void>();
 let currentVoice: SpeechSynthesisVoice | null = null;
 let voiceInitialized = false;
 
+// Full-article reading plays one sentence at a time, chained on `onend`, so we
+// always know the current position and can recover it if the browser's
+// pause/resume is unreliable.
+type SeqState = {
+  id: number;
+  texts: string[];
+  index: number;
+  rate: number;
+  onProgress?: (index: number) => void;
+};
+let seqState: SeqState | null = null;
+// Per-utterance token. Bumping it makes a previous utterance's onend/onerror a
+// no-op — used when we cancel-and-restart after a failed resume.
+let utterToken = 0;
+
 function setState(patch: Partial<TTSState>) {
   state = { ...state, ...patch };
   listeners.forEach((l) => l(state));
@@ -98,6 +113,8 @@ export function ttsSpeak(
   if (!ttsSupported()) return null;
   ensureVoiceInit();
   const myId = state.sequenceId + 1;
+  // A single-word/sentence speak supersedes any full-article sequence.
+  seqState = null;
   setState({ speaking: true, paused: false, sequenceId: myId });
   startFresh(() => {
     if (myId !== state.sequenceId) return;
@@ -121,33 +138,54 @@ export function ttsSpeakSequence(
   if (!ttsSupported() || texts.length === 0) return null;
   ensureVoiceInit();
   const myId = state.sequenceId + 1;
+  seqState = {
+    id: myId,
+    texts,
+    index: 0,
+    rate: opts?.rate ?? DEFAULT_RATE,
+    onProgress: opts?.onProgress,
+  };
   setState({ speaking: true, paused: false, sequenceId: myId });
   startFresh(() => {
     if (myId !== state.sequenceId) return;
-    texts.forEach((text, i) => {
-      const u = makeUtterance(text, opts?.rate ?? DEFAULT_RATE);
-      if (opts?.onProgress) {
-        u.onstart = () => {
-          if (myId === state.sequenceId) opts.onProgress!(i);
-        };
-      }
-      if (i === texts.length - 1) {
-        const finish = () => {
-          if (myId === state.sequenceId) {
-            setState({ speaking: false, paused: false });
-          }
-        };
-        u.onend = finish;
-        u.onerror = finish;
-      }
-      window.speechSynthesis.speak(u);
-    });
+    speakSeqFrom(0);
   });
   return myId;
 }
 
+// Speak one sentence of the active sequence, then chain to the next on end.
+function speakSeqFrom(index: number) {
+  const s = seqState;
+  if (!ttsSupported() || !s || s.id !== state.sequenceId) return;
+  if (index >= s.texts.length) {
+    setState({ speaking: false, paused: false });
+    seqState = null;
+    return;
+  }
+  s.index = index;
+  const myUtter = ++utterToken;
+  const u = makeUtterance(s.texts[index], s.rate);
+  u.onstart = () => {
+    if (s.id === state.sequenceId) s.onProgress?.(index);
+  };
+  const next = () => {
+    // Ignore stale callbacks (a superseded sequence, or an utterance we
+    // deliberately cancelled to restart) and never advance while paused.
+    if (myUtter !== utterToken || s.id !== state.sequenceId || state.paused) {
+      return;
+    }
+    speakSeqFrom(index + 1);
+  };
+  u.onend = next;
+  u.onerror = next;
+  window.speechSynthesis.speak(u);
+}
+
 export function ttsStop() {
-  // Bump sequenceId so any in-flight callbacks become no-ops.
+  // Bump sequenceId + utterToken so any in-flight callbacks become no-ops,
+  // and drop the active sequence.
+  seqState = null;
+  utterToken++;
   setState({
     speaking: false,
     paused: false,
@@ -177,12 +215,43 @@ export function ttsPause() {
 
 export function ttsResume() {
   if (!ttsSupported() || !state.paused) return;
+  const synth = window.speechSynthesis;
   try {
-    window.speechSynthesis.resume();
+    synth.resume();
   } catch {
-    return;
+    /* noop — fall through to the restart fallback below */
   }
   setState({ paused: false });
+
+  // Some browsers (notably Chromium / HarmonyOS) don't actually continue a
+  // paused queue on resume(). If the engine still isn't speaking shortly
+  // after, restart from the CURRENT sentence rather than leaving the learner
+  // stuck or jumping back to the beginning.
+  const idAtResume = state.sequenceId;
+  setTimeout(() => {
+    if (state.sequenceId !== idAtResume || state.paused) return;
+    if (!seqState || seqState.id !== idAtResume) return;
+    const stuck = synth.paused || (!synth.speaking && !synth.pending);
+    if (!stuck) return;
+    // Invalidate the wedged utterance, then re-speak the current sentence.
+    utterToken++;
+    // Same defensive guard as startFresh: some browsers leave the engine
+    // wedged if cancel() happens while paused, so resume() first.
+    if (synth.paused) {
+      try {
+        synth.resume();
+      } catch {
+        /* noop */
+      }
+    }
+    synth.cancel();
+    const startIndex = seqState.index;
+    setTimeout(() => {
+      if (state.sequenceId === idAtResume && !state.paused) {
+        speakSeqFrom(startIndex);
+      }
+    }, CANCEL_SETTLE_MS);
+  }, 300);
 }
 
 function ttsSubscribe(listener: (s: TTSState) => void): () => void {
