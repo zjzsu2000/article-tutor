@@ -34,6 +34,18 @@ Human approval is required before every commit, push, or deploy. The current hum
 
 Generating code is not a completion signal by itself. Every report must include build/test/review status, or clearly state which checks were skipped and why.
 
+## Reviewer Output
+
+After every review, the Reviewer must include a `Builder follow-up prompt` section. The prompt should be ready to send directly to Claude Code or whichever Builder is doing the next implementation step.
+
+Use these rules:
+
+- If there are blockers, the prompt tells the Builder to fix only the blockers first, includes exact files/functions when known, asks for focused verification, and says not to commit, push, or deploy.
+- If there are only minor findings, the prompt says which minor findings to fix now and which to accept or defer, includes verification commands, and says not to commit, push, or deploy unless explicitly approved.
+- If the change is approved with no requested edits, the prompt says the change is approved and ready for the human commit decision, and includes the recommended commit message.
+
+This section is required even when the review result is approval. The goal is to avoid a second prompt-writing round after every Codex review.
+
 ## Stop Conditions
 
 Stop and ask the human before continuing when any of these happen:

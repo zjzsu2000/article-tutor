@@ -47,3 +47,12 @@ Use this checklist before accepting Claude Code or other builder changes.
 - Release note or changelog was updated for user-visible behavior changes.
 - Review package or review prompt was updated if the next round needs focused review.
 - Suggested commit message matches the actual diff.
+
+## Reviewer Output Format
+
+- Findings are grouped by severity, with blockers called out first.
+- The review result is explicit: approve, approve with follow-up, or reject.
+- The report includes a `Builder follow-up prompt` section ready to send to the Builder.
+- If there are blockers, the prompt instructs the Builder to fix only the blockers first, names exact files/functions when known, and says not to commit, push, or deploy.
+- If there are only minor findings, the prompt says which findings to fix now and which to accept or defer, includes verification commands, and says not to commit, push, or deploy unless explicitly approved.
+- If approved with no requested changes, the prompt says the change is approved and ready for the human commit decision, and includes the recommended commit message.

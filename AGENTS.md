@@ -46,3 +46,4 @@ Never mark a task complete only because code was generated. A completion report 
 - Stage only files that belong to the requested task.
 - Preserve unrelated working-tree changes; do not revert work you did not make.
 - Final reports should include files changed, verification commands, any skipped checks, and suggested next steps.
+- Review reports must include a `Builder follow-up prompt` section that the human can send directly to the Builder. If there are blockers, the prompt should ask the Builder to fix only blockers first. If there are only minor findings, the prompt should say which to fix now and which to defer. If there are no requested changes, the prompt should state that the change is approved and ready for the human commit decision. Always include no-commit/no-push/no-deploy guidance unless the human explicitly approved those actions.
