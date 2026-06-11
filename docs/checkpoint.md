@@ -1,6 +1,8 @@
 # Project Checkpoint
 
-Last updated: 2026-06-06
+Last updated: 2026-06-10
+
+State: branch `main` in sync with origin; latest Vercel prod deploy Ready; Cloudflare Pages mirror needs a manual redeploy. (Reviewer-workflow docs `AGENTS.md` / `docs/agent-loop.md` / `docs/review-checklist.md` were committed in `c3fa28f`.)
 
 ## Current Status
 
@@ -39,9 +41,31 @@ Last updated: 2026-06-06
 
 - Integrate the next Weekly Stories batch (weeks 4–6), one to three per round, using the adaptation rules in `docs/content-plans/2026-06-04-weekly-stories-track.md`.
 - Add grammar-style Challenge questions to the remaining topic articles (`favorite-festival`, `olympic-games`, `young-inventor`, `robots-help`), one or two articles per round.
+- Decide on the 3 uncommitted workflow-doc edits (`AGENTS.md`, `docs/agent-loop.md`, `docs/review-checklist.md`) — commit or discard.
+- Real-device QA of the reader bugfixes (pause/resume, sticky panel, panel-follow during reading) on China / HarmonyOS browsers, then run the Cloudflare manual redeploy.
 - Add focused review prompts for new learner-facing content before merging.
 - Improve Challenge-to-vocabulary flow, such as saving missed vocabulary questions, in a separate scoped round.
 - Add a minimal manual QA checklist for mobile reading, quiz, and TTS behavior.
+
+## Co-Creation Notes (preserve)
+
+- The 18-week Weekly Stories track is the learner's (the user's son's) main curriculum; he is learner + co-author. Keep tone encouraging, age-appropriate, never exam-like.
+- Parent/teacher reviewer owns content/pedagogy quality — use the review checklist in `docs/content-plans/2026-06-04-weekly-stories-track.md` (translations, grammar notes, quiz answers, age fit, copyright-safe).
+- The separate Vocabulary Practice Sandbox (HTML repo) is the design lab for learner-authored words/examples; proven ideas graduate into this app as React components — do not copy single-file HTML in.
+- Learner flags confusing words → feeds dictionary coverage; missed quiz vocabulary → future auto-save into the vocab list.
+- Source for new weeks: `/Users/zhzja/code/english_learning_notes/每周一个小故事.docx` (family study doc, copyright-uncertain — retell in original words, never paste).
+
+## To Resume
+
+```bash
+cd /Users/zhzja/code/english_study
+git status                         # note the 3 uncommitted workflow docs
+npx tsc --noEmit && npm run build  # working checks (npm run lint is unconfigured)
+# Cloudflare mirror (manual, when ready):
+npm run build && npx wrangler pages deploy out --project-name english-study --branch main
+```
+
+Workflow: build the smallest diff → prepare a `/tmp/<task>-review/` package → Codex review → human gate before any commit/push/deploy.
 
 ## Verification Commands
 
