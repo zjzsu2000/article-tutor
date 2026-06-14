@@ -2,7 +2,7 @@
 
 Last updated: 2026-06-14
 
-State: branch `main` in sync with origin; latest Vercel prod deploy Ready; Cloudflare Pages mirror needs a manual redeploy. (Reviewer-workflow docs `AGENTS.md` / `docs/agent-loop.md` / `docs/review-checklist.md` were committed in `c3fa28f`.)
+State: branch `main` is one commit ahead of origin locally (`c89326b fix(vocabulary): add safer delete and weekly grouping`, not yet pushed); latest Vercel prod deploy Ready; Cloudflare Pages mirror needs a manual redeploy. Reviewer-workflow docs and the local-notes ignore rule were committed separately (`c3fa28f`, `493ab62`, `20a6efe`).
 
 ## Current Status
 
@@ -21,6 +21,7 @@ State: branch `main` in sync with origin; latest Vercel prod deploy Ready; Cloud
 
 ## Last Completed Change
 
+- Vocabulary notebook UX + data organization (`fix(vocabulary): add safer delete and weekly grouping`, commit `c89326b`): (1) single delete moved to its own bottom row, danger-styled, gated behind a confirmation dialog, with read-aloud kept as a top-right icon button; (2) new selection mode with checkboxes + a batch-delete action bar (clear selection / delete selected / done), batch delete behind a counted confirmation; (3) saved words now group/filter by source — Weekly Stories week, source article, or "Uncategorized / 未分类" — via new optional `WordSource` metadata (`articleId`, `articleTitle`, `track`, `weekNumber`, `sourceLabel`) captured at save time through `ArticleReader` → `InfoPanel` → `saveWord`; (4) device-only note added ("生词仅保存在当前设备和浏览器。 / Vocabulary is saved only on this device and browser."). `lib/storage.ts` gains `removeWords()` batch delete and a defensive `normalizeSavedWord` load migration so legacy entries (missing `savedAt` / source fields) stay visible. Two Codex round-1 blockers fixed: selection clears on filter change so batch delete can't remove hidden words, and `groupKeyOf` prefers explicit `weekNumber` → `articleId` → `sourceWeek` (legacy fallback only) so non-weekly saves group by their real article. Files: `components/VocabularyClient.tsx`, `components/InfoPanel.tsx`, `components/ArticleReader.tsx`, `lib/storage.ts`, `lib/types.ts`, `lib/i18n.ts`. No backend/API/deps; static export intact; `tsc` + `build` pass; `npm run lint` skipped (unconfigured). Review package in `/tmp/vocabulary-notebook-review/`.
 - Docs-only workflow update: review packages now persist the full Codex review output to `CODEX_REVIEW.md` in the task-specific `/tmp/<task-name>-review/` directory. The ready-to-run Codex command template uses `tee`, and Builders are expected to read `CODEX_REVIEW.md` and extract the `Builder Follow-up Prompt` automatically for the next implementation pass.
 - Docs-only workflow update: `AGENTS.md`, `docs/agent-loop.md`, and `docs/review-checklist.md` now require Builders to automatically create a review package after non-trivial user-visible or code-logic changes. Packages live under `/tmp/<task-name>-review/` (for vocabulary notebook work: `/tmp/vocabulary-notebook-review/`) and include `REVIEW.md`, `changes.patch`, plus `FIX_SUMMARY.md` when useful. `changes.patch` must include untracked files via `git add -N`, and the Builder must print an exact Codex Reviewer command. The no-commit/no-push/no-deploy human gate remains in force.
 - Docs-only workflow update: `AGENTS.md`, `docs/agent-loop.md`, and `docs/review-checklist.md` now require every Codex/Reviewer report to include a ready-to-send `Builder follow-up prompt`. The prompt must target blockers-only when blockers exist, specify minor findings to fix/defer when only minor issues remain, or state approval plus a recommended commit message when no edits are needed. It must also preserve the no-commit/no-push/no-deploy gate unless explicitly approved.
@@ -45,7 +46,8 @@ State: branch `main` in sync with origin; latest Vercel prod deploy Ready; Cloud
 
 - Integrate the next Weekly Stories batch (weeks 4–6), one to three per round, using the adaptation rules in `docs/content-plans/2026-06-04-weekly-stories-track.md`.
 - Add grammar-style Challenge questions to the remaining topic articles (`favorite-festival`, `olympic-games`, `young-inventor`, `robots-help`), one or two articles per round.
-- Before any commit, inspect `git status --short` and stage only files that belong to the chosen task; current local work may include unrelated `.gitignore` / `lib/types.ts` changes alongside workflow-doc edits.
+- Before any commit, inspect `git status --short` and stage only files that belong to the chosen task.
+- Push `c89326b` (vocabulary notebook fix) to origin and run the Cloudflare manual redeploy once approved.
 - Real-device QA of the reader bugfixes (pause/resume, sticky panel, panel-follow during reading) on China / HarmonyOS browsers, then run the Cloudflare manual redeploy.
 - Add focused review prompts for new learner-facing content before merging.
 - Improve Challenge-to-vocabulary flow, such as saving missed vocabulary questions, in a separate scoped round.
@@ -63,7 +65,7 @@ State: branch `main` in sync with origin; latest Vercel prod deploy Ready; Cloud
 
 ```bash
 cd /Users/zhzja/code/english_study
-git status                         # note the 3 uncommitted workflow docs
+git status                         # main is 1 commit ahead of origin (c89326b)
 npx tsc --noEmit && npm run build  # working checks (npm run lint is unconfigured)
 # Cloudflare mirror (manual, when ready):
 npm run build && npx wrangler pages deploy out --project-name english-study --branch main
