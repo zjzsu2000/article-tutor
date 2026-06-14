@@ -1,6 +1,6 @@
 # Project Checkpoint
 
-Last updated: 2026-06-10
+Last updated: 2026-06-14
 
 State: branch `main` in sync with origin; latest Vercel prod deploy Ready; Cloudflare Pages mirror needs a manual redeploy. (Reviewer-workflow docs `AGENTS.md` / `docs/agent-loop.md` / `docs/review-checklist.md` were committed in `c3fa28f`.)
 
@@ -16,9 +16,13 @@ State: branch `main` in sync with origin; latest Vercel prod deploy Ready; Cloud
 - Current human instruction wins over standing docs for the active session; otherwise future AI sessions should use `AGENTS.md` and this checkpoint as their starting guidance.
 - Human approval is required before commit, push, or deploy.
 - Codex/Reviewer outputs must include a ready-to-send `Builder follow-up prompt` after every review.
+- After any non-trivial user-visible or code-logic change, the Builder must automatically prepare a task-specific `/tmp/<task-name>-review/` Codex review package before asking for commit approval.
+- Codex review output should be saved to `/tmp/<task-name>-review/CODEX_REVIEW.md`; the Builder should read that file and extract the `Builder Follow-up Prompt` automatically instead of requiring human copy/paste.
 
 ## Last Completed Change
 
+- Docs-only workflow update: review packages now persist the full Codex review output to `CODEX_REVIEW.md` in the task-specific `/tmp/<task-name>-review/` directory. The ready-to-run Codex command template uses `tee`, and Builders are expected to read `CODEX_REVIEW.md` and extract the `Builder Follow-up Prompt` automatically for the next implementation pass.
+- Docs-only workflow update: `AGENTS.md`, `docs/agent-loop.md`, and `docs/review-checklist.md` now require Builders to automatically create a review package after non-trivial user-visible or code-logic changes. Packages live under `/tmp/<task-name>-review/` (for vocabulary notebook work: `/tmp/vocabulary-notebook-review/`) and include `REVIEW.md`, `changes.patch`, plus `FIX_SUMMARY.md` when useful. `changes.patch` must include untracked files via `git add -N`, and the Builder must print an exact Codex Reviewer command. The no-commit/no-push/no-deploy human gate remains in force.
 - Docs-only workflow update: `AGENTS.md`, `docs/agent-loop.md`, and `docs/review-checklist.md` now require every Codex/Reviewer report to include a ready-to-send `Builder follow-up prompt`. The prompt must target blockers-only when blockers exist, specify minor findings to fix/defer when only minor issues remain, or state approval plus a recommended commit message when no edits are needed. It must also preserve the no-commit/no-push/no-deploy gate unless explicitly approved.
 - Reading-experience bugfixes (no new content): (1) full-article TTS now speaks one sentence at a time (chained on `onend`) in `lib/tts.ts`, so resume continues from the paused sentence and falls back to restarting the current sentence when a browser's native resume is unreliable; (2) the side info panel is `lg:sticky` so it stays visible while scrolling on desktop/tablet (`components/InfoPanel.tsx`); (3) during full-article reading the panel auto-follows the current sentence's translation/grammar, with a manual tap taking over until the next sentence and the last sentence kept on stop (`components/ArticleReader.tsx`); (4) the missing-word fallback shows the read-aloud button again (button moved out of the pronunciation-only block in `InfoPanel`). Robust TTS switching and dictionary/weeklyDictionary behavior preserved; `tsc` + `build` pass.
 - Improved word-lookup coverage for the Weekly Stories track: added a shared static `lib/weeklyDictionary.ts` (92 entries — Weeks 1–3 source word lists, facts only, no copied example sentences — plus ~18 curated common content/base words). `lookupWord` in `lib/mockData.ts` now checks the weekly dictionary then the global dictionary, each with light suffix normalization so inflected forms resolve (mistakes→mistake, lived→live, shoes→shoe, choices→choice, deserves→deserve, arranged→arrange). Uncovered words now show a friendly fallback ("这个词还没有收录，后面会补充。" / "This word is not in the dictionary yet."). `WordEntry` fields relaxed to optional (+`collocation`, `sourceWeek`); `InfoPanel`/`VocabularyClient` render optional fields conditionally; i18n adds `panel.collocation` and `panel.notInDict`. No backend/API/deps; static export intact; `tsc` + `build` pass.
@@ -41,7 +45,7 @@ State: branch `main` in sync with origin; latest Vercel prod deploy Ready; Cloud
 
 - Integrate the next Weekly Stories batch (weeks 4–6), one to three per round, using the adaptation rules in `docs/content-plans/2026-06-04-weekly-stories-track.md`.
 - Add grammar-style Challenge questions to the remaining topic articles (`favorite-festival`, `olympic-games`, `young-inventor`, `robots-help`), one or two articles per round.
-- Decide on the 3 uncommitted workflow-doc edits (`AGENTS.md`, `docs/agent-loop.md`, `docs/review-checklist.md`) — commit or discard.
+- Before any commit, inspect `git status --short` and stage only files that belong to the chosen task; current local work may include unrelated `.gitignore` / `lib/types.ts` changes alongside workflow-doc edits.
 - Real-device QA of the reader bugfixes (pause/resume, sticky panel, panel-follow during reading) on China / HarmonyOS browsers, then run the Cloudflare manual redeploy.
 - Add focused review prompts for new learner-facing content before merging.
 - Improve Challenge-to-vocabulary flow, such as saving missed vocabulary questions, in a separate scoped round.

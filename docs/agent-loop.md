@@ -28,15 +28,70 @@ Human approval is required before every commit, push, or deploy. The current hum
 2. Check `docs/checkpoint.md` for current project state.
 3. Builder implements the narrow change.
 4. Builder runs relevant verification commands.
-5. Reviewer inspects the diff against the brief and `docs/review-checklist.md`.
-6. Human approves, asks for revisions, or stops the round.
-7. Commit, push, or deploy only after explicit human approval.
+5. If the change is user-visible or touches code logic, Builder prepares the standard Codex review package automatically before asking for commit approval.
+6. Reviewer inspects the diff against the brief and `docs/review-checklist.md`.
+7. Human approves, asks for revisions, or stops the round.
+8. Commit, push, or deploy only after explicit human approval.
 
 Generating code is not a completion signal by itself. Every report must include build/test/review status, or clearly state which checks were skipped and why.
+
+## Builder Review Package
+
+After implementation and verification, any non-trivial code change that is user-visible or touches code logic must get a review package automatically. The Builder should not wait for the human to ask for it.
+
+Use a task-specific path under `/tmp`, for example:
+
+```bash
+/tmp/<task-name>-review/
+```
+
+For vocabulary notebook work, use:
+
+```bash
+/tmp/vocabulary-notebook-review/
+```
+
+The package must include:
+
+- `REVIEW.md`
+- `changes.patch`
+- `FIX_SUMMARY.md` when useful
+- `CODEX_REVIEW.md` after Codex review is run
+
+`REVIEW.md` must include:
+
+- Scope.
+- Out-of-scope.
+- Files changed.
+- Root causes / intended behavior.
+- Verification run.
+- Risks.
+- Static export / config safety notes.
+- Specific review focus areas.
+
+`changes.patch` must contain the complete working-tree diff, including untracked files. If the task adds new files, run `git add -N <new-file>` before generating the patch so those files appear in `git diff`.
+
+After creating the package, the Builder must print the exact Codex command for the human to run. The command must save the full Codex output to `CODEX_REVIEW.md` in the same package directory. Use this shape, replacing the package path as needed:
+
+```bash
+codex "Act as Reviewer under docs/agent-loop.md. Review the working-tree changes against /tmp/<task-name>-review/REVIEW.md and docs/review-checklist.md, using /tmp/<task-name>-review/changes.patch as the patch under review. Do not modify code. Report Blockers, Minor Findings, Approve / Reject, and Verified checks. End with a Builder Follow-up Prompt that is directly copyable to Claude Code. Do not commit, push, or deploy." | tee /tmp/<task-name>-review/CODEX_REVIEW.md
+```
+
+After Codex review completes, the Builder must read `/tmp/<task-name>-review/CODEX_REVIEW.md`, extract the `Builder Follow-up Prompt`, and use that prompt for the next Builder step. The human should not have to copy/paste review text manually.
+
+The human gate still applies after review: the Builder must not commit, push, or deploy until the human explicitly approves.
 
 ## Reviewer Output
 
 After every review, the Reviewer must include a `Builder follow-up prompt` section. The prompt should be ready to send directly to Claude Code or whichever Builder is doing the next implementation step.
+
+The Reviewer output must include these sections:
+
+- Blockers
+- Minor Findings
+- Approve / Reject
+- Verified checks
+- Builder Follow-up Prompt
 
 Use these rules:
 
@@ -59,9 +114,4 @@ Stop and ask the human before continuing when any of these happen:
 
 ## Review Package Pattern
 
-For larger rounds, create a review package outside the repo or in a clearly named docs folder:
-
-- A short brief with scope, constraints, out-of-scope items, and focus areas.
-- A complete patch or clear pointer to the current working-tree diff.
-- Verification already run by the builder.
-- Specific files or content blocks that need human-style review.
+For user-visible or code-logic changes, use the automatic Builder Review Package process above. For docs-only or very small non-code rounds, a lightweight final report may be enough unless the human asks for a package.
