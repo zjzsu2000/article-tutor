@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { Article, Sentence, WordEntry } from "@/lib/types";
+import type { Article, Sentence, WordEntry, WordSource } from "@/lib/types";
 import { lookupWord } from "@/lib/mockData";
 import { getDict, type Locale } from "@/lib/i18n";
 import {
@@ -49,6 +49,23 @@ export default function ArticleReader({
   const ownSeqRef = useRef<number | null>(null);
   const isOurSpeech =
     ownSeqRef.current !== null && ownSeqRef.current === sequenceId;
+
+  // Source metadata attached to any word saved while reading this article, so
+  // the vocabulary notebook can group saved words by week (Weekly Stories) or
+  // by article title (other articles).
+  const wordSource: WordSource = useMemo(
+    () => ({
+      articleId: article.id,
+      articleTitle: article.title,
+      track: article.track,
+      weekNumber: article.weekNumber,
+      sourceLabel:
+        article.track === "weekly-stories"
+          ? `${t.home.weeklyHeading} · ${t.weekly.week(article.weekNumber ?? 0)}`
+          : article.title,
+    }),
+    [article, t]
+  );
 
   const tokenized = useMemo(
     () =>
@@ -274,6 +291,7 @@ export default function ArticleReader({
         selection={effectiveSelection}
         onClose={() => setSelection(null)}
         locale={locale}
+        wordSource={wordSource}
       />
     </div>
   );

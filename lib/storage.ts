@@ -1,4 +1,4 @@
-import type { SavedWord, WordEntry } from "./types";
+import type { SavedWord, WordEntry, WordSource } from "./types";
 
 const KEY = "english_study.savedWords";
 const QUIZ_KEY = "english_study.quizProgress";
@@ -91,13 +91,32 @@ export function recordQuizHistory(articleId: string, ids: string[]): void {
   window.localStorage.setItem(QUIZ_HISTORY_KEY, JSON.stringify(map));
 }
 
+// Defensively coerce one stored item into a SavedWord. Old entries may lack
+// the source metadata fields added later; entries from very old builds may
+// even lack `savedAt`. We keep anything with a usable `word` string and fill
+// safe defaults so the notebook never crashes on legacy data.
+function normalizeSavedWord(raw: unknown): SavedWord | null {
+  if (!raw || typeof raw !== "object") return null;
+  const r = raw as Record<string, unknown>;
+  if (typeof r.word !== "string" || r.word.length === 0) return null;
+  return {
+    ...(r as SavedWord),
+    word: r.word,
+    translation: typeof r.translation === "string" ? r.translation : "",
+    savedAt: typeof r.savedAt === "number" ? r.savedAt : 0,
+  };
+}
+
 export function loadSavedWords(): SavedWord[] {
   if (typeof window === "undefined") return [];
   try {
     const raw = window.localStorage.getItem(KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .map(normalizeSavedWord)
+      .filter((w): w is SavedWord => w !== null);
   } catch {
     return [];
   }
@@ -108,19 +127,29 @@ export function isSaved(word: string): boolean {
   return loadSavedWords().some((w) => w.word.toLowerCase() === key);
 }
 
-export function saveWord(entry: WordEntry): SavedWord[] {
+export function saveWord(entry: WordEntry, source?: WordSource): SavedWord[] {
   const list = loadSavedWords();
   const key = entry.word.toLowerCase();
   if (list.some((w) => w.word.toLowerCase() === key)) return list;
-  const next: SavedWord[] = [{ ...entry, savedAt: Date.now() }, ...list];
+  const next: SavedWord[] = [
+    { ...entry, ...source, savedAt: Date.now() },
+    ...list,
+  ];
   window.localStorage.setItem(KEY, JSON.stringify(next));
   window.dispatchEvent(new Event("savedWords:changed"));
   return next;
 }
 
 export function removeWord(word: string): SavedWord[] {
-  const key = word.toLowerCase();
-  const next = loadSavedWords().filter((w) => w.word.toLowerCase() !== key);
+  return removeWords([word]);
+}
+
+// Remove one or more words in a single write. Matching is case-insensitive,
+// consistent with saveWord/isSaved.
+export function removeWords(words: string[]): SavedWord[] {
+  if (typeof window === "undefined") return [];
+  const keys = new Set(words.map((w) => w.toLowerCase()));
+  const next = loadSavedWords().filter((w) => !keys.has(w.word.toLowerCase()));
   window.localStorage.setItem(KEY, JSON.stringify(next));
   window.dispatchEvent(new Event("savedWords:changed"));
   return next;

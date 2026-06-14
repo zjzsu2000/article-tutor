@@ -59,6 +59,28 @@ export type Dict = {
     browse: string;
     remove: string;
     loading: string;
+    deviceNoteZh: string;
+    deviceNoteEn: string;
+    // grouping / filtering
+    filterLabel: string;
+    allWords: string;
+    weekGroup: (n: number) => string;
+    otherArticles: string;
+    uncategorized: string;
+    groupEmpty: string;
+    // selection / batch delete
+    select: string;
+    exitSelect: string;
+    selectedCount: (n: number) => string;
+    deleteSelected: string;
+    clearSelection: string;
+    nothingSelected: string;
+    // confirmation dialog
+    confirmTitle: string;
+    confirmSingle: (word: string) => string;
+    confirmBatch: (n: number) => string;
+    confirmDelete: string;
+    cancel: string;
   };
   quiz: {
     heading: string;
@@ -150,6 +172,25 @@ const zh: Dict = {
     browse: "浏览主题",
     remove: "移除",
     loading: "加载中…",
+    deviceNoteZh: "生词仅保存在当前设备和浏览器。",
+    deviceNoteEn: "Vocabulary is saved only on this device and browser.",
+    filterLabel: "分组",
+    allWords: "全部单词",
+    weekGroup: (n) => `每周小故事 · 第 ${n} 周`,
+    otherArticles: "其他文章",
+    uncategorized: "未分类",
+    groupEmpty: "这个分组里还没有单词。",
+    select: "选择",
+    exitSelect: "完成",
+    selectedCount: (n) => `已选择 ${n} 个`,
+    deleteSelected: "删除所选",
+    clearSelection: "清除选择",
+    nothingSelected: "请先选择要删除的单词。",
+    confirmTitle: "确认删除",
+    confirmSingle: (word) => `确定要删除“${word}”吗？此操作无法撤销。`,
+    confirmBatch: (n) => `确定要删除选中的 ${n} 个单词吗？此操作无法撤销。`,
+    confirmDelete: "删除",
+    cancel: "取消",
   },
   quiz: {
     heading: "闯关测试",
@@ -242,6 +283,27 @@ const en: Dict = {
     browse: "Browse topics",
     remove: "Remove",
     loading: "Loading…",
+    deviceNoteZh: "生词仅保存在当前设备和浏览器。",
+    deviceNoteEn: "Vocabulary is saved only on this device and browser.",
+    filterLabel: "Group",
+    allWords: "All words",
+    weekGroup: (n) => `Weekly Stories · Week ${n}`,
+    otherArticles: "Other articles",
+    uncategorized: "Uncategorized",
+    groupEmpty: "No words in this group yet.",
+    select: "Select",
+    exitSelect: "Done",
+    selectedCount: (n) => `${n} selected`,
+    deleteSelected: "Delete selected",
+    clearSelection: "Clear selection",
+    nothingSelected: "Select some words to delete first.",
+    confirmTitle: "Confirm delete",
+    confirmSingle: (word) =>
+      `Delete "${word}"? This cannot be undone.`,
+    confirmBatch: (n) =>
+      `Delete the ${n} selected ${n === 1 ? "word" : "words"}? This cannot be undone.`,
+    confirmDelete: "Delete",
+    cancel: "Cancel",
   },
   quiz: {
     heading: "Challenge",

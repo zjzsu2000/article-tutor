@@ -78,4 +78,15 @@ export type WordEntry = {
   sourceWeek?: number; // set for Weekly Stories vocabulary
 };
 
-export type SavedWord = WordEntry & { savedAt: number };
+// Where a saved word came from. All fields are optional so old entries (and
+// words saved before this metadata existed) remain valid. Used by the
+// vocabulary notebook to group/filter words by week or article.
+export type WordSource = {
+  articleId?: string;
+  articleTitle?: string;
+  track?: "weekly-stories";
+  weekNumber?: number;
+  sourceLabel?: string; // human-readable group label, e.g. "每周小故事 · 第 1 周"
+};
+
+export type SavedWord = WordEntry & WordSource & { savedAt: number };

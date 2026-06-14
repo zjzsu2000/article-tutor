@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Sentence, WordEntry } from "@/lib/types";
+import type { Sentence, WordEntry, WordSource } from "@/lib/types";
 import { isSaved, removeWord, saveWord } from "@/lib/storage";
 import { getDict, type Locale } from "@/lib/i18n";
 import { ttsSpeak, useTTSState } from "@/lib/tts";
@@ -15,10 +15,14 @@ export default function InfoPanel({
   selection,
   onClose,
   locale,
+  wordSource,
 }: {
   selection: Selection;
   onClose: () => void;
   locale: Locale;
+  // Where words saved from this panel came from, recorded so the vocabulary
+  // notebook can group them by week/article. Optional for safety.
+  wordSource?: WordSource;
 }) {
   const [saved, setSaved] = useState(false);
   const t = getDict(locale);
@@ -66,7 +70,7 @@ export default function InfoPanel({
               removeWord(selection.entry.word);
               setSaved(false);
             } else {
-              saveWord(selection.entry);
+              saveWord(selection.entry, wordSource);
               setSaved(true);
             }
           }}
