@@ -163,6 +163,7 @@ export const articles: Article[] = [
       {
         id: "q1",
         type: "vocabulary",
+        word: "nervous",
         question: "What does 'nervous' mean in the story?",
         options: [
           "Feeling worried or a little afraid",
@@ -230,6 +231,52 @@ export const articles: Article[] = [
         correctAnswer: "Nervous",
         explanation:
           "At the beginning Lily felt nervous walking through the gate.",
+      },
+      {
+        id: "q7",
+        type: "vocabulary",
+        word: "excited",
+        question:
+          "Lily came home feeling 'excited'. What does 'excited' mean?",
+        options: [
+          "Feeling sleepy and slow",
+          "Feeling very happy and full of energy",
+          "Feeling afraid of the dark",
+          "Feeling hungry",
+        ],
+        correctAnswer: "Feeling very happy and full of energy",
+        explanation:
+          "Lily felt happy and excited about tomorrow — full of happy energy for the next day.",
+      },
+      {
+        id: "q8",
+        type: "vocabulary",
+        word: "promised",
+        question: "\"We promised to be friends.\" What does 'promise' mean?",
+        options: [
+          "To forget something",
+          "To ask a question",
+          "To say you will surely do something",
+          "To walk home",
+        ],
+        correctAnswer: "To say you will surely do something",
+        explanation:
+          "When you promise something, you say you will surely do it — Lily and Mia said they would surely be friends.",
+      },
+      {
+        id: "q9",
+        type: "grammar",
+        question:
+          "\"My classmates asked me where I was from.\" Why is it 'where I was from' and not 'where was I from'?",
+        options: [
+          "Object clauses use statement word order",
+          "It is a spelling mistake",
+          "Questions never use 'where'",
+          "Because 'I' always comes last",
+        ],
+        correctAnswer: "Object clauses use statement word order",
+        explanation:
+          "Inside a reported question (an object clause), we use statement order: asked me where I was from, not where was I from.",
       },
     ],
   },
@@ -302,6 +349,7 @@ export const articles: Article[] = [
       {
         id: "q1",
         type: "vocabulary",
+        word: "trunk",
         question: "What is a 'trunk' in the story?",
         options: [
           "An elephant's long nose",
@@ -358,6 +406,67 @@ export const articles: Article[] = [
         options: ["elephants", "elephant", "elephantes", "elephanties"],
         correctAnswer: "elephants",
         explanation: "Add -s to make the plural: one elephant → two elephants.",
+      },
+      {
+        id: "q6",
+        type: "vocabulary",
+        word: "lift",
+        question: "\"It can lift heavy logs.\" What does 'lift' mean?",
+        options: [
+          "To raise something up",
+          "To eat something",
+          "To hide something",
+          "To wash something",
+        ],
+        correctAnswer: "To raise something up",
+        explanation:
+          "To lift means to raise something up — the trunk raises heavy logs off the ground.",
+      },
+      {
+        id: "q7",
+        type: "vocabulary",
+        word: "greet",
+        question:
+          "Elephants use their trunks to 'greet' friends. What does 'greet' mean?",
+        options: [
+          "To run away from someone",
+          "To feed someone",
+          "To push someone",
+          "To say hello to someone",
+        ],
+        correctAnswer: "To say hello to someone",
+        explanation:
+          "To greet someone is to say hello — elephants touch trunks to say hello to their friends.",
+      },
+      {
+        id: "q8",
+        type: "detail",
+        question:
+          "How long does a baby elephant practice to learn to control its trunk?",
+        options: [
+          "For one day",
+          "For months",
+          "For an hour",
+          "It never needs to practice",
+        ],
+        correctAnswer: "For months",
+        explanation:
+          "The article says a baby elephant has to practice for months to control its trunk.",
+      },
+      {
+        id: "q9",
+        type: "grammar",
+        question:
+          "\"Elephants use their trunks to drink water.\" What does 'to drink' tell us?",
+        options: [
+          "The purpose — why they use their trunks",
+          "The past time of the action",
+          "That it is a question",
+          "That there is more than one elephant",
+        ],
+        correctAnswer: "The purpose — why they use their trunks",
+        explanation:
+          "'use something to do something' — the to-verb explains the purpose: why the trunk is used.",
       },
     ],
   },
@@ -430,6 +539,7 @@ export const articles: Article[] = [
       {
         id: "q1",
         type: "vocabulary",
+        word: "tilts",
         question: "What does 'tilt' mean in the article?",
         options: [
           "To lean to one side",
@@ -489,6 +599,66 @@ export const articles: Article[] = [
         correctAnswer: "Simple present",
         explanation:
           "These are facts that are always true, so the article uses the simple present tense.",
+      },
+      {
+        id: "q6",
+        type: "vocabulary",
+        word: "sunshine",
+        question: "What is 'sunshine'?",
+        options: [
+          "A kind of rain",
+          "The name of a season",
+          "The light and warmth from the sun",
+          "A strong wind",
+        ],
+        correctAnswer: "The light and warmth from the sun",
+        explanation:
+          "In summer the sunshine — the sun's light and warmth — feels strong and warm.",
+      },
+      {
+        id: "q7",
+        type: "vocabulary",
+        word: "wondered",
+        question:
+          "\"Have you ever wondered why we have seasons?\" What does 'wonder' mean here?",
+        options: [
+          "To ask yourself a question about something",
+          "To be angry about something",
+          "To draw a picture of something",
+          "To travel to a place",
+        ],
+        correctAnswer: "To ask yourself a question about something",
+        explanation:
+          "When you wonder about something, you feel curious and ask yourself a question about it.",
+      },
+      {
+        id: "q8",
+        type: "detail",
+        question: "What happens six months after summer where you live?",
+        options: [
+          "Earth stops moving",
+          "The sun becomes bigger",
+          "Your part of Earth gets closer to the sun",
+          "Your part of Earth tilts away from the sun",
+        ],
+        correctAnswer: "Your part of Earth tilts away from the sun",
+        explanation:
+          "The article says: six months later, your part of Earth tilts away from the sun — and that brings winter.",
+      },
+      {
+        id: "q9",
+        type: "grammar",
+        question:
+          "\"The seasons are caused by the way Earth tilts.\" What form is 'are caused'?",
+        options: [
+          "Simple past tense",
+          "Passive voice — something causes the seasons",
+          "A command",
+          "Future tense",
+        ],
+        correctAnswer: "Passive voice — something causes the seasons",
+        explanation:
+          "'be + past participle' (are caused) is the passive voice: the seasons don't act — they are caused by Earth's tilt.",
       },
     ],
   },
@@ -561,6 +731,7 @@ export const articles: Article[] = [
       {
         id: "q1",
         type: "vocabulary",
+        word: "habits",
         question: "What is a 'habit'?",
         options: [
           "Something you do often, usually without thinking",
@@ -623,6 +794,66 @@ export const articles: Article[] = [
         correctAnswer: "glasses",
         explanation:
           "Nouns ending in -s, -ss, -sh, or -ch add -es in the plural: one glass → two glasses.",
+      },
+      {
+        id: "q6",
+        type: "vocabulary",
+        word: "healthy",
+        question: "What does 'healthy' mean?",
+        options: [
+          "In good physical or mental condition",
+          "Very rich",
+          "Very tall",
+          "Always sleepy",
+        ],
+        correctAnswer: "In good physical or mental condition",
+        explanation:
+          "Grandfather is seventy but still healthy — his body is in good condition.",
+      },
+      {
+        id: "q7",
+        type: "vocabulary",
+        word: "instead",
+        question:
+          "\"He reads a book instead of watching his phone.\" What does 'instead of' mean?",
+        options: [
+          "Together with something else",
+          "In the place of something else",
+          "After something else",
+          "Because of something else",
+        ],
+        correctAnswer: "In the place of something else",
+        explanation:
+          "'Instead of' means in the place of — he chooses a book, not the phone.",
+      },
+      {
+        id: "q8",
+        type: "detail",
+        question: "What does Grandfather do in the afternoon?",
+        options: [
+          "He watches TV alone",
+          "He goes swimming",
+          "He plays table tennis with his friends",
+          "He takes a long nap",
+        ],
+        correctAnswer: "He plays table tennis with his friends",
+        explanation:
+          "The article says: in the afternoon, he plays table tennis with his friends.",
+      },
+      {
+        id: "q9",
+        type: "grammar",
+        question:
+          "\"He never skips meals.\" Where does a word like 'never' usually go?",
+        options: [
+          "Before the main verb: He never skips meals",
+          "At the very end of the sentence",
+          "Before the subject: Never he skips meals",
+          "Anywhere — it doesn't matter",
+        ],
+        correctAnswer: "Before the main verb: He never skips meals",
+        explanation:
+          "Frequency adverbs like never, always, and often usually go before the main verb.",
       },
     ],
   },
@@ -695,6 +926,7 @@ export const articles: Article[] = [
       {
         id: "q1",
         type: "vocabulary",
+        word: "gathers",
         question:
           "What does 'gather' mean in 'the whole family gathers for a big dinner'?",
         options: ["To leave", "To come together", "To run fast", "To sleep"],
@@ -723,6 +955,91 @@ export const articles: Article[] = [
         correctAnswer: "Because it brings the whole family together",
         explanation:
           "The last sentence states this directly: 'it brings my whole family together.'",
+      },
+      {
+        id: "q4",
+        type: "vocabulary",
+        word: "relatives",
+        question:
+          "\"We visit relatives and share good wishes.\" Who are 'relatives'?",
+        options: [
+          "People who live far away",
+          "People in your family",
+          "People you have never met",
+          "People who sell food",
+        ],
+        correctAnswer: "People in your family",
+        explanation:
+          "Relatives are people in your family — like uncles, aunts, and cousins.",
+      },
+      {
+        id: "q5",
+        type: "vocabulary",
+        word: "decorations",
+        question: "What are 'decorations'?",
+        options: [
+          "Pretty things used to make a place look nice",
+          "Different kinds of food",
+          "Games played at festivals",
+          "Kinds of money",
+        ],
+        correctAnswer: "Pretty things used to make a place look nice",
+        explanation:
+          "The red paper decorations make the doors and windows look nice for the festival.",
+      },
+      {
+        id: "q6",
+        type: "detail",
+        question: "When does the whole family gather for a big dinner?",
+        options: [
+          "At lunchtime on any day",
+          "A week after the festival",
+          "On New Year's Eve",
+          "On the first day of school",
+        ],
+        correctAnswer: "On New Year's Eve",
+        explanation:
+          "The article says: on New Year's Eve, my whole family gathers for a big dinner together.",
+      },
+      {
+        id: "q7",
+        type: "tense",
+        question:
+          "\"A few days before the festival, my mom and I clean every corner.\" What tense is 'clean'?",
+        options: [
+          "Simple present",
+          "Simple past",
+          "Future",
+          "Present continuous",
+        ],
+        correctAnswer: "Simple present",
+        explanation:
+          "This happens every year before the festival — repeated actions use the simple present tense.",
+      },
+      {
+        id: "q8",
+        type: "singular_plural",
+        question:
+          "Grandparents give one red envelope each. Together they give many red ___?",
+        options: ["envelopes", "envelope", "envelopies", "envelopeses"],
+        correctAnswer: "envelopes",
+        explanation:
+          "Most nouns add -s in the plural: one envelope → many envelopes.",
+      },
+      {
+        id: "q9",
+        type: "grammar",
+        question:
+          "\"We clean every corner of our home.\" Which is correct after 'every'?",
+        options: [
+          "A plural noun: every corners",
+          "A singular noun: every corner",
+          "An -ing verb: every cleaning",
+          "An adverb: every quickly",
+        ],
+        correctAnswer: "A singular noun: every corner",
+        explanation:
+          "'Every' is always followed by a singular countable noun: every corner, every day, every student.",
       },
     ],
   },
@@ -795,6 +1112,7 @@ export const articles: Article[] = [
       {
         id: "q1",
         type: "vocabulary",
+        word: "ancient",
         question: "What does 'ancient' mean?",
         options: [
           "Very new",
@@ -835,6 +1153,96 @@ export const articles: Article[] = [
           "Sport can bring people from different places together",
         explanation:
           "This is the message in the last sentence — sport unites people as friends.",
+      },
+      {
+        id: "q4",
+        type: "vocabulary",
+        word: "athletes",
+        question: "Who are 'athletes'?",
+        options: [
+          "People who are very good at sports",
+          "People who write books",
+          "People who cook food",
+          "People who build houses",
+        ],
+        correctAnswer: "People who are very good at sports",
+        explanation:
+          "Athletes are sportspeople — today they come from almost every country to compete.",
+      },
+      {
+        id: "q5",
+        type: "vocabulary",
+        word: "centuries",
+        question:
+          "\"After many centuries, the games were stopped.\" What is a 'century'?",
+        options: [
+          "A period of ten days",
+          "A period of one hundred years",
+          "A kind of race",
+          "A large stadium",
+        ],
+        correctAnswer: "A period of one hundred years",
+        explanation:
+          "One century is one hundred years, so 'many centuries' means many hundreds of years.",
+      },
+      {
+        id: "q6",
+        type: "detail",
+        question: "How often do athletes come together to compete today?",
+        options: [
+          "Every year",
+          "Every month",
+          "Every ten years",
+          "Every four years",
+        ],
+        correctAnswer: "Every four years",
+        explanation:
+          "The article says athletes come together to compete every four years.",
+      },
+      {
+        id: "q7",
+        type: "tense",
+        question:
+          "\"They started more than two thousand years ago.\" What tense is 'started'?",
+        options: [
+          "Simple past",
+          "Simple present",
+          "Future",
+          "Present perfect",
+        ],
+        correctAnswer: "Simple past",
+        explanation:
+          "'started' is the past form, and 'ago' is a signal word for the simple past.",
+      },
+      {
+        id: "q8",
+        type: "grammar",
+        question:
+          "\"Only Greek men were allowed to take part.\" What form is 'were allowed'?",
+        options: [
+          "A question",
+          "Passive voice — they received permission",
+          "Future tense",
+          "A command",
+        ],
+        correctAnswer: "Passive voice — they received permission",
+        explanation:
+          "'be + past participle' (were allowed) is the passive voice: someone gave them permission.",
+      },
+      {
+        id: "q9",
+        type: "comparative",
+        question:
+          "\"The Olympic Games are the biggest sports event in the world.\" What form is 'biggest'?",
+        options: [
+          "Superlative — comparing one thing with all others",
+          "Comparative — comparing two things",
+          "Simple past",
+          "Plural",
+        ],
+        correctAnswer: "Superlative — comparing one thing with all others",
+        explanation:
+          "big → bigger → biggest. 'The biggest ... in the world' compares the games with all other events.",
       },
     ],
   },
@@ -907,6 +1315,7 @@ export const articles: Article[] = [
       {
         id: "q1",
         type: "vocabulary",
+        word: "inventor",
         question: "What is an 'inventor'?",
         options: [
           "A person who teaches science",
@@ -946,6 +1355,90 @@ export const articles: Article[] = [
         correctAnswer:
           "A great invention does not have to be big — it just has to help someone",
         explanation: "This is exactly what the last sentence tells us.",
+      },
+      {
+        id: "q4",
+        type: "vocabulary",
+        word: "invention",
+        question: "What is an 'invention'?",
+        options: [
+          "A kind of school test",
+          "An old story",
+          "Something new that someone has created",
+          "A place to buy cups",
+        ],
+        correctAnswer: "Something new that someone has created",
+        explanation:
+          "Tom's cup is an invention — a new thing that he created himself.",
+      },
+      {
+        id: "q5",
+        type: "vocabulary",
+        word: "shake",
+        question:
+          "\"His grandmother's hands shake when she drinks.\" What does 'shake' mean?",
+        options: [
+          "To move quickly back and forth",
+          "To stay very still",
+          "To grow bigger",
+          "To feel warm",
+        ],
+        correctAnswer: "To move quickly back and forth",
+        explanation:
+          "Her hands move back and forth without stopping — that is what 'shake' means.",
+      },
+      {
+        id: "q6",
+        type: "detail",
+        question: "What did Tom use to make the first cup?",
+        options: [
+          "New parts from a shop",
+          "Old toy parts and bottle caps",
+          "Paper and glue",
+          "His father's tools only",
+        ],
+        correctAnswer: "Old toy parts and bottle caps",
+        explanation:
+          "The article says he used some old toy parts and bottle caps to make the first one.",
+      },
+      {
+        id: "q7",
+        type: "tense",
+        question: "\"Tom built a special cup.\" What is 'built'?",
+        options: [
+          "The irregular past form of 'build'",
+          "The -ing form of 'build'",
+          "A noun meaning 'building'",
+          "The future form of 'build'",
+        ],
+        correctAnswer: "The irregular past form of 'build'",
+        explanation:
+          "'build' is an irregular verb: build → built (not 'builded').",
+      },
+      {
+        id: "q8",
+        type: "grammar",
+        question:
+          "\"He saw his grandmother's hands shake.\" After 'see + somebody/something', what is the difference between 'shake' and 'shaking'?",
+        options: [
+          "There is no difference at all",
+          "'shake' shows the whole action; 'shaking' would show it in progress",
+          "'shake' is future tense and 'shaking' is past tense",
+          "'shaking' can never be used after 'see'",
+        ],
+        correctAnswer:
+          "'shake' shows the whole action; 'shaking' would show it in progress",
+        explanation:
+          "Both are grammatical: 'see + object + base verb' (shake) presents the whole action as a complete event, while 'see + object + verb-ing' (shaking) would describe the action in progress.",
+      },
+      {
+        id: "q9",
+        type: "singular_plural",
+        question: "Tom thought of one idea, then more. He had many good ___?",
+        options: ["ideas", "idea", "ideaes", "idea's"],
+        correctAnswer: "ideas",
+        explanation:
+          "Most nouns add -s in the plural: one idea → many ideas.",
       },
     ],
   },
@@ -1018,6 +1511,7 @@ export const articles: Article[] = [
       {
         id: "q1",
         type: "vocabulary",
+        word: "risky",
         question: "What does 'risky' mean in the article?",
         options: [
           "Easy and safe",
@@ -1057,6 +1551,96 @@ export const articles: Article[] = [
         correctAnswer: "Robots help people in many ways every day",
         explanation:
           "The article gives many examples — factories, hospitals, homes, dangerous places — to make this point.",
+      },
+      {
+        id: "q4",
+        type: "vocabulary",
+        word: "explore",
+        question: "What does 'explore' mean?",
+        options: [
+          "To travel to a new place to learn about it",
+          "To break something into pieces",
+          "To stay at home",
+          "To repeat something many times",
+        ],
+        correctAnswer: "To travel to a new place to learn about it",
+        explanation:
+          "Robots explore the deep ocean and other planets — they go there to learn about them.",
+      },
+      {
+        id: "q5",
+        type: "vocabulary",
+        word: "patients",
+        question: "In a hospital, who are the 'patients'?",
+        options: [
+          "People who clean the rooms",
+          "People who visit on weekends",
+          "People who are getting medical care",
+          "People who fix machines",
+        ],
+        correctAnswer: "People who are getting medical care",
+        explanation:
+          "Patients are the sick people in a hospital — robots carry medicine to them.",
+      },
+      {
+        id: "q6",
+        type: "detail",
+        question: "What can small round robots do at home?",
+        options: [
+          "Cook dinner",
+          "Clean the floor by themselves",
+          "Do your homework",
+          "Wash the windows",
+        ],
+        correctAnswer: "Clean the floor by themselves",
+        explanation:
+          "The article says: at home, small round robots can clean the floor by themselves.",
+      },
+      {
+        id: "q7",
+        type: "singular_plural",
+        question:
+          "'Factories' is the plural of 'factory'. How do nouns ending in consonant + y form the plural?",
+        options: [
+          "Change -y to -ies: factory → factories",
+          "Just add -s: factorys",
+          "Add -es after y: factoryes",
+          "They stay the same",
+        ],
+        correctAnswer: "Change -y to -ies: factory → factories",
+        explanation:
+          "When a noun ends in a consonant + y, change the y to -ies: factory → factories, baby → babies.",
+      },
+      {
+        id: "q8",
+        type: "tense",
+        question:
+          "\"Scientists are building robots that can explore the deep ocean.\" What tense is 'are building'?",
+        options: [
+          "Simple past",
+          "Simple present",
+          "Present continuous",
+          "Future",
+        ],
+        correctAnswer: "Present continuous",
+        explanation:
+          "'be + verb-ing' (are building) is the present continuous — the work is happening now.",
+      },
+      {
+        id: "q9",
+        type: "grammar",
+        question:
+          "\"Robots can do work that is too risky for humans.\" What does 'that is too risky for humans' do?",
+        options: [
+          "It describes which work — like an adjective for 'work'",
+          "It shows the work happened long ago",
+          "It turns the sentence into a question",
+          "It gives a command",
+        ],
+        correctAnswer:
+          "It describes which work — like an adjective for 'work'",
+        explanation:
+          "'that is too risky for humans' is a relative clause — it tells us exactly which work robots do.",
       },
     ],
   },
@@ -1151,6 +1735,7 @@ export const articles: Article[] = [
       {
         id: "q1",
         type: "vocabulary",
+        word: "nervous",
         question: "In the story, what does 'nervous' mean?",
         options: [
           "Worried and a little afraid",
@@ -1208,6 +1793,7 @@ export const articles: Article[] = [
       {
         id: "q5",
         type: "vocabulary",
+        word: "fond",
         question:
           "\"We are both fond of dancing ballet.\" What does 'be fond of' mean?",
         options: [
@@ -1219,6 +1805,67 @@ export const articles: Article[] = [
         correctAnswer: "To like something very much",
         explanation:
           "'be fond of' is a set phrase meaning to like or love something.",
+      },
+      {
+        id: "q6",
+        type: "vocabulary",
+        word: "reliable",
+        question:
+          "She calls Laura a 'reliable' friend. What does 'reliable' mean?",
+        options: [
+          "Able to be trusted or depended on",
+          "Very rich",
+          "Hard to find",
+          "Funny and loud",
+        ],
+        correctAnswer: "Able to be trusted or depended on",
+        explanation:
+          "A reliable friend is one you can trust and depend on — Laura is always there to help.",
+      },
+      {
+        id: "q7",
+        type: "detail",
+        question: "What present did Laura give to comfort the narrator?",
+        options: [
+          "A box of chocolates",
+          "Brand-new ballet shoes and a handwritten note",
+          "A dance video",
+          "A new dress",
+        ],
+        correctAnswer: "Brand-new ballet shoes and a handwritten note",
+        explanation:
+          "The story says the little present was brand-new ballet shoes and a short handwritten note.",
+      },
+      {
+        id: "q8",
+        type: "grammar",
+        question:
+          "\"Laura is so generous that she helps anyone who asks.\" What does 'so ... that ...' show?",
+        options: [
+          "A question about Laura",
+          "Something that happened long ago",
+          "A result — she is so generous that she helps anyone who asks",
+          "A place where Laura helps",
+        ],
+        correctAnswer:
+          "A result — she is so generous that she helps anyone who asks",
+        explanation:
+          "'so + adjective + that ...' links a strong quality to its result: she is so generous that the result follows — she helps anyone who asks her.",
+      },
+      {
+        id: "q9",
+        type: "tense",
+        question:
+          "\"On the morning of the exam, my hands were shaking.\" What does 'were shaking' describe?",
+        options: [
+          "An action in progress at that past moment",
+          "A habit she still has now",
+          "A future plan",
+          "A command",
+        ],
+        correctAnswer: "An action in progress at that past moment",
+        explanation:
+          "'was/were + verb-ing' is the past continuous — her hands were shaking right at that moment in the past.",
       },
     ],
   },
@@ -1315,6 +1962,7 @@ export const articles: Article[] = [
       {
         id: "q1",
         type: "vocabulary",
+        word: "annoyed",
         question: "What does 'annoyed' mean?",
         options: ["Slightly angry", "Very happy", "Very tired", "Hungry"],
         correctAnswer: "Slightly angry",
@@ -1377,6 +2025,7 @@ export const articles: Article[] = [
       {
         id: "q6",
         type: "vocabulary",
+        word: "sense",
         question: "What does 'common sense' mean?",
         options: [
           "The ability to make good, sensible decisions",
@@ -1387,6 +2036,53 @@ export const articles: Article[] = [
         correctAnswer: "The ability to make good, sensible decisions",
         explanation:
           "George studies well but sometimes lacks common sense — good, practical judgement.",
+      },
+      {
+        id: "q7",
+        type: "vocabulary",
+        word: "ashamed",
+        question:
+          "\"Feeling ashamed of our foolish choice...\" What does 'ashamed' mean?",
+        options: [
+          "Feeling proud of yourself",
+          "Feeling bad or sorry about something you did",
+          "Feeling sleepy",
+          "Feeling hungry",
+        ],
+        correctAnswer: "Feeling bad or sorry about something you did",
+        explanation:
+          "They felt ashamed — bad and sorry — because their foolish choice hurt the cat.",
+      },
+      {
+        id: "q8",
+        type: "tense",
+        question:
+          "\"We realised it had swallowed our pet goldfish.\" Why 'had swallowed'?",
+        options: [
+          "The swallowing happened before they realised it",
+          "The swallowing is happening right now",
+          "The swallowing will happen soon",
+          "The cat never swallowed the fish",
+        ],
+        correctAnswer: "The swallowing happened before they realised it",
+        explanation:
+          "'had + past participle' is the past perfect — the earlier of two past actions: first it swallowed, then they realised.",
+      },
+      {
+        id: "q9",
+        type: "grammar",
+        question:
+          "\"... as if he were a doctor.\" Why can 'were' be used here, even though the subject is 'he'?",
+        options: [
+          "Because 'he' is plural here",
+          "Because the sentence is a question",
+          "'as if + were' shows something that is not true — he is not a doctor",
+          "Because the story happens in the future",
+        ],
+        correctAnswer:
+          "'as if + were' shows something that is not true — he is not a doctor",
+        explanation:
+          "After 'as if', careful English uses 'were' for all persons to mark an unreal situation — the brother only acted like a doctor. (In informal English you may also hear 'was'; 'were' is the classic subjunctive choice.)",
       },
     ],
   },
@@ -1488,6 +2184,7 @@ export const articles: Article[] = [
       {
         id: "q1",
         type: "vocabulary",
+        word: "humid",
         question: "The word 'humid' describes weather that is —",
         options: [
           "warm and wet",
@@ -1545,6 +2242,7 @@ export const articles: Article[] = [
       {
         id: "q5",
         type: "vocabulary",
+        word: "deserve",
         question: "What does 'deserve' mean?",
         options: [
           "To be worth something",
@@ -1555,6 +2253,67 @@ export const articles: Article[] = [
         correctAnswer: "To be worth something",
         explanation:
           "\"It deserves the price\" means the watch is worth that price.",
+      },
+      {
+        id: "q6",
+        type: "vocabulary",
+        word: "forecast",
+        question: "What is a weather 'forecast'?",
+        options: [
+          "A report of what the weather will be",
+          "A kind of strong wind",
+          "A photo of the sky",
+          "A warm coat",
+        ],
+        correctAnswer: "A report of what the weather will be",
+        explanation:
+          "A forecast tells you what the weather will be — the cousin says London's forecast is hard to trust.",
+      },
+      {
+        id: "q7",
+        type: "detail",
+        question:
+          "Why couldn't the cousin buy the watches herself that weekend?",
+        options: [
+          "She was ill in bed",
+          "She had already arranged an important meeting",
+          "The shop was too far away",
+          "She had no money left",
+        ],
+        correctAnswer: "She had already arranged an important meeting",
+        explanation:
+          "She had already arranged an important meeting that weekend, so she asked the narrator to buy both watches.",
+      },
+      {
+        id: "q8",
+        type: "grammar",
+        question:
+          "\"It can't be cheap,\" I said. What does 'can't be' express here?",
+        options: [
+          "That something is not allowed",
+          "An ability someone lost",
+          "A confident guess that something is not true",
+          "A past habit",
+        ],
+        correctAnswer: "A confident guess that something is not true",
+        explanation:
+          "'can't be' here is a deduction — the speaker is almost sure the watch is not cheap.",
+      },
+      {
+        id: "q9",
+        type: "tense",
+        question:
+          "\"She had already arranged an important meeting.\" Why 'had arranged'?",
+        options: [
+          "The arranging happened earlier, before the watch plan came up",
+          "The arranging is happening now",
+          "The arranging is a future plan",
+          "It shows the meeting never happened",
+        ],
+        correctAnswer:
+          "The arranging happened earlier, before the watch plan came up",
+        explanation:
+          "'had + past participle' (past perfect) marks the earlier past action — the meeting was arranged before the shopping plan.",
       },
     ],
   },

@@ -34,6 +34,10 @@ export type Question = {
   options: string[];
   correctAnswer: string;
   explanation: string;
+  // For vocabulary-type questions only: the dictionary key of the word being
+  // tested (must resolve via lookupWord). Lets a future feature auto-save
+  // missed words into the vocabulary notebook. Unused by the current UI.
+  word?: string;
 };
 
 export type Article = {
