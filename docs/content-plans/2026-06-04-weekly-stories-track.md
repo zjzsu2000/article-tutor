@@ -1,7 +1,7 @@
 # Weekly Stories / 每周小故事 — content plan
 
-Date: 2026-06-04
-Status: pilot batch (weeks 1–3) integrated; weeks 4–18 listed as "coming soon".
+Date: 2026-06-04 (last updated 2026-07-13)
+Status: weeks 1–5 integrated (4–5 in review); weeks 6–18 listed as "coming soon".
 
 ## Purpose
 
@@ -9,7 +9,9 @@ A single ongoing learning track of 18 short English stories — one per week —
 adapted into the existing reading app (reader, word lookup, TTS, Challenge).
 Each week becomes one article/lesson with sentence-level Chinese
 translation, short grammar notes, a small set of key vocabulary, and a
-3–6 question Challenge. The track runs from week 1 through week 18.
+9-question Challenge bank (3 vocabulary / 3 comprehension / 3
+grammar-group; each attempt draws 3 at random). The track runs from
+week 1 through week 18.
 
 The track surfaces on the home page as its own "每周小故事 / Weekly Stories"
 section, above the existing topic cards. Existing topics and articles are
@@ -22,8 +24,8 @@ unchanged.
 | 1 | The Power of Friendship | 友谊的力量 | Friendship & persistence | ✅ integrated |
 | 2 | A Stupid Mistake | 一个愚蠢的错误 | Caring for animals | ✅ integrated |
 | 3 | A Digital Watch | 一块电子表 | Weather & technology | ✅ integrated |
-| 4 | The Weather Must Be Crazy | 疯狂的天气 | Strange, changing weather | ⏳ coming soon |
-| 5 | Boss Day | 老板日 | Jobs & roles | ⏳ coming soon |
+| 4 | The Weather Must Be Crazy | 疯狂的天气 | Strange, changing weather | ✅ integrated |
+| 5 | Boss Day | 老板日 | Jobs & roles | ✅ integrated |
 | 6 | A Policeman and His Diving Coach | 警察和他的潜水教练 | Courage & rescue | ⏳ coming soon |
 | 7 | A Cool Surprise Party | 酷酷的惊喜派对 | A surprise party | ⏳ coming soon |
 | 8 | A Silly Behaviour | 一个犯傻的举动 | Honesty & reflection | ⏳ coming soon |
@@ -38,16 +40,16 @@ unchanged.
 | 17 | Communication and Technology | 沟通与科技 | Communication & technology | ⏳ coming soon |
 | 18 | Robots | 机器人 | Robots | ⏳ coming soon |
 
-## Pilot batch (weeks 1–3)
+## Integrated weeks (1–5)
 
-Fully integrated as articles:
+Fully integrated as articles (each now carries the standard 9-question
+bank — 3 vocabulary / 3 comprehension / 3 grammar-group):
 
-- `weekly-1-friendship` — The Power of Friendship (5 questions; vocab,
-  detail, main idea, tense, vocab).
-- `weekly-2-stupid-mistake` — A Stupid Mistake (6 questions; vocab, detail,
-  detail, main idea, grammar, vocab).
-- `weekly-3-digital-watch` — A Digital Watch (5 questions; vocab, detail,
-  main idea, tense, vocab).
+- `weekly-1-friendship` — The Power of Friendship
+- `weekly-2-stupid-mistake` — A Stupid Mistake
+- `weekly-3-digital-watch` — A Digital Watch
+- `weekly-4-crazy-weather` — The Weather Must Be Crazy
+- `weekly-5-boss-day` — Boss Day
 
 Each carries the new optional `Article` fields: `track: "weekly-stories"`,
 `weekNumber`, `chineseTitle`, and a bilingual `focus`.
@@ -63,11 +65,15 @@ its prose is **not** copied verbatim.
   and target vocabulary. This follows the project's public-content rule
   (original prose / graded retellings only) in README and the product
   roadmap (§3.2).
-- **Vocabulary entries** use the source word list (word + IPA + part of
-  speech + Chinese gloss are dictionary-style facts) but with **freshly
-  written** example sentences, not the source examples.
-- Keep the per-story vocabulary set manageable (about 8–10 words) rather
-  than importing the entire source word list.
+- **Vocabulary entries** reuse only dictionary-style facts from the source
+  word list (word + IPA + part of speech + Chinese gloss + short
+  collocation). Example sentences are intentionally omitted from the
+  weekly dictionary — never copy the source examples; freshly written
+  examples may be added in a later round.
+- Keep the per-story vocabulary set manageable: about 8–10 core words
+  rather than the entire source word list. Normalized lookup entries for
+  hyphenated forms taught in the story (e.g. `fulltime` displaying
+  "full-time") may supplement the core set beyond that count.
 - Do **not** add private family details to any content.
 - Grammar notes are written for Chinese-native learners, consistent with
   the existing articles' style.
@@ -83,9 +89,13 @@ its prose is **not** copied verbatim.
 
 ## Future batches
 
-- Next batch: weeks 4–6, one to three per round, same adaptation rules.
+- Next batch: weeks 6–7, then 8–9 (weeks 4–9 approved as scope in
+  `docs/plans/2026-07-10_content_and_turso_roadmap.md`; each batch still
+  needs its own owner go-ahead), same adaptation rules.
 - For each new week: add an `Article` (sentences + translations + grammar +
-  quiz), add its key vocabulary to `dictionary`, and set `articleId` on the
+  quiz), add its key vocabulary to `lib/weeklyDictionary.ts` (keyed by
+  lowercase base form; hyphenated words keyed by their normalized form,
+  e.g. `fulltime` displaying "full-time"), and set `articleId` on the
   matching `weeklyStories` entry.
 - Keep batches small and reviewable; do not bulk-import all 18 at once.
 
@@ -97,7 +107,10 @@ Before a weekly story is considered ready for the learner:
 - [ ] Reading level fits the learner (sentence length, vocabulary).
 - [ ] Every sentence has an accurate, natural Chinese translation.
 - [ ] Grammar notes are correct and age-appropriate.
-- [ ] Key vocabulary: IPA, part of speech, meaning, and a clear example.
+- [ ] Key vocabulary: IPA, part of speech, meaning, and a short
+      collocation (per the weeks 1–5 convention, example sentences are
+      intentionally omitted from the weekly dictionary; fresh examples may
+      be added in a later round).
 - [ ] Each quiz question has exactly one correct answer that is one of the
       options; distractors are plausible but clearly wrong.
 - [ ] At least one grammar-style question where it fits the story.

@@ -2317,9 +2317,521 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    id: "weekly-4-crazy-weather",
+    topicId: "weekly-stories",
+    track: "weekly-stories",
+    weekNumber: 4,
+    title: "The Weather Must Be Crazy",
+    chineseTitle: "疯狂的天气",
+    subtitle:
+      "A gale, a rising river, and a rescue boat — luckily, only in a dream.",
+    focus: {
+      zh: "极端天气与梦境：用生动的词汇描述一场暴风雨。",
+      en: "Extreme weather in a dream: vivid words for a storm.",
+    },
+    level: "Intermediate",
+    minutes: 4,
+    sentences: [
+      {
+        id: "s1",
+        text: "\"Wake up! Breakfast is ready!\" My mother's call pulled me out of the strangest dream I have ever had.",
+        translation:
+          "「快起床！早饭好了！」妈妈的呼唤把我从有生以来最奇怪的梦里拉了出来。",
+        grammar:
+          "'pull sb out of sth' 意为「把某人从……中拉出来」。'the strangest ... I have ever had' 是「最高级 + 现在完成时」的常用搭配。",
+      },
+      {
+        id: "s2",
+        text: "My heart was still racing, so at breakfast I told my family about my crazy dream of extreme weather.",
+        translation:
+          "我的心还在怦怦直跳，于是早餐时我给家人讲了这个关于极端天气的疯狂的梦。",
+        grammar:
+          "'so' 连接因果关系的两个分句。'tell sb about sth' 表示「向某人讲述某事」。",
+      },
+      {
+        id: "s3",
+        text: "In the dream, a gale was blowing through our town, and the rain fell harder and harder.",
+        translation: "梦里，一场烈风吹过我们的小镇，雨越下越大。",
+        grammar:
+          "过去进行时 'was blowing' 描述背景。「比较级 + and + 比较级」表示「越来越……」。",
+      },
+      {
+        id: "s4",
+        text: "The river behind our school kept rising, and by the afternoon the playground had turned into a lake.",
+        translation:
+          "学校后面的河水不断上涨，到下午，操场已经变成了一个湖。",
+        grammar:
+          "'keep + doing' 表示「不断……」。过去完成时 'had turned' 强调「到那时已经完成」。",
+      },
+      {
+        id: "s5",
+        text: "On the radio, the mayor declared our town a disaster zone and asked everyone to move to higher ground.",
+        translation:
+          "市长在广播里宣布我们镇为灾区，并要求大家转移到高处。",
+        grammar:
+          "'declare + 宾语 + 名词' 表示「宣布……为……」。'ask sb to do sth' 表示「要求某人做某事」。",
+      },
+      {
+        id: "s6",
+        text: "Rescue teams arrived in boats to assist the people who were trapped in their homes.",
+        translation: "救援队乘船赶来，协助被困在家中的人们。",
+        grammar:
+          "不定式 'to assist ...' 表示目的。'who were trapped ...' 是定语从句，修饰 the people。",
+      },
+      {
+        id: "s7",
+        text: "The icy water reached our knees as we waded to one of the boats and climbed in.",
+        translation:
+          "冰冷的水没过了我们的膝盖，我们蹚水走到其中一条船边，爬了上去。",
+        grammar:
+          "'as' 引导时间状语从句，表示「当……的时候」。'one of + 复数名词' 表示「其中之一」。",
+      },
+      {
+        id: "s8",
+        text: "I was shaking with cold — in a few minutes I felt completely frozen.",
+        translation: "我冷得发抖——没几分钟就觉得整个人都冻僵了。",
+        grammar:
+          "'shake with cold' 表示「冷得发抖」。'completely + 极端形容词'（frozen）加强语气。",
+      },
+      {
+        id: "s9",
+        text: "Suddenly, lightning lit up the dark sky, and in that white flash I saw an old man slip at the edge of the boat.",
+        translation:
+          "突然，闪电照亮了昏暗的天空，在那道白光里，我看见一位老人在船边滑倒了。",
+        grammar:
+          "'see sb do sth' 表示看到动作的全过程（这里是「滑倒」这一下）。",
+      },
+      {
+        id: "s10",
+        text: "Everyone tried to approach him, but the boat was rocking too hard in the storm.",
+        translation: "大家都想靠近他，可船在暴风雨中摇晃得太厉害了。",
+        grammar:
+          "'approach' 是及物动词，后面直接接宾语，不需要加 to。",
+      },
+      {
+        id: "s11",
+        text: "I reached out again and again until I was exhausted — and just when my fingers finally caught his coat, the dream ended.",
+        translation:
+          "我一次又一次地伸出手，直到筋疲力尽——就在我的手指终于抓住他外套的那一刻，梦结束了。",
+        grammar:
+          "'again and again' 表示「一次又一次」。'until' 引导时间状语从句。",
+      },
+      {
+        id: "s12",
+        text: "\"So the old man was me — I was shaking you awake!\" laughed my father, and the whole table burst out laughing.",
+        translation:
+          "「那个老人就是我呀——是我摇你起床的！」爸爸笑着说，全桌人都大笑起来。",
+        grammar:
+          "'burst out laughing' 表示「突然大笑起来」。破折号引出恍然大悟的补充说明。",
+      },
+      {
+        id: "s13",
+        text: "Outside the window, the morning sun was shining warmly; none of it was real, and I was glad it was only a dream.",
+        translation:
+          "窗外，清晨的阳光温暖地照耀着；那一切都不是真的，我很庆幸那只是一场梦。",
+        grammar:
+          "'none of it' 表示「那一切都不」。过去进行时 'was shining' 与梦中的风雨形成对比。",
+      },
+    ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        word: "exhausted",
+        question:
+          "\"I reached out again and again until I was exhausted.\" What does 'exhausted' mean?",
+        options: [
+          "Extremely tired",
+          "Very excited",
+          "Slightly cold",
+          "Very brave",
+        ],
+        correctAnswer: "Extremely tired",
+        explanation:
+          "'Exhausted' means extremely tired — the narrator reached out so many times that no strength was left.",
+      },
+      {
+        id: "q2",
+        type: "vocabulary",
+        word: "assist",
+        question:
+          "Rescue teams arrived to 'assist' the trapped people. What does 'assist' mean?",
+        options: [
+          "To watch quietly",
+          "To help",
+          "To leave quickly",
+          "To take photos",
+        ],
+        correctAnswer: "To help",
+        explanation:
+          "'Assist' is a more formal word for 'help' — the rescue teams came to help the people trapped in their homes.",
+      },
+      {
+        id: "q3",
+        type: "vocabulary",
+        word: "zone",
+        question:
+          "The mayor declared the town a disaster 'zone'. What is a 'zone'?",
+        options: [
+          "A kind of boat",
+          "A loud sound",
+          "An area of land",
+          "A heavy rain",
+        ],
+        correctAnswer: "An area of land",
+        explanation:
+          "A zone is an area — a disaster zone is an area hit by a disaster.",
+      },
+      {
+        id: "q4",
+        type: "detail",
+        question: "Who declared the town a disaster zone in the dream?",
+        options: [
+          "A rescue-team captain",
+          "The mayor, on the radio",
+          "The narrator's father",
+          "A school teacher",
+        ],
+        correctAnswer: "The mayor, on the radio",
+        explanation:
+          "On the radio, the mayor declared the town a disaster zone and asked everyone to move to higher ground.",
+      },
+      {
+        id: "q5",
+        type: "detail",
+        question: "What did the narrator see in the flash of lightning?",
+        options: [
+          "A big ship arriving",
+          "The playground turning into a lake",
+          "A rainbow over the river",
+          "An old man slipping at the edge of the boat",
+        ],
+        correctAnswer: "An old man slipping at the edge of the boat",
+        explanation:
+          "In the white flash of lightning, the narrator saw an old man slip at the edge of the boat.",
+      },
+      {
+        id: "q6",
+        type: "main_idea",
+        question: "What is the story mainly about?",
+        options: [
+          "A frightening dream about extreme weather",
+          "A news report about a real flood",
+          "How to row a rescue boat",
+          "A family holiday by the sea",
+        ],
+        correctAnswer: "A frightening dream about extreme weather",
+        explanation:
+          "The gale, the flood, and the rescue all happen inside a dream — the narrator is telling it at breakfast.",
+      },
+      {
+        id: "q7",
+        type: "tense",
+        question:
+          "\"By the afternoon the playground had turned into a lake.\" Why 'had turned'?",
+        options: [
+          "The change was already complete by that past time",
+          "It is happening right now",
+          "It will happen tomorrow",
+          "It never happened",
+        ],
+        correctAnswer: "The change was already complete by that past time",
+        explanation:
+          "Past perfect (had turned) shows the change was finished before that moment in the past — by the afternoon.",
+      },
+      {
+        id: "q8",
+        type: "grammar",
+        question:
+          "\"We waded to one of the boats.\" Which is correct after 'one of'?",
+        options: [
+          "A singular noun: one of the boat",
+          "A plural noun: one of the boats",
+          "An adverb: one of quickly",
+          "A base verb: one of climb",
+        ],
+        correctAnswer: "A plural noun: one of the boats",
+        explanation:
+          "'one of' is always followed by a plural noun — one of the boats, one of my friends.",
+      },
+      {
+        id: "q9",
+        type: "comparative",
+        question:
+          "\"The rain fell harder and harder.\" What does 'harder and harder' mean?",
+        options: [
+          "The rain stayed the same",
+          "The rain was about to stop",
+          "The rain kept getting stronger",
+          "The rain was very soft",
+        ],
+        correctAnswer: "The rain kept getting stronger",
+        explanation:
+          "'comparative + and + comparative' (harder and harder) shows something increasing all the time.",
+      },
+    ],
+  },
+  {
+    id: "weekly-5-boss-day",
+    topicId: "weekly-stories",
+    track: "weekly-stories",
+    weekNumber: 5,
+    title: "Boss Day",
+    chineseTitle: "老板日",
+    subtitle:
+      "For one day at school, some students become bosses — and some hunt for jobs.",
+    focus: {
+      zh: "职业体验：招聘、职位与求职面试的常用词汇。",
+      en: "Jobs & roles: hiring, positions, and interview words.",
+    },
+    level: "Intermediate",
+    minutes: 4,
+    sentences: [
+      {
+        id: "s1",
+        text: "Last Friday, a long line of \"job hunters\" stood outside our classroom, and I sat behind a desk feeling both nervous and proud.",
+        translation:
+          "上周五，一长队「求职者」站在我们教室外面，而我坐在桌子后面，既紧张又自豪。",
+        grammar:
+          "'both ... and ...' 表示「既……又……」。'feeling ...' 现在分词短语作伴随状语。",
+      },
+      {
+        id: "s2",
+        text: "It was Boss Day, a special school activity that lets students learn about the world of work.",
+        translation:
+          "那天是「老板日」——一个让学生了解职场的特别学校活动。",
+        grammar:
+          "'that lets students learn ...' 是定语从句，修饰 activity。'let sb do sth' 后接动词原形。",
+      },
+      {
+        id: "s3",
+        text: "The rules are simple: half of us become employers, and the other half become candidates who apply for jobs.",
+        translation:
+          "规则很简单：一半人当雇主，另一半人当申请工作的候选人。",
+        grammar:
+          "冒号引出具体说明。'the other half' 表示「另一半」。'apply for' 意为「申请」。",
+      },
+      {
+        id: "s4",
+        text: "As an employer, I opened a little film company and put up a notice with all the open positions.",
+        translation:
+          "作为雇主，我开了一家小电影公司，并贴出了一张写着所有空缺职位的告示。",
+        grammar:
+          "'as' 表示「作为」。'put up' 意为「张贴」。'with all the open positions' 作 notice 的后置定语。",
+      },
+      {
+        id: "s5",
+        text: "I called it \"Superhero\", because detective and science-fiction movies are my favourites.",
+        translation:
+          "我给它取名「超级英雄」，因为侦探电影和科幻电影是我的最爱。",
+        grammar:
+          "'call + 宾语 + 名字' 表示「把……叫作……」。'because' 引导原因状语从句。",
+      },
+      {
+        id: "s6",
+        text: "My notice offered one full-time position for a director and several part-time positions for actors and cameramen.",
+        translation:
+          "我的告示上有一个全职的导演职位，还有几个演员和摄影师的兼职职位。",
+        grammar:
+          "'full-time'（全职的）和 'part-time'（兼职的）是一对反义词。'cameramen' 是 'cameraman' 的不规则复数。",
+      },
+      {
+        id: "s7",
+        text: "Candidates filled in application forms, and the best ones were invited to a short interview.",
+        translation:
+          "候选人们填写申请表，表现最好的会被邀请参加简短的面试。",
+        grammar:
+          "'fill in' 意为「填写」。'were invited' 是被动语态。代词 'ones' 指代前面的 candidates。",
+      },
+      {
+        id: "s8",
+        text: "One girl admitted that she had never used a camera before, but she promised to learn fast.",
+        translation:
+          "一个女孩承认她以前从没用过摄像机，但她保证会很快学会。",
+        grammar:
+          "'admit that ...' 后接宾语从句。过去完成时 'had never used' 表示「在那之前从未」。",
+      },
+      {
+        id: "s9",
+        text: "I hired her at once, because an honest and easy-going worker is worth more than a \"perfect\" one.",
+        translation:
+          "我立刻录用了她，因为一个诚实又随和的员工比一个「完美」的员工更可贵。",
+        grammar:
+          "'at once' 意为「立刻」。'be worth more than ...' 表示「比……更有价值」。",
+      },
+      {
+        id: "s10",
+        text: "The accountant position was much harder to fill: doing the accounts all day sounded so tiring that nobody applied.",
+        translation:
+          "会计师这个职位就难招多了：整天记账听起来太累人了，以至于没有人来申请。",
+        grammar:
+          "动名词短语 'doing the accounts all day' 作主语。'so + 形容词 + that ...' 表示「如此……以至于……」。",
+      },
+      {
+        id: "s11",
+        text: "So I raised the salary on my notice, and soon three candidates were waiting at my table too.",
+        translation:
+          "于是我提高了告示上的薪水，很快也有三名候选人等在我的桌前了。",
+        grammar:
+          "'raise' 是及物动词，「提高（某物）」，注意与不及物的 'rise' 区分。",
+      },
+      {
+        id: "s12",
+        text: "Every new worker signed a simple contract, which listed their duty, working hours, and pay.",
+        translation:
+          "每位新员工都签了一份简单的合同，上面列着他们的职责、工作时间和报酬。",
+        grammar:
+          "'which listed ...' 是非限定性定语从句，补充说明 contract。'duty' 意为「职责」。",
+      },
+      {
+        id: "s13",
+        text: "By the end of the day, my little company was full, and my classmates called me \"the friendliest boss\" of Boss Day.",
+        translation:
+          "一天结束时，我的小公司满员了，同学们叫我「老板日」上「最友善的老板」。",
+        grammar:
+          "'by the end of ...' 表示「到……结束时」。'the friendliest' 是形容词最高级。",
+      },
+      {
+        id: "s14",
+        text: "Being a boss for one day taught me something real: a good employer cares about people, not just positions.",
+        translation:
+          "当一天老板让我明白了一个实实在在的道理：好雇主关心的是人，而不只是职位。",
+        grammar:
+          "动名词短语 'Being a boss for one day' 作主语。'not just' 表示「不只是」。",
+      },
+    ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        word: "candidate",
+        question: "On Boss Day, who is a 'candidate'?",
+        options: [
+          "A person who applies for a job",
+          "A person who owns the school",
+          "A person who cooks lunch",
+          "A person who directs movies",
+        ],
+        correctAnswer: "A person who applies for a job",
+        explanation:
+          "Candidates are the job hunters — the students who apply for the jobs the bosses offer.",
+      },
+      {
+        id: "q2",
+        type: "vocabulary",
+        word: "salary",
+        question: "What is a 'salary'?",
+        options: [
+          "A kind of contract",
+          "The money a worker is paid for the job",
+          "A job interview",
+          "A company's name",
+        ],
+        correctAnswer: "The money a worker is paid for the job",
+        explanation:
+          "A salary is the money paid for work — the narrator raised it to attract candidates to the accountant position.",
+      },
+      {
+        id: "q3",
+        type: "vocabulary",
+        word: "honest",
+        question: "What does 'honest' mean?",
+        options: [
+          "Working very fast",
+          "Full of new ideas",
+          "Telling the truth; not lying",
+          "Easy to teach",
+        ],
+        correctAnswer: "Telling the truth; not lying",
+        explanation:
+          "An honest person tells the truth — like the girl who admitted she had never used a camera.",
+      },
+      {
+        id: "q4",
+        type: "detail",
+        question: "What did the narrator name the film company?",
+        options: ["Detective", "Superhero", "Boss Day", "Sci-Fi Star"],
+        correctAnswer: "Superhero",
+        explanation:
+          "Detective and science-fiction movies are the narrator's favourites, so the company was called \"Superhero\".",
+      },
+      {
+        id: "q5",
+        type: "detail",
+        question:
+          "Why did nobody apply for the accountant position at first?",
+        options: [
+          "The position was already taken",
+          "The teacher did not allow it",
+          "Doing the accounts all day sounded too tiring",
+          "It paid the highest salary",
+        ],
+        correctAnswer: "Doing the accounts all day sounded too tiring",
+        explanation:
+          "Doing the accounts all day sounded so tiring that nobody applied — until the salary was raised.",
+      },
+      {
+        id: "q6",
+        type: "main_idea",
+        question: "What is the story mainly about?",
+        options: [
+          "How to make a real movie",
+          "A school activity where students practice hiring and job hunting",
+          "Why accountants earn a lot",
+          "The life of a famous director",
+        ],
+        correctAnswer:
+          "A school activity where students practice hiring and job hunting",
+        explanation:
+          "Boss Day is a school job fair — students play employers and candidates to practice job skills.",
+      },
+      {
+        id: "q7",
+        type: "grammar",
+        question:
+          "\"I raised the salary.\" Why 'raise' and not 'rise' here?",
+        options: [
+          "'raise' takes an object (raise the salary); 'rise' does not",
+          "'rise' is only used for the sun",
+          "'raise' is the past form of 'rise'",
+          "They are exactly the same",
+        ],
+        correctAnswer:
+          "'raise' takes an object (raise the salary); 'rise' does not",
+        explanation:
+          "'raise' is transitive — you raise something (the salary); 'rise' has no object (the river rose).",
+      },
+      {
+        id: "q8",
+        type: "tense",
+        question:
+          "\"She admitted that she had never used a camera before.\" What does 'had never used' tell us?",
+        options: [
+          "It describes a future plan",
+          "It is a habit she still has",
+          "It refers to a time before another past moment — before that interview",
+          "It makes the sentence a question",
+        ],
+        correctAnswer:
+          "It refers to a time before another past moment — before that interview",
+        explanation:
+          "Past perfect (had never used) looks back from a past moment: up to that interview, she had never used a camera.",
+      },
+      {
+        id: "q9",
+        type: "singular_plural",
+        question: "One cameraman joined the crew. Then came two more ___?",
+        options: ["cameramans", "cameraman", "cameramen", "cameramens"],
+        correctAnswer: "cameramen",
+        explanation:
+          "'cameraman' has an irregular plural, like man → men: one cameraman → two cameramen.",
+      },
+    ],
+  },
 ];
 
-// The 18-week Weekly Stories index. Weeks 1–3 are fully integrated and link
+// The 18-week Weekly Stories index. Weeks 1–5 are fully integrated and link
 // to real articles; later weeks have no `articleId` yet and render as
 // "coming soon" cards, so they never create a broken route.
 export const weeklyStories: WeeklyStory[] = [
@@ -2349,12 +2861,14 @@ export const weeklyStories: WeeklyStory[] = [
     titleEn: "The Weather Must Be Crazy",
     titleZh: "疯狂的天气",
     theme: { zh: "多变的天气", en: "Strange, changing weather" },
+    articleId: "weekly-4-crazy-weather",
   },
   {
     week: 5,
     titleEn: "Boss Day",
     titleZh: "老板日",
     theme: { zh: "职业体验", en: "Jobs & roles" },
+    articleId: "weekly-5-boss-day",
   },
   {
     week: 6,
