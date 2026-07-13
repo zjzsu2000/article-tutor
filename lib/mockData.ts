@@ -459,10 +459,10 @@ export const articles: Article[] = [
         question:
           "\"Elephants use their trunks to drink water.\" What does 'to drink' tell us?",
         options: [
-          "The purpose — why they use their trunks",
           "The past time of the action",
           "That it is a question",
           "That there is more than one elephant",
+          "The purpose — why they use their trunks",
         ],
         correctAnswer: "The purpose — why they use their trunks",
         explanation:
@@ -846,9 +846,9 @@ export const articles: Article[] = [
         question:
           "\"He never skips meals.\" Where does a word like 'never' usually go?",
         options: [
-          "Before the main verb: He never skips meals",
           "At the very end of the sentence",
           "Before the subject: Never he skips meals",
+          "Before the main verb: He never skips meals",
           "Anywhere — it doesn't matter",
         ],
         correctAnswer: "Before the main verb: He never skips meals",
@@ -1007,10 +1007,10 @@ export const articles: Article[] = [
         question:
           "\"A few days before the festival, my mom and I clean every corner.\" What tense is 'clean'?",
         options: [
-          "Simple present",
           "Simple past",
           "Future",
           "Present continuous",
+          "Simple present",
         ],
         correctAnswer: "Simple present",
         explanation:
@@ -1039,7 +1039,7 @@ export const articles: Article[] = [
         ],
         correctAnswer: "A singular noun: every corner",
         explanation:
-          "'Every' is always followed by a singular countable noun: every corner, every day, every student.",
+          "When 'every' comes right before a countable noun, that noun is singular: every corner, every day, every student.",
       },
     ],
   },
@@ -1160,14 +1160,14 @@ export const articles: Article[] = [
         word: "athletes",
         question: "Who are 'athletes'?",
         options: [
-          "People who are very good at sports",
           "People who write books",
+          "People who train for and take part in sports",
           "People who cook food",
           "People who build houses",
         ],
-        correctAnswer: "People who are very good at sports",
+        correctAnswer: "People who train for and take part in sports",
         explanation:
-          "Athletes are sportspeople — today they come from almost every country to compete.",
+          "Athletes train for and take part in sports — today they come from almost every country to compete.",
       },
       {
         id: "q5",
@@ -1205,8 +1205,8 @@ export const articles: Article[] = [
         question:
           "\"They started more than two thousand years ago.\" What tense is 'started'?",
         options: [
-          "Simple past",
           "Simple present",
+          "Simple past",
           "Future",
           "Present perfect",
         ],
@@ -1235,10 +1235,10 @@ export const articles: Article[] = [
         question:
           "\"The Olympic Games are the biggest sports event in the world.\" What form is 'biggest'?",
         options: [
-          "Superlative — comparing one thing with all others",
           "Comparative — comparing two things",
           "Simple past",
           "Plural",
+          "Superlative — comparing one thing with all others",
         ],
         correctAnswer: "Superlative — comparing one thing with all others",
         explanation:
@@ -1406,8 +1406,8 @@ export const articles: Article[] = [
         type: "tense",
         question: "\"Tom built a special cup.\" What is 'built'?",
         options: [
-          "The irregular past form of 'build'",
           "The -ing form of 'build'",
+          "The irregular past form of 'build'",
           "A noun meaning 'building'",
           "The future form of 'build'",
         ],
@@ -1580,7 +1580,7 @@ export const articles: Article[] = [
         ],
         correctAnswer: "People who are getting medical care",
         explanation:
-          "Patients are the sick people in a hospital — robots carry medicine to them.",
+          "Patients are the people receiving medical care in a hospital — robots carry medicine to them.",
       },
       {
         id: "q6",
@@ -1602,10 +1602,10 @@ export const articles: Article[] = [
         question:
           "'Factories' is the plural of 'factory'. How do nouns ending in consonant + y form the plural?",
         options: [
-          "Change -y to -ies: factory → factories",
           "Just add -s: factorys",
           "Add -es after y: factoryes",
           "They stay the same",
+          "Change -y to -ies: factory → factories",
         ],
         correctAnswer: "Change -y to -ies: factory → factories",
         explanation:
@@ -1858,8 +1858,8 @@ export const articles: Article[] = [
         question:
           "\"On the morning of the exam, my hands were shaking.\" What does 'were shaking' describe?",
         options: [
-          "An action in progress at that past moment",
           "A habit she still has now",
+          "An action in progress at that past moment",
           "A future plan",
           "A command",
         ],
@@ -2059,10 +2059,10 @@ export const articles: Article[] = [
         question:
           "\"We realised it had swallowed our pet goldfish.\" Why 'had swallowed'?",
         options: [
-          "The swallowing happened before they realised it",
           "The swallowing is happening right now",
           "The swallowing will happen soon",
           "The cat never swallowed the fish",
+          "The swallowing happened before they realised it",
         ],
         correctAnswer: "The swallowing happened before they realised it",
         explanation:
@@ -2345,7 +2345,7 @@ export const articles: Article[] = [
         id: "s2",
         text: "My heart was still racing, so at breakfast I told my family about my crazy dream of extreme weather.",
         translation:
-          "我的心还在怦怦直跳，于是早餐时我给家人讲了这个关于极端天气的疯狂的梦。",
+          "我的心还在怦怦直跳，于是早餐时我给家人讲了这个关于极端天气的疯狂梦境。",
         grammar:
           "'so' 连接因果关系的两个分句。'tell sb about sth' 表示「向某人讲述某事」。",
       },
@@ -2553,7 +2553,7 @@ export const articles: Article[] = [
         ],
         correctAnswer: "A plural noun: one of the boats",
         explanation:
-          "'one of' is always followed by a plural noun — one of the boats, one of my friends.",
+          "When 'one of' is followed by a countable noun, that noun is plural — one of the boats, one of my friends.",
       },
       {
         id: "q9",
@@ -2622,7 +2622,7 @@ export const articles: Article[] = [
       },
       {
         id: "s5",
-        text: "I called it \"Superhero\", because detective and science-fiction movies are my favourites.",
+        text: "I called it \"Superhero\" because detective and science-fiction movies are my favourites.",
         translation:
           "我给它取名「超级英雄」，因为侦探电影和科幻电影是我的最爱。",
         grammar:
@@ -2640,7 +2640,7 @@ export const articles: Article[] = [
         id: "s7",
         text: "Candidates filled in application forms, and the best ones were invited to a short interview.",
         translation:
-          "候选人们填写申请表，表现最好的会被邀请参加简短的面试。",
+          "候选人们填写申请表，表现最好的被邀请参加简短的面试。",
         grammar:
           "'fill in' 意为「填写」。'were invited' 是被动语态。代词 'ones' 指代前面的 candidates。",
       },
@@ -2654,7 +2654,7 @@ export const articles: Article[] = [
       },
       {
         id: "s9",
-        text: "I hired her at once, because an honest and easy-going worker is worth more than a \"perfect\" one.",
+        text: "I hired her at once because an honest and easy-going worker is worth more than a \"perfect\" one.",
         translation:
           "我立刻录用了她，因为一个诚实又随和的员工比一个「完美」的员工更可贵。",
         grammar:
@@ -2821,7 +2821,8 @@ export const articles: Article[] = [
       {
         id: "q9",
         type: "singular_plural",
-        question: "One cameraman joined the crew. Then came two more ___?",
+        question:
+          "One cameraman joined the crew first. Then two more ___ joined.",
         options: ["cameramans", "cameraman", "cameramen", "cameramens"],
         correctAnswer: "cameramen",
         explanation:
