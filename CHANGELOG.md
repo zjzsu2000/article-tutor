@@ -8,6 +8,42 @@ a SemVer-strict library.
 
 ---
 
+## [Unreleased]
+
+Implemented in the working tree; not reviewed, released, or deployed.
+
+### Added
+
+- **My own Chinese meaning for any vocabulary item.** A learner can write, edit,
+  or clear their own meaning from the reading panel or the vocabulary notebook.
+  It is stored separately (`userTranslation`) from the dictionary's meaning, and
+  is preferred wherever a meaning is shown or practised.
+- **Phrases as first-class vocabulary.** Tap a word, then extend or shrink
+  either edge one word at a time (or reset it) to select a phrase. Phrases
+  save, group, display, and drill exactly like single words, carry an explicit
+  `kind`, and can be collected with only a learner-written meaning when the
+  dictionary has no entry. The panel also glosses a phrase word by word.
+- **Dictation board** (`/[locale]/dictation`): a Chinese meaning is shown and
+  the learner types the English word or phrase. Answers are compared
+  case-, spacing-, and punctuation-insensitively; the correct spelling is
+  revealed with read-aloud, weaker items come up first, and a round can be
+  repeated over just the missed items.
+- **My Articles** (`/[locale]/my`): paste a title and an English passage to read
+  it with the normal reader — tap-a-word, phrase selection, and read-aloud all
+  work. Saved in this browser only; no translations, grammar notes, or quiz yet.
+
+### Changed
+
+- The vocabulary dedupe key is whitespace-normalized as well as lowercased
+  (unchanged behaviour for single words, needed for phrases).
+- `Article.level` is optional: an article a learner pasted in shows no level
+  chip instead of an invented one, and empty sentence translation/grammar
+  fields are omitted from the panel rather than rendered blank.
+- The navbar uses a two-row mobile layout so Topics, Vocabulary, Dictation,
+  and the language switcher remain reachable without horizontal overflow.
+
+---
+
 ## [v0.3.1] — 2026-06-04
 
 ### Added

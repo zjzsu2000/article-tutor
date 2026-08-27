@@ -3,6 +3,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Article, Sentence, WordEntry, WordSource } from "@/lib/types";
 import { lookupWord } from "@/lib/mockData";
+import { lookupPhrase } from "@/lib/phrases";
+import {
+  neighbourWord,
+  shrinkWordRange,
+  spanText,
+  tokenize,
+} from "@/lib/tokens";
 import { getDict, type Locale } from "@/lib/i18n";
 import {
   ttsPause,
@@ -11,26 +18,27 @@ import {
   ttsStop,
   useTTSState,
 } from "@/lib/tts";
-import InfoPanel from "./InfoPanel";
+import InfoPanel, { type PhraseControls } from "./InfoPanel";
 import ArticleQuiz from "./ArticleQuiz";
 
+// A vocabulary selection is a *range* of tokens inside one sentence. A tap
+// selects the single word it landed on (anchor === start === end); the
+// learner can then widen the range one word at a time to build a phrase.
+// Nothing is ever widened automatically.
+type WordSelection = {
+  kind: "word";
+  entry: WordEntry;
+  key: string;
+  sentenceIdx: number;
+  anchor: number; // token index of the originally tapped word
+  start: number; // first token in the selection (inclusive)
+  end: number; // last token in the selection (inclusive)
+};
+
 type Selection =
-  | { kind: "word"; entry: WordEntry; key: string }
+  | WordSelection
   | { kind: "sentence"; sentence: Sentence; key: string }
   | null;
-
-type Token = { type: "word"; text: string } | { type: "sep"; text: string };
-
-function tokenize(sentence: string): Token[] {
-  const out: Token[] = [];
-  const regex = /([A-Za-z][A-Za-z'-]*)|([^A-Za-z]+)/g;
-  let m: RegExpExecArray | null;
-  while ((m = regex.exec(sentence)) !== null) {
-    if (m[1]) out.push({ type: "word", text: m[1] });
-    else if (m[2]) out.push({ type: "sep", text: m[2] });
-  }
-  return out;
-}
 
 export default function ArticleReader({
   article,
@@ -138,14 +146,95 @@ export default function ArticleReader({
         }
       : null);
 
-  const handleWord = (raw: string, sentenceId: string, idx: number) => {
-    const entry = lookupWord(raw, locale);
+  // Build the selection for a token range: single words keep the existing
+  // word-lookup path exactly as before; multi-word ranges go through phrase
+  // lookup, which yields a first-class phrase entry the learner can save and
+  // give their own meaning to.
+  const selectRange = (
+    sentenceIdx: number,
+    anchor: number,
+    start: number,
+    end: number
+  ) => {
+    const { sentence, tokens } = tokenized[sentenceIdx];
+    const text = spanText(tokens, start, end);
+    if (!text) return;
+    const entry =
+      start === end ? lookupWord(text, locale) : lookupPhrase(text, locale);
     setSelection({
       kind: "word",
       entry,
-      key: `w:${sentenceId}:${idx}:${raw}`,
+      key: `w:${sentence.id}:${start}-${end}:${text}`,
+      sentenceIdx,
+      anchor,
+      start,
+      end,
     });
   };
+
+  const handleWord = (sentenceIdx: number, idx: number) => {
+    selectRange(sentenceIdx, idx, idx, idx);
+  };
+
+  // Learner-driven phrase boundary controls, handed to the info panel. Only
+  // present while a word/phrase (not a sentence) is selected.
+  const wordSelection: WordSelection | null =
+    effectiveSelection?.kind === "word" &&
+    "sentenceIdx" in effectiveSelection
+      ? effectiveSelection
+      : null;
+
+  const phraseControls: PhraseControls | undefined = wordSelection
+    ? (() => {
+        const { tokens } = tokenized[wordSelection.sentenceIdx];
+        const left = neighbourWord(tokens, wordSelection.start, -1);
+        const right = neighbourWord(tokens, wordSelection.end, 1);
+        const shrinkLeft = shrinkWordRange(
+          tokens,
+          wordSelection.start,
+          wordSelection.end,
+          "left"
+        );
+        const shrinkRight = shrinkWordRange(
+          tokens,
+          wordSelection.start,
+          wordSelection.end,
+          "right"
+        );
+        const sel = wordSelection;
+        return {
+          canExtendLeft: left !== null,
+          canExtendRight: right !== null,
+          canShrinkLeft: shrinkLeft !== null,
+          canShrinkRight: shrinkRight !== null,
+          canReset: sel.start !== sel.end,
+          onExtendLeft: () =>
+            left !== null &&
+            selectRange(sel.sentenceIdx, sel.anchor, left, sel.end),
+          onExtendRight: () =>
+            right !== null &&
+            selectRange(sel.sentenceIdx, sel.anchor, sel.start, right),
+          onShrinkLeft: () =>
+            shrinkLeft !== null &&
+            selectRange(
+              sel.sentenceIdx,
+              sel.anchor,
+              shrinkLeft.start,
+              shrinkLeft.end
+            ),
+          onShrinkRight: () =>
+            shrinkRight !== null &&
+            selectRange(
+              sel.sentenceIdx,
+              sel.anchor,
+              shrinkRight.start,
+              shrinkRight.end
+            ),
+          onReset: () =>
+            selectRange(sel.sentenceIdx, sel.anchor, sel.anchor, sel.anchor),
+        };
+      })()
+    : undefined;
 
   const handleSentence = (sentence: Sentence) => {
     setSelection({
@@ -195,7 +284,8 @@ export default function ArticleReader({
         <header className="mb-5 border-b border-slate-100 pb-4">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div className="text-xs font-semibold uppercase tracking-wide text-brand-600">
-              {t.level[article.level]} · {article.minutes} {t.article.minRead}
+              {article.level ? `${t.level[article.level]} · ` : ""}
+              {article.minutes} {t.article.minRead}
             </div>
             {supported ? (
               <div className="flex items-center gap-1.5">
@@ -236,7 +326,9 @@ export default function ArticleReader({
           <h1 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
             {article.title}
           </h1>
-          <p className="mt-2 text-slate-600">{article.subtitle}</p>
+          {article.subtitle && (
+            <p className="mt-2 text-slate-600">{article.subtitle}</p>
+          )}
           {article.focus && (
             <p className="mt-1 text-sm text-slate-500">
               🎯 {article.focus[locale]}
@@ -261,15 +353,17 @@ export default function ArticleReader({
                     return <span key={i}>{tok.text}</span>;
                   }
                   const isActiveWord =
-                    selection?.kind === "word" &&
-                    selection.key === `w:${sentence.id}:${i}:${tok.text}`;
+                    wordSelection !== null &&
+                    wordSelection.sentenceIdx === sentenceIdx &&
+                    i >= wordSelection.start &&
+                    i <= wordSelection.end;
                   return (
                     <span
                       key={i}
                       className={`word-token ${isActiveWord ? "is-active" : ""}`}
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleWord(tok.text, sentence.id, i);
+                        handleWord(sentenceIdx, i);
                       }}
                     >
                       {tok.text}
@@ -292,6 +386,7 @@ export default function ArticleReader({
         onClose={() => setSelection(null)}
         locale={locale}
         wordSource={wordSource}
+        phraseControls={phraseControls}
       />
     </div>
   );

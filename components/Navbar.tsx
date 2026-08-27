@@ -25,9 +25,10 @@ export default function Navbar({ locale }: { locale: Locale }) {
 
   const home = `/${locale}`;
   const vocab = `/${locale}/vocabulary`;
+  const dictation = `/${locale}/dictation`;
 
   const linkClass = (href: string) =>
-    `rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+    `rounded-md px-2 py-1.5 text-xs font-medium transition-colors sm:px-3 sm:text-sm ${
       pathname === href
         ? "bg-brand-100 text-brand-700"
         : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
@@ -35,14 +36,19 @@ export default function Navbar({ locale }: { locale: Locale }) {
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/80 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        <Link href={home} className="flex items-center gap-2">
-          <span className="text-xl">📖</span>
-          <span className="text-base font-semibold text-slate-900">
-            English Study
-          </span>
-        </Link>
-        <nav className="flex items-center gap-1">
+      <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-y-2 px-4 py-3 sm:flex-nowrap sm:px-6 lg:px-8">
+        <div className="flex w-full items-center justify-between sm:w-auto">
+          <Link href={home} className="flex items-center gap-2">
+            <span className="text-xl">📖</span>
+            <span className="text-base font-semibold text-slate-900">
+              English Study
+            </span>
+          </Link>
+          <div className="sm:hidden">
+            <LanguageSwitcher current={locale} />
+          </div>
+        </div>
+        <nav className="flex w-full items-center justify-between gap-1 sm:ml-auto sm:w-auto sm:justify-start">
           <Link href={home} className={linkClass(home)}>
             {t.nav.topics}
           </Link>
@@ -55,7 +61,12 @@ export default function Navbar({ locale }: { locale: Locale }) {
               {count}
             </span>
           </Link>
-          <LanguageSwitcher current={locale} />
+          <Link href={dictation} className={linkClass(dictation)}>
+            {t.nav.dictation}
+          </Link>
+          <div className="hidden sm:block">
+            <LanguageSwitcher current={locale} />
+          </div>
         </nav>
       </div>
     </header>

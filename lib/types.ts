@@ -2,6 +2,11 @@ import type { Locale } from "./i18n";
 
 export type LocalizedString = Record<Locale, string>;
 
+// A vocabulary item is either a single word or a multi-word phrase. Phrases
+// are first-class: same lookup panel, same notebook, same dictation — only
+// the lookup path and the display badge differ.
+export type VocabKind = "word" | "phrase";
+
 export type Topic = {
   id: string;
   title: LocalizedString;
@@ -45,7 +50,10 @@ export type Article = {
   topicId: string;
   title: string;
   subtitle: string;
-  level: "Beginner" | "Intermediate" | "Advanced";
+  // Optional: every curated article states its level. A learner's own pasted
+  // article has none, and the reader simply omits the level chip rather than
+  // inventing one.
+  level?: "Beginner" | "Intermediate" | "Advanced";
   minutes: number;
   sentences: Sentence[];
   quiz?: Question[];
@@ -71,7 +79,7 @@ export type WeeklyStory = {
 };
 
 export type WordEntry = {
-  word: string;
+  word: string; // a single word, or a multi-word phrase (see `isPhrase`)
   translation: string; // Chinese meaning — the one always-present field
   pronunciation?: string;
   partOfSpeech?: string;
@@ -80,6 +88,25 @@ export type WordEntry = {
   exampleTranslation?: string;
   collocation?: string; // 搭配, when available
   sourceWeek?: number; // set for Weekly Stories vocabulary
+  // What kind of vocabulary item this is. Explicit rather than inferred, so
+  // a saved item's kind is a stored fact and never re-guessed from its text.
+  // Optional: entries saved before this field existed fall back to a
+  // whitespace check (see `vocabKind` in lib/vocab.ts).
+  kind?: VocabKind;
+  // True when `translation` is only the friendly "not in the dictionary
+  // yet" placeholder rather than a real meaning. Lets the UI invite the
+  // learner to write their own meaning, and lets dictation skip the item
+  // until it has one.
+  unknown?: boolean;
+};
+
+// A meaning the learner wrote themselves. Kept separate from the
+// dictionary-provided `translation` so neither overwrites the other: the
+// dictionary entry can still be improved later, and the learner's own
+// wording always wins when both exist.
+export type UserEdits = {
+  userTranslation?: string;
+  userUpdatedAt?: number;
 };
 
 // Where a saved word came from. All fields are optional so old entries (and
@@ -93,4 +120,4 @@ export type WordSource = {
   sourceLabel?: string; // human-readable group label, e.g. "每周小故事 · 第 1 周"
 };
 
-export type SavedWord = WordEntry & WordSource & { savedAt: number };
+export type SavedWord = WordEntry & WordSource & UserEdits & { savedAt: number };

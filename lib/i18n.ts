@@ -8,7 +8,7 @@ export function isLocale(value: string): value is Locale {
 
 export type Dict = {
   htmlLang: string;
-  nav: { topics: string; vocabulary: string };
+  nav: { topics: string; vocabulary: string; dictation: string };
   home: {
     title: string;
     subtitle: string;
@@ -50,6 +50,26 @@ export type Dict = {
     close: string;
     noEntry: string;
     notInDict: string;
+    // phrases (multi-word vocabulary items)
+    phrase: string;
+    phraseNoEntry: string;
+    phraseParts: string;
+    extendLeft: string;
+    extendRight: string;
+    shrinkLeft: string;
+    shrinkRight: string;
+    extendHint: string;
+    resetSelection: string;
+    // learner-written meaning
+    myMeaning: string;
+    dictionaryMeaning: string;
+    addMeaning: string;
+    editMeaning: string;
+    meaningPlaceholder: string;
+    saveMeaning: string;
+    cancelMeaning: string;
+    clearMeaning: string;
+    meaningSavesWord: string;
   };
   vocabulary: {
     title: string;
@@ -81,6 +101,78 @@ export type Dict = {
     confirmBatch: (n: number) => string;
     confirmDelete: string;
     cancel: string;
+    // phrases + learner-written meanings
+    phraseBadge: string;
+    myMeaningLabel: string;
+    dictionaryMeaningLabel: string;
+    addMeaning: string;
+    editMeaning: string;
+    noMeaning: string;
+    practiceCta: string;
+  };
+  dictation: {
+    title: string;
+    subtitle: string;
+    intro: string;
+    start: string;
+    prompt: string;
+    inputPlaceholder: string;
+    check: string;
+    next: string;
+    finish: string;
+    reveal: string;
+    correct: string;
+    wrong: string;
+    answerLabel: string;
+    hint: string;
+    showHint: string;
+    letters: (n: number) => string;
+    phraseBadge: string;
+    progress: (cur: number, total: number) => string;
+    result: (score: number, total: number) => string;
+    resultPerfect: string;
+    resultGood: string;
+    resultTry: string;
+    again: string;
+    practiceWrong: string;
+    play: string;
+    empty: string;
+    emptyHint: string;
+    goVocabulary: string;
+    needMeaning: (n: number) => string;
+    scopeLabel: string;
+    allWords: string;
+    ready: (n: number) => string;
+  };
+  myArticles: {
+    title: string;
+    subtitle: string;
+    homeHeading: string;
+    homeHint: string;
+    add: string;
+    titleLabel: string;
+    titlePlaceholder: string;
+    textLabel: string;
+    textPlaceholder: string;
+    save: string;
+    cancel: string;
+    edit: string;
+    remove: string;
+    confirmTitle: string;
+    confirmDelete: (title: string) => string;
+    confirmYes: string;
+    empty: string;
+    emptyHint: string;
+    read: string;
+    sentenceCount: (n: number) => string;
+    needTitle: string;
+    needText: string;
+    deviceNoteZh: string;
+    deviceNoteEn: string;
+    notFound: string;
+    back: string;
+    readerNote: string;
+    loading: string;
   };
   quiz: {
     heading: string;
@@ -117,7 +209,7 @@ export type Dict = {
 
 const zh: Dict = {
   htmlLang: "zh-CN",
-  nav: { topics: "主题", vocabulary: "生词本" },
+  nav: { topics: "主题", vocabulary: "生词本", dictation: "听写" },
   home: {
     title: "阅读 · 点击 · 学习",
     subtitle:
@@ -163,6 +255,24 @@ const zh: Dict = {
     close: "关闭",
     noEntry: "暂无词条。当前为模拟数据，仅词典中的常用词有详细信息。",
     notInDict: "这个词还没有收录，后面会补充。",
+    phrase: "词组",
+    phraseNoEntry: "词典里还没有这个词组，你可以自己写下中文意思。",
+    phraseParts: "逐词看",
+    extendLeft: "← 加左边的词",
+    extendRight: "加右边的词 →",
+    shrinkLeft: "去掉左边的词 →",
+    shrinkRight: "← 去掉右边的词",
+    extendHint: "想学一个词组？用下面的按钮逐个添加或去掉两边的单词。",
+    resetSelection: "只看这一个词",
+    myMeaning: "我的释义",
+    dictionaryMeaning: "词典释义",
+    addMeaning: "✎ 写下我的中文意思",
+    editMeaning: "✎ 修改我的释义",
+    meaningPlaceholder: "用你自己的话写中文意思",
+    saveMeaning: "保存",
+    cancelMeaning: "取消",
+    clearMeaning: "清除",
+    meaningSavesWord: "保存释义时会自动加入生词本。",
   },
   vocabulary: {
     title: "我的生词本",
@@ -191,6 +301,79 @@ const zh: Dict = {
     confirmBatch: (n) => `确定要删除选中的 ${n} 个单词吗？此操作无法撤销。`,
     confirmDelete: "删除",
     cancel: "取消",
+    phraseBadge: "词组",
+    myMeaningLabel: "我的释义",
+    dictionaryMeaningLabel: "词典释义",
+    addMeaning: "✎ 写下我的中文意思",
+    editMeaning: "✎ 修改",
+    noMeaning: "还没有中文意思，写一个吧。",
+    practiceCta: "🎧 去听写练习 →",
+  },
+  dictation: {
+    title: "听写练习",
+    subtitle: "看中文，写出对应的英文单词或词组。",
+    intro: "把生词本里的词练一练：屏幕上出现中文意思，你把英文拼出来。",
+    start: "开始练习 →",
+    prompt: "这个中文意思对应的英文是什么？",
+    inputPlaceholder: "在这里输入英文",
+    check: "检查",
+    next: "下一个 →",
+    finish: "看看结果 →",
+    reveal: "不会，看答案",
+    correct: "拼对啦！🎉",
+    wrong: "还差一点，看看正确写法～",
+    answerLabel: "正确写法",
+    hint: "提示",
+    showHint: "看提示",
+    letters: (n) => `一共 ${n} 个字母`,
+    phraseBadge: "词组",
+    progress: (cur, total) => `第 ${cur} / ${total} 个`,
+    result: (score, total) => `本轮完成：${score} / ${total} 个`,
+    resultPerfect: "全部拼对，太棒了！🏆",
+    resultGood: "很不错，再练一轮会更熟哦！👍",
+    resultTry: "没关系，多写几遍就记住了～💪",
+    again: "再来一轮",
+    practiceWrong: "只练刚才写错的",
+    play: "🔊 听一听",
+    empty: "生词本里还没有可以练习的词。",
+    emptyHint: "打开一篇文章，点击单词或选中词组，保存到生词本就能来练习了。",
+    goVocabulary: "去生词本",
+    needMeaning: (n) =>
+      `还有 ${n} 个词没有中文意思，去生词本写上意思就能一起练啦。`,
+    scopeLabel: "练习范围",
+    allWords: "全部生词",
+    ready: (n) => `可以练习 ${n} 个词。`,
+  },
+  myArticles: {
+    title: "我的文章",
+    subtitle: "把想读的英文段落贴进来，就能像其他文章一样点词、选词组、听朗读。",
+    homeHeading: "我的文章",
+    homeHint: "贴一段自己想读的英文，马上开始阅读。",
+    add: "+ 添加文章",
+    titleLabel: "标题",
+    titlePlaceholder: "给这篇文章起个名字",
+    textLabel: "英文内容",
+    textPlaceholder: "把英文段落粘贴到这里…",
+    save: "保存",
+    cancel: "取消",
+    edit: "编辑",
+    remove: "删除",
+    confirmTitle: "确认删除",
+    confirmDelete: (title) => `确定要删除“${title}”吗？此操作无法撤销。`,
+    confirmYes: "删除",
+    empty: "还没有添加自己的文章。",
+    emptyHint: "点上面的按钮，把一段英文贴进来试试。",
+    read: "开始阅读 →",
+    sentenceCount: (n) => `${n} 句`,
+    needTitle: "请先给文章起个标题。",
+    needText: "请先粘贴一段英文内容。",
+    deviceNoteZh: "自己添加的文章只保存在当前设备和浏览器。",
+    deviceNoteEn: "Your own articles are saved only on this device and browser.",
+    notFound: "找不到这篇文章，可能已经被删除了。",
+    back: "← 我的文章",
+    readerNote:
+      "这是你自己添加的文章：可以点词查释义、选词组、朗读；暂时没有中文翻译和语法讲解。",
+    loading: "加载中…",
   },
   quiz: {
     heading: "闯关测试",
@@ -226,7 +409,7 @@ const zh: Dict = {
 
 const en: Dict = {
   htmlLang: "en",
-  nav: { topics: "Topics", vocabulary: "Vocabulary" },
+  nav: { topics: "Topics", vocabulary: "Vocabulary", dictation: "Dictation" },
   home: {
     title: "Read. Click. Learn.",
     subtitle:
@@ -273,6 +456,26 @@ const en: Dict = {
     noEntry:
       "No entry yet. This is mock data — only highlighted vocabulary has details.",
     notInDict: "This word is not in the dictionary yet.",
+    phrase: "Phrase",
+    phraseNoEntry:
+      "This phrase is not in the dictionary yet — you can write your own meaning.",
+    phraseParts: "Word by word",
+    extendLeft: "← Add word on the left",
+    extendRight: "Add word on the right →",
+    shrinkLeft: "Remove left word →",
+    shrinkRight: "← Remove right word",
+    extendHint:
+      "Learning a phrase? Add or remove one word at either edge below.",
+    resetSelection: "Just this word",
+    myMeaning: "My meaning",
+    dictionaryMeaning: "Dictionary",
+    addMeaning: "✎ Write my own meaning",
+    editMeaning: "✎ Edit my meaning",
+    meaningPlaceholder: "Write the Chinese meaning in your own words",
+    saveMeaning: "Save",
+    cancelMeaning: "Cancel",
+    clearMeaning: "Clear",
+    meaningSavesWord: "Saving a meaning also adds this to your vocabulary.",
   },
   vocabulary: {
     title: "My Vocabulary",
@@ -304,6 +507,82 @@ const en: Dict = {
       `Delete the ${n} selected ${n === 1 ? "word" : "words"}? This cannot be undone.`,
     confirmDelete: "Delete",
     cancel: "Cancel",
+    phraseBadge: "Phrase",
+    myMeaningLabel: "My meaning",
+    dictionaryMeaningLabel: "Dictionary",
+    addMeaning: "✎ Write my own meaning",
+    editMeaning: "✎ Edit",
+    noMeaning: "No meaning yet — write one.",
+    practiceCta: "🎧 Practice dictation →",
+  },
+  dictation: {
+    title: "Dictation",
+    subtitle: "See the Chinese meaning, then write the English word or phrase.",
+    intro:
+      "Practise the words in your notebook: a Chinese meaning appears, and you spell the English.",
+    start: "Start practising →",
+    prompt: "Which English word or phrase means this?",
+    inputPlaceholder: "Type the English here",
+    check: "Check",
+    next: "Next →",
+    finish: "See your result →",
+    reveal: "Show me the answer",
+    correct: "That's it! 🎉",
+    wrong: "Almost — here is the right spelling.",
+    answerLabel: "Correct spelling",
+    hint: "Hint",
+    showHint: "Show a hint",
+    letters: (n) => `${n} letters in all`,
+    phraseBadge: "Phrase",
+    progress: (cur, total) => `${cur} / ${total}`,
+    result: (score, total) => `Round finished: ${score} / ${total}`,
+    resultPerfect: "Every one correct — amazing! 🏆",
+    resultGood: "Nice work! One more round will make it stick. 👍",
+    resultTry: "No worries — write them a few more times. 💪",
+    again: "Another round",
+    practiceWrong: "Practise the ones I missed",
+    play: "🔊 Listen",
+    empty: "No words to practise yet.",
+    emptyHint:
+      "Open an article, tap a word or select a phrase, and save it to your vocabulary.",
+    goVocabulary: "Go to vocabulary",
+    needMeaning: (n) =>
+      `${n} ${n === 1 ? "item has" : "items have"} no meaning yet — add one in your vocabulary to practise ${n === 1 ? "it" : "them"}.`,
+    scopeLabel: "Practise",
+    allWords: "All words",
+    ready: (n) => `${n} ${n === 1 ? "item" : "items"} ready to practise.`,
+  },
+  myArticles: {
+    title: "My Articles",
+    subtitle:
+      "Paste in an English passage you want to read, then tap words, build phrases, and listen just like any other article.",
+    homeHeading: "My Articles",
+    homeHint: "Paste an English passage of your own and start reading.",
+    add: "+ Add an article",
+    titleLabel: "Title",
+    titlePlaceholder: "Give this article a name",
+    textLabel: "English text",
+    textPlaceholder: "Paste your English passage here…",
+    save: "Save",
+    cancel: "Cancel",
+    edit: "Edit",
+    remove: "Delete",
+    confirmTitle: "Confirm delete",
+    confirmDelete: (title) => `Delete "${title}"? This cannot be undone.`,
+    confirmYes: "Delete",
+    empty: "You haven't added any articles yet.",
+    emptyHint: "Tap the button above and paste in some English to try it.",
+    read: "Start reading →",
+    sentenceCount: (n) => `${n} ${n === 1 ? "sentence" : "sentences"}`,
+    needTitle: "Give the article a title first.",
+    needText: "Paste some English text first.",
+    deviceNoteZh: "自己添加的文章只保存在当前设备和浏览器。",
+    deviceNoteEn: "Your own articles are saved only on this device and browser.",
+    notFound: "That article could not be found — it may have been deleted.",
+    back: "← My Articles",
+    readerNote:
+      "This is your own article: tap words, build phrases, and listen. It has no Chinese translation or grammar notes yet.",
+    loading: "Loading…",
   },
   quiz: {
     heading: "Challenge",

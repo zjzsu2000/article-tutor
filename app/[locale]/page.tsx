@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import TopicCard from "@/components/TopicCard";
 import WeeklyStoryCard from "@/components/WeeklyStoryCard";
@@ -32,7 +33,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
         </div>
       </section>
 
-      <section>
+      <section className="mb-10">
         <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">
           {t.home.topicsHeading}
         </h2>
@@ -41,6 +42,30 @@ export default function HomePage({ params }: { params: { locale: string } }) {
             <TopicCard key={topic.id} topic={topic} locale={locale} />
           ))}
         </div>
+      </section>
+
+      {/* Entry point for the learner's own pasted articles. Kept out of the
+          navbar so the main navigation stays short on small screens. */}
+      <section>
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          {t.myArticles.homeHeading}
+        </h2>
+        <Link
+          href={`/${locale}/my`}
+          className="mt-3 flex items-center justify-between gap-4 rounded-2xl border border-dashed border-slate-300 bg-white p-5 transition-colors hover:border-brand-400 hover:bg-brand-50/40"
+        >
+          <span>
+            <span className="block text-base font-semibold text-slate-900">
+              {t.myArticles.title}
+            </span>
+            <span className="mt-1 block text-sm text-slate-500">
+              {t.myArticles.homeHint}
+            </span>
+          </span>
+          <span className="shrink-0 text-2xl" aria-hidden="true">
+            ✏️
+          </span>
+        </Link>
       </section>
     </div>
   );

@@ -4093,11 +4093,20 @@ function candidateForms(key: string): string[] {
 // (A per-article vocabulary tier could be added in front of these later.)
 // Falls back to a friendly "not in the dictionary yet" entry.
 export function lookupWord(raw: string, locale: Locale = defaultLocale): WordEntry {
+  const hit = findWordEntry(raw);
+  if (hit) return hit;
+  const t = getDict(locale);
+  return { word: raw, translation: t.panel.notInDict, unknown: true };
+}
+
+// The dictionary half of `lookupWord`, without the friendly fallback: returns
+// undefined when the word is not covered. Used by phrase lookup (lib/phrases)
+// to gloss a phrase word by word, showing only the parts it actually knows.
+export function findWordEntry(raw: string): WordEntry | undefined {
   const key = raw.toLowerCase().replace(/[^a-z']/g, "");
   for (const form of candidateForms(key)) {
     const hit = weeklyDictionary[form] ?? dictionary[form];
     if (hit) return hit;
   }
-  const t = getDict(locale);
-  return { word: raw, translation: t.panel.notInDict };
+  return undefined;
 }

@@ -3,29 +3,16 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { SavedWord } from "@/lib/types";
-import { loadSavedWords, removeWords } from "@/lib/storage";
+import { loadSavedWords, removeWords, updateWordMeaning } from "@/lib/storage";
+import {
+  groupKeyOf,
+  hasDictionaryMeaning,
+  isPhrase,
+  vocabKey,
+  type GroupKey,
+} from "@/lib/vocab";
 import { getDict, type Locale } from "@/lib/i18n";
-
-// A group key derived from a saved word's source metadata. Weekly Stories
-// words group by week; other articles group by article id; words saved before
-// this metadata existed fall back to "uncategorized" so nothing is lost.
-type GroupKey = string; // "week:1" | "article:<id>" | "uncategorized"
-
-function groupKeyOf(w: SavedWord): GroupKey {
-  // Priority reflects where the learner actually saved the word:
-  // 1. Explicit weekly-save metadata (new saves from a Weekly Stories article).
-  if (typeof w.weekNumber === "number") return `week:${w.weekNumber}`;
-  // 2. Article source metadata (new saves from any article). This must come
-  //    before sourceWeek: a common word saved from a non-weekly article can
-  //    still carry the dictionary's sourceWeek, but it belongs to its article.
-  if (w.articleId) return `article:${w.articleId}`;
-  // 3. Weekly track flag without a number (defensive).
-  if (w.track === "weekly-stories") return "week:0";
-  // 4. Legacy fallback: words saved before article-source metadata existed
-  //    still carry the dictionary's sourceWeek, with no articleId.
-  if (typeof w.sourceWeek === "number") return `week:${w.sourceWeek}`;
-  return "uncategorized";
-}
+import MeaningEditor from "./MeaningEditor";
 
 type GroupOption = { key: GroupKey; label: string; count: number; order: number };
 
@@ -33,9 +20,11 @@ export default function VocabularyClient({ locale }: { locale: Locale }) {
   const [words, setWords] = useState<SavedWord[] | null>(null);
   const [filter, setFilter] = useState<GroupKey>("all");
   const [selectMode, setSelectMode] = useState(false);
-  // Selected words, keyed by lowercased word (matches storage's dedupe key).
+  // Selected words, keyed exactly like storage's dedupe key.
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [pending, setPending] = useState<string[] | null>(null);
+  // The item whose own meaning is being edited, keyed like storage does.
+  const [editing, setEditing] = useState<string | null>(null);
   const t = getDict(locale);
 
   useEffect(() => {
@@ -109,7 +98,7 @@ export default function VocabularyClient({ locale }: { locale: Locale }) {
   };
 
   const toggleSelect = (word: string) => {
-    const key = word.toLowerCase();
+    const key = vocabKey(word);
     setSelected((prev) => {
       const next = new Set(prev);
       if (next.has(key)) next.delete(key);
@@ -121,6 +110,7 @@ export default function VocabularyClient({ locale }: { locale: Locale }) {
   const enterSelectMode = () => {
     setSelectMode(true);
     setSelected(new Set());
+    setEditing(null); // an open meaning editor would be unreachable anyway
   };
 
   const exitSelectMode = () => {
@@ -155,6 +145,14 @@ export default function VocabularyClient({ locale }: { locale: Locale }) {
           <br />
           {t.vocabulary.deviceNoteEn}
         </p>
+        {words.length > 0 && (
+          <Link
+            href={`/${locale}/dictation`}
+            className="mt-3 inline-flex items-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700"
+          >
+            {t.vocabulary.practiceCta}
+          </Link>
+        )}
       </header>
 
       {words.length === 0 ? (
@@ -245,7 +243,7 @@ export default function VocabularyClient({ locale }: { locale: Locale }) {
           ) : (
             <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {visible.map((w) => {
-                const isSelected = selected.has(w.word.toLowerCase());
+                const isSelected = selected.has(vocabKey(w.word));
                 return (
                   <li
                     key={w.word + w.savedAt}
@@ -275,13 +273,18 @@ export default function VocabularyClient({ locale }: { locale: Locale }) {
                           />
                         )}
                         <div className="min-w-0">
-                          <div className="flex items-baseline gap-2">
+                          <div className="flex flex-wrap items-baseline gap-2">
                             <h2 className="truncate text-lg font-semibold text-slate-900">
                               {w.word}
                             </h2>
                             {w.partOfSpeech && (
                               <span className="text-xs italic text-slate-500">
                                 {w.partOfSpeech}
+                              </span>
+                            )}
+                            {isPhrase(w) && (
+                              <span className="rounded-full bg-brand-50 px-2 py-0.5 text-[11px] font-semibold text-brand-700">
+                                {t.vocabulary.phraseBadge}
                               </span>
                             )}
                           </div>
@@ -311,9 +314,56 @@ export default function VocabularyClient({ locale }: { locale: Locale }) {
                         {w.definition}
                       </p>
                     )}
-                    <p className="mt-1 text-sm font-medium text-slate-900">
-                      {w.translation}
-                    </p>
+                    {/* The learner's own meaning is shown first and marked as
+                        theirs; the dictionary meaning is kept alongside it,
+                        never overwritten. */}
+                    {w.userTranslation ? (
+                      <>
+                        <p className="mt-1 text-sm font-medium text-slate-900">
+                          <span className="mr-1 rounded bg-brand-50 px-1.5 py-0.5 text-[11px] font-semibold text-brand-700">
+                            {t.vocabulary.myMeaningLabel}
+                          </span>
+                          {w.userTranslation}
+                        </p>
+                        {hasDictionaryMeaning(w) && (
+                          <p className="mt-1 text-xs text-slate-500">
+                            {t.vocabulary.dictionaryMeaningLabel}
+                            {t.quiz.labelSep}
+                            {w.translation}
+                          </p>
+                        )}
+                      </>
+                    ) : hasDictionaryMeaning(w) ? (
+                      <p className="mt-1 text-sm font-medium text-slate-900">
+                        {w.translation}
+                      </p>
+                    ) : (
+                      <p className="mt-1 text-sm text-slate-500">
+                        {t.vocabulary.noMeaning}
+                      </p>
+                    )}
+                    {!selectMode &&
+                      (editing === vocabKey(w.word) ? (
+                        <MeaningEditor
+                          current={w.userTranslation}
+                          locale={locale}
+                          onSave={(text) => {
+                            updateWordMeaning(w.word, text);
+                            setEditing(null);
+                          }}
+                          onCancel={() => setEditing(null)}
+                        />
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => setEditing(vocabKey(w.word))}
+                          className="mt-2 text-xs font-medium text-brand-700 hover:underline"
+                        >
+                          {w.userTranslation
+                            ? t.vocabulary.editMeaning
+                            : t.vocabulary.addMeaning}
+                        </button>
+                      ))}
                     {w.example && (
                       <p className="mt-2 text-xs italic text-slate-500">
                         "{w.example}"
