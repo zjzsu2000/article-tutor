@@ -8,9 +8,10 @@ a SemVer-strict library.
 
 ---
 
-## [Unreleased]
+## [v0.4.0] — 2026-08-28
 
-Implemented in the working tree; not reviewed, released, or deployed.
+Vocabulary, dictation, and learner-authored article features released to Vercel
+and the Cloudflare Pages mirror.
 
 ### Added
 

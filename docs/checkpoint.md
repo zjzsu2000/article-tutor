@@ -1,8 +1,8 @@
 # Project Checkpoint
 
-Last updated: 2026-08-26
+Last updated: 2026-08-28
 
-State: **release in progress** — the vocabulary round (learner-authored meanings, first-class phrases, a dictation board, and a minimal "My Articles" paste-and-read flow) sits alongside pre-existing weeks 6–7 content work in `lib/mockData.ts`. Codex review round 1 found three blockers; all three are fixed and the focused verification/browser QA pass. The owner approved commit, push, and deploy; release steps are in progress. Previously: copy-polish round committed and pushed (this commit) after two Codex rounds (round 1: two focused blockers; round 2: approved, no findings) — all nine previously deferred minor review findings are now cleared, leaving zero review debt. Weeks 4–5 (`3453f52`) and the question-bank expansion (`5511030`) are live on Vercel and the Cloudflare Pages mirror. Next content round: Weekly Stories weeks 6–7.
+State: **released** — the vocabulary round (learner-authored meanings, first-class phrases, a dictation board, and a minimal "My Articles" paste-and-read flow) shipped in commit `d755f66` to Vercel and the Cloudflare Pages mirror on 2026-08-28. Codex review round 1 found three blockers; all three are fixed and the focused verification/browser QA pass. Vercel production and Cloudflare deployment both completed successfully. Previously: copy-polish round committed and pushed (this commit) after two Codex rounds (round 1: two focused blockers; round 2: approved, no findings) — all nine previously deferred minor review findings are now cleared, leaving zero review debt. Weeks 4–5 (`3453f52`) and the question-bank expansion (`5511030`) are live on both hosts. Next content round: Weekly Stories weeks 6–7.
 
 ## Current Status
 
@@ -21,7 +21,7 @@ State: **release in progress** — the vocabulary round (learner-authored meanin
 
 ## Last Completed Change
 
-- **Vocabulary round: own meanings, phrases, dictation, My Articles (reviewed locally; release in progress)** — four related changes, all client-side, static export intact, no new dependencies.
+- **Vocabulary round: own meanings, phrases, dictation, My Articles (released in `d755f66`)** — four related changes, all client-side, static export intact, no new dependencies.
   1. **Learner-authored Chinese meanings.** New `UserEdits` fields on `SavedWord` (`userTranslation`, `userUpdatedAt`) written by `updateWordMeaning()` in `lib/storage.ts`. The dictionary's own `translation` is never overwritten; `displayMeaning()` (new `lib/vocab.ts`) prefers the learner's wording and falls back to the dictionary. Edited from a shared `components/MeaningEditor.tsx`, used in both the reading panel and the notebook.
   2. **Phrases as first-class vocabulary.** `WordEntry.kind?: "word" | "phrase"` is stored explicitly at save time (legacy entries fall back to a whitespace check via `vocabKind`). Selection is a learner-driven *token range* in the existing tokenizer: tap a word, then add or remove one word at either edge, or reset to the original word — nothing is auto-detected. Reader token helpers moved to `lib/tokens.ts` (`tokenize` unchanged); `shrinkWordRange()` makes one-step boundary reduction testable; `lib/phrases.ts` adds `lookupPhrase()` + `glossParts()` (word-by-word gloss). A phrase with no dictionary entry is fully saveable: the learner's own meaning is enough for the notebook and for dictation. The vocabulary dedupe key is now `vocabKey()` (lowercase + whitespace-collapsed) — a no-op for existing single words.
   3. **Dictation board** (`/[locale]/dictation`, `components/DictationClient.tsx`): Chinese meaning → typed English → normalized comparison (`answersMatch`) → reveal → next, up to 10 items per round, weakest-first ordering from new `english_study.dictationStats` counters, optional first-letter hint, "practise the ones I missed". Items with no meaning yet are excluded and surfaced as a prompt to add one.
@@ -55,7 +55,7 @@ State: **release in progress** — the vocabulary round (learner-authored meanin
 
 ## Next Small Tasks
 
-- Finish the approved release: commit/push the vocabulary round, verify the Vercel Git deployment, and manually redeploy the Cloudflare Pages mirror; keep the weeks 6–7 content in `lib/mockData.ts` out of this commit.
+- Keep the weeks 6–7 content in `lib/mockData.ts` out of the released vocabulary commit; continue with the next content round when approved.
 - Follow-ups deliberately left out of the vocabulary round: a curated phrase dictionary (so common phrases arrive with a meaning), an English→Chinese direction and a listen-and-spell direction for dictation, auto-saving missed quiz vocabulary, and translation/grammar/quiz generation for learner-added articles.
 - Run the Cloudflare manual redeploy for the copy-polish round once approved (or batch it with the weeks 6–7 round).
 - Integrate Weekly Stories weeks 6–7 (in progress this session), then 8–9, per the content plan.
