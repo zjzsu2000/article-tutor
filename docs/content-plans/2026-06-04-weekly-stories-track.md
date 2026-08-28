@@ -1,7 +1,7 @@
 # Weekly Stories / 每周小故事 — content plan
 
-Date: 2026-06-04 (last updated 2026-07-13)
-Status: weeks 1–5 integrated (4–5 in review); weeks 6–18 listed as "coming soon".
+Date: 2026-06-04 (last updated 2026-08-28)
+Status: weeks 1–7 integrated (6–7 in review); weeks 8–18 listed as "coming soon".
 
 ## Purpose
 
@@ -26,8 +26,8 @@ unchanged.
 | 3 | A Digital Watch | 一块电子表 | Weather & technology | ✅ integrated |
 | 4 | The Weather Must Be Crazy | 疯狂的天气 | Strange, changing weather | ✅ integrated |
 | 5 | Boss Day | 老板日 | Jobs & roles | ✅ integrated |
-| 6 | A Policeman and His Diving Coach | 警察和他的潜水教练 | Courage & rescue | ⏳ coming soon |
-| 7 | A Cool Surprise Party | 酷酷的惊喜派对 | A surprise party | ⏳ coming soon |
+| 6 | A Policeman and His Diving Coach | 警察和他的潜水教练 | Jobs & respect | ✅ integrated |
+| 7 | A Cool Surprise Party | 酷酷的惊喜派对 | A surprise party | ✅ integrated |
 | 8 | A Silly Behaviour | 一个犯傻的举动 | Honesty & reflection | ⏳ coming soon |
 | 9 | The Journey to London | 伦敦之旅 | A journey to London | ⏳ coming soon |
 | 10 | Transport | 交通方式 | Ways to get around | ⏳ coming soon |
@@ -40,7 +40,7 @@ unchanged.
 | 17 | Communication and Technology | 沟通与科技 | Communication & technology | ⏳ coming soon |
 | 18 | Robots | 机器人 | Robots | ⏳ coming soon |
 
-## Integrated weeks (1–5)
+## Integrated weeks (1–7)
 
 Fully integrated as articles (each now carries the standard 9-question
 bank — 3 vocabulary / 3 comprehension / 3 grammar-group):
@@ -50,6 +50,8 @@ bank — 3 vocabulary / 3 comprehension / 3 grammar-group):
 - `weekly-3-digital-watch` — A Digital Watch
 - `weekly-4-crazy-weather` — The Weather Must Be Crazy
 - `weekly-5-boss-day` — Boss Day
+- `weekly-6-diving-coach` — A Policeman and His Diving Coach
+- `weekly-7-surprise-party` — A Cool Surprise Party
 
 Each carries the new optional `Article` fields: `track: "weekly-stories"`,
 `weekNumber`, `chineseTitle`, and a bilingual `focus`.
@@ -89,7 +91,7 @@ its prose is **not** copied verbatim.
 
 ## Future batches
 
-- Next batch: weeks 6–7, then 8–9 (weeks 4–9 approved as scope in
+- Next batch: weeks 8–9 (weeks 4–9 approved as scope in
   `docs/plans/2026-07-10_content_and_turso_roadmap.md`; each batch still
   needs its own owner go-ahead), same adaptation rules.
 - For each new week: add an `Article` (sentences + translations + grammar +

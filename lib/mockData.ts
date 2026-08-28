@@ -2830,6 +2830,527 @@ export const articles: Article[] = [
       },
     ],
   },
+  {
+    id: "weekly-6-diving-coach",
+    topicId: "weekly-stories",
+    track: "weekly-stories",
+    weekNumber: 6,
+    title: "A Policeman and His Diving Coach",
+    chineseTitle: "警察和他的潜水教练",
+    subtitle:
+      "A grumpy old captain, a policeman's childhood dream, and lessons that changed them both.",
+    focus: {
+      zh: "职业与尊重：认识许多职业名称，学会以尊重待人。",
+      en: "Jobs & respect: profession words, and treating people with respect.",
+    },
+    level: "Intermediate",
+    minutes: 4,
+    sentences: [
+      {
+        id: "s1",
+        text: "My uncle is a policeman, but every Saturday morning he packs a diving mask instead of his police cap.",
+        translation:
+          "我叔叔是一名警察，但每到周六早上，他装进包里的不是警帽，而是一副潜水面镜。",
+        grammar:
+          "'instead of' 表示「而不是」。'but' 连接前后转折的两个分句。",
+      },
+      {
+        id: "s2",
+        text: "The story behind this began in a hospital ward two months ago.",
+        translation: "这背后的故事，要从两个月前的一间医院病房说起。",
+        grammar:
+          "'behind this' 介词短语作后置定语，修饰 the story。'began' 是 'begin' 的过去式。",
+      },
+      {
+        id: "s3",
+        text: "An old sea captain had been hurt in a quarrel at the fish market, and my uncle was the policeman who settled it.",
+        translation:
+          "一位年迈的船长在鱼市的一场争执中受了伤，而我叔叔正是处理这件事的警察。",
+        grammar:
+          "'had been hurt' 是过去完成时的被动语态，表示更早发生的事。'who settled it' 是定语从句。",
+      },
+      {
+        id: "s4",
+        text: "Because the captain's children all lived abroad, my kind uncle visited him in hospital every evening.",
+        translation:
+          "因为船长的孩子们都住在国外，我那热心的叔叔每天傍晚都去医院看望他。",
+        grammar:
+          "'because' 引导原因状语从句。'abroad' 是副词，前面不加介词。",
+      },
+      {
+        id: "s5",
+        text: "At first the old man seemed cold and selfish: he pushed away the tea, complained about visitors, and never thanked my uncle.",
+        translation:
+          "起初，老人显得冷淡而自私：他推开茶水，抱怨有人来访，还从不向叔叔道谢。",
+        grammar:
+          "'seem + 形容词' 表示「显得……」。冒号后列出具体行为，说明老人为什么给人这种印象。",
+      },
+      {
+        id: "s6",
+        text: "But slowly, over cups of tea, the captain began to share the story of his life.",
+        translation:
+          "但慢慢地，两人一边喝茶，船长一边讲起了自己的人生故事。",
+        grammar:
+          "'begin to do sth' 表示「开始做某事」。'over cups of tea' 表示「边喝茶边……」。",
+      },
+      {
+        id: "s7",
+        text: "He had been a professional diver, a brave soldier, a sailor, and even a baker whose bread was famous in a small Australian town.",
+        translation:
+          "他做过职业潜水员、勇敢的士兵、水手，甚至还在澳大利亚的一个小镇当过面包师，做的面包远近闻名。",
+        grammar:
+          "过去完成时 'had been' 罗列他此前做过的多种职业。'even' 表示递进强调。",
+      },
+      {
+        id: "s8",
+        text: "\"When I was a boy, I dreamed of becoming a diver too,\" my uncle admitted one evening.",
+        translation:
+          "「我小时候也梦想当一名潜水员，」一天傍晚，叔叔坦白道。",
+        grammar:
+          "'dream of doing sth' 表示「梦想做某事」。直接引语的说话动词可以放在句末。",
+      },
+      {
+        id: "s9",
+        text: "The captain smiled for the first time and said, \"Then let me be your coach before I retire — my last job will be a temporary one!\"",
+        translation:
+          "船长第一次露出了笑容，说：「那就让我在退休前当你的教练吧——我的最后一份工作将是一份临时工作！」",
+        grammar:
+          "'for the first time' 意为「第一次」。'retire' 意为「退休」；代词 'one' 指代 job。",
+      },
+      {
+        id: "s10",
+        text: "Soon the news spread through the whole police station, and my uncle's friends asked to join the lessons.",
+        translation:
+          "很快，消息传遍了整个警察局，叔叔的朋友们也纷纷请求加入课程。",
+        grammar:
+          "'spread' 的过去式仍是 'spread'（原形、过去式、过去分词同形）。'ask to do sth' 表示「请求做某事」，语气比「要求」委婉。",
+      },
+      {
+        id: "s11",
+        text: "Now a firefighter, a vet, and even a professor practice diving with him every weekend.",
+        translation:
+          "如今，一名消防员、一名兽医，甚至一位教授，每个周末都和他一起练习潜水。",
+        grammar:
+          "'practice doing sth' 表示「练习做某事」。三个并列主语共享谓语。",
+      },
+      {
+        id: "s12",
+        text: "The grumpy captain has become a patient and respected coach, cheering for every small step his students make.",
+        translation:
+          "那位爱发脾气的船长，如今成了一位耐心又受人尊敬的教练，为学员们的每一点进步喝彩。",
+        grammar:
+          "现在完成时 'has become' 表示变化的结果延续到现在。'cheering ...' 现在分词短语作伴随状语。",
+      },
+      {
+        id: "s13",
+        text: "My uncle often says, \"Treat people with respect, and they may surprise you\" — and the captain proves it.",
+        translation:
+          "叔叔常说：「以尊重待人，别人可能会给你惊喜。」——船长就是最好的证明。",
+        grammar:
+          "「祈使句 + and + 陈述句」表示「如果……就……」。'may' 表示「可能」，不是一定会发生。",
+      },
+    ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        word: "selfish",
+        question:
+          "At first the captain seemed a little 'selfish'. What does 'selfish' mean?",
+        options: [
+          "Very generous to everyone",
+          "Caring only about yourself, not others",
+          "Feeling very tired",
+          "Unable to speak",
+        ],
+        correctAnswer: "Caring only about yourself, not others",
+        explanation:
+          "A selfish person thinks only about themselves. At first the captain acted that way, but kindness helped him change.",
+      },
+      {
+        id: "q2",
+        type: "vocabulary",
+        word: "retire",
+        question: "What does 'retire' mean?",
+        options: [
+          "To stop working when you get older",
+          "To get a new job",
+          "To go diving",
+          "To move abroad",
+        ],
+        correctAnswer: "To stop working when you get older",
+        explanation:
+          "The captain was going to retire — stop working — so coaching was his last, temporary job.",
+      },
+      {
+        id: "q3",
+        type: "vocabulary",
+        word: "temporary",
+        question:
+          "\"My last job will be a temporary one.\" What does 'temporary' mean?",
+        options: [
+          "Very difficult",
+          "Very well paid",
+          "Lasting only a short time",
+          "Secret",
+        ],
+        correctAnswer: "Lasting only a short time",
+        explanation:
+          "Temporary means lasting a short time — the coaching job would only last until his retirement.",
+      },
+      {
+        id: "q4",
+        type: "detail",
+        question: "Why did the uncle visit the captain every evening?",
+        options: [
+          "The hospital paid him to come",
+          "The captain's children all lived abroad",
+          "He wanted diving lessons from day one",
+          "They were old school friends",
+        ],
+        correctAnswer: "The captain's children all lived abroad",
+        explanation:
+          "Because the captain's children all lived abroad, the kind uncle visited him in hospital every evening.",
+      },
+      {
+        id: "q5",
+        type: "detail",
+        question: "Who practices diving with the uncle now?",
+        options: [
+          "His two sons and daughter",
+          "Some newspaper reporters",
+          "A firefighter, a vet, and a professor",
+          "The fish-market workers",
+        ],
+        correctAnswer: "A firefighter, a vet, and a professor",
+        explanation:
+          "The news spread, and now a firefighter, a vet, and even a professor practice diving with him every weekend.",
+      },
+      {
+        id: "q6",
+        type: "main_idea",
+        question: "What is the main message of the story?",
+        options: [
+          "Diving is dangerous for old people",
+          "Policemen should work less",
+          "Hospitals are good places to make friends",
+          "Treating people with respect can change them",
+        ],
+        correctAnswer: "Treating people with respect can change them",
+        explanation:
+          "The captain first acted selfishly, but he became a patient, respected coach after the uncle treated him with kindness and respect.",
+      },
+      {
+        id: "q7",
+        type: "tense",
+        question:
+          "\"He had been a professional diver, a soldier, and a sailor.\" Why 'had been'?",
+        options: [
+          "Those jobs happened before the time of the story",
+          "He still does all those jobs now",
+          "It is a plan for the future",
+          "It makes the sentence more polite",
+        ],
+        correctAnswer: "Those jobs happened before the time of the story",
+        explanation:
+          "Past perfect (had been) looks further back: all those jobs came before the hospital days in the story.",
+      },
+      {
+        id: "q8",
+        type: "grammar",
+        question:
+          "\"Treat people with respect, and they may surprise you.\" What does this pattern mean?",
+        options: [
+          "Two commands at the same time",
+          "If you do the first thing, the second may happen",
+          "A question and its answer",
+          "The past and the future together",
+        ],
+        correctAnswer: "If you do the first thing, the second may happen",
+        explanation:
+          "'Imperative + and + statement' works like an if-sentence: if you treat people with respect, they may surprise you.",
+      },
+      {
+        id: "q9",
+        type: "grammar",
+        question:
+          "\"The news spread through the whole police station.\" What is special about the verb 'spread'?",
+        options: [
+          "It is always plural",
+          "It can only be used about news",
+          "It comes from French",
+          "Its past form is also 'spread'",
+        ],
+        correctAnswer: "Its past form is also 'spread'",
+        explanation:
+          "'spread' keeps the same form in the past — spread–spread–spread, like put and cut.",
+      },
+    ],
+  },
+  {
+    id: "weekly-7-surprise-party",
+    topicId: "weekly-stories",
+    track: "weekly-stories",
+    weekNumber: 7,
+    title: "A Cool Surprise Party",
+    chineseTitle: "酷酷的惊喜派对",
+    subtitle:
+      "Sold-out tickets, a dark room, and the best birthday surprise ever.",
+    focus: {
+      zh: "友情与偶像：一场专为你准备的惊喜。",
+      en: "Friendship & idols: a surprise made just for you.",
+    },
+    level: "Intermediate",
+    minutes: 4,
+    sentences: [
+      {
+        id: "s1",
+        text: "On my birthday, my best friend covered my eyes and led me into a dark room.",
+        translation:
+          "生日那天，我最好的朋友蒙住我的眼睛，把我领进了一个黑黑的房间。",
+        grammar:
+          "'covered' 和 'led'（lead 的过去式）是并列谓语。'lead sb into ...' 意为「把某人领进……」。",
+      },
+      {
+        id: "s2",
+        text: "When she let go, a big screen lit up in front of me — and I could not believe my eyes.",
+        translation:
+          "她一松手，我面前的大屏幕亮了起来——我简直不敢相信自己的眼睛。",
+        grammar:
+          "'let go' 意为「松手」。'lit up' 是 'light up' 的过去式。",
+      },
+      {
+        id: "s3",
+        text: "On the screen, my favourite idol group were performing their best-known hit songs.",
+        translation:
+          "屏幕上，我最喜欢的偶像组合正在表演他们最著名的几首金曲。",
+        grammar:
+          "过去进行时 'were performing' 表示当时正在进行。乐队/组合作主语时，英式英语常用复数谓语。",
+      },
+      {
+        id: "s4",
+        text: "I have admired this group for years, not just for their dancing but for their independent minds and the goals they set for themselves.",
+        translation:
+          "多年来我一直很欣赏这个组合——不只因为他们的舞蹈，更因为他们有自己的主见，也为自己定下目标。",
+        grammar:
+          "现在完成时 'have admired ... for years' 表示持续到现在。'not just ... but ...' 表示「不只……更……」。",
+      },
+      {
+        id: "s5",
+        text: "Going to their concert had always been my dream, but the admission price was more than my pocket money.",
+        translation:
+          "去看他们的演唱会一直是我的梦想，但门票价格超过了我的零花钱。",
+        grammar:
+          "动名词短语 'Going to their concert' 作主语。'admission price' 意为「入场票价」。",
+      },
+      {
+        id: "s6",
+        text: "Last month I finally tried to book tickets, only to learn that all the tickets had been sold.",
+        translation:
+          "上个月我终于试着订票，结果却得知票已经全部卖完了。",
+        grammar:
+          "'only to do sth' 表示出乎意料的结果。'had been sold' 是过去完成时的被动语态。",
+      },
+      {
+        id: "s7",
+        text: "I was upset for days, and my friend noticed but said nothing.",
+        translation: "我难过了好几天，朋友看在眼里，却什么也没说。",
+        grammar:
+          "'for days' 表示持续的时间。'but' 连接两个并列的动词，表示前后转折。",
+      },
+      {
+        id: "s8",
+        text: "Now the screen showed an interview from a chat show, scenes from a recording studio, and a full concert video.",
+        translation:
+          "此刻屏幕上放着访谈节目里的采访、录音棚里的镜头，还有一场完整的演唱会录像。",
+        grammar:
+          "一个动词 'showed' 可以带多个并列宾语，中间用逗号，最后一项前用 and。'a chat show' 意为「访谈节目」。",
+      },
+      {
+        id: "s9",
+        text: "The group sang while guitarists played behind them, ballet dancers moved with the music, and I cheered and clapped along with the audience on the screen.",
+        translation:
+          "组合演唱时，吉他手在他们身后伴奏，芭蕾舞者随着音乐起舞，我也跟着屏幕里的观众一起欢呼鼓掌。",
+        grammar:
+          "'while' 引导时间状语从句，表示两件事同时发生。'along with' 意为「跟着；和……一起」。",
+      },
+      {
+        id: "s10",
+        text: "\"This is incredible! How did you do it?\" I screamed with excitement.",
+        translation:
+          "「这太不可思议了！你是怎么做到的？」我兴奋地尖叫起来。",
+        grammar:
+          "'with excitement' 表示伴随的情绪，「兴奋地」。'scream' 意为「尖叫」。",
+      },
+      {
+        id: "s11",
+        text: "\"I have been planning it for weeks,\" my friend answered in a small, shy voice.",
+        translation:
+          "「这件事我已经准备好几个星期了，」朋友小声而腼腆地回答。",
+        grammar:
+          "现在完成进行时 'have been planning' 强调动作从过去持续到现在。'in a ... voice' 表示「用……的声音」。",
+      },
+      {
+        id: "s12",
+        text: "A concert on a screen is not a real concert, but a friend who knows your dream is better than any ticket.",
+        translation:
+          "屏幕上的演唱会不是真正的演唱会，但一个懂你梦想的朋友，胜过任何一张门票。",
+        grammar:
+          "'who knows your dream' 是定语从句，修饰 a friend。比较级 'better than' 进行比较。",
+      },
+      {
+        id: "s13",
+        text: "I could not thank her enough — it was the coolest surprise party ever.",
+        translation:
+          "我对她感激不尽——这是有史以来最酷的惊喜派对。",
+        grammar:
+          "'can't / couldn't thank sb enough' 表示「感激不尽」，这里用的是过去式 couldn't。'the coolest ... ever' 是「最高级 + ever」的强调用法。",
+      },
+    ],
+    quiz: [
+      {
+        id: "q1",
+        type: "vocabulary",
+        word: "incredible",
+        question:
+          "\"This is incredible!\" What does 'incredible' mean?",
+        options: [
+          "So amazing it is hard to believe",
+          "Very boring",
+          "A little strange",
+          "Too expensive",
+        ],
+        correctAnswer: "So amazing it is hard to believe",
+        explanation:
+          "Incredible describes something so amazing you can hardly believe it — like this surprise party.",
+      },
+      {
+        id: "q2",
+        type: "vocabulary",
+        word: "admire",
+        question: "What does 'admire' mean?",
+        options: [
+          "To be afraid of someone",
+          "To like and respect someone",
+          "To copy someone's homework",
+          "To wave at someone",
+        ],
+        correctAnswer: "To like and respect someone",
+        explanation:
+          "The narrator admires the group — likes and respects them for their ideas, goals, and hard work.",
+      },
+      {
+        id: "q3",
+        type: "vocabulary",
+        word: "admission",
+        question:
+          "The 'admission price' was too high. What is 'admission'?",
+        options: [
+          "The price of a music album",
+          "A kind of pocket money",
+          "The cost of entering a place or event",
+          "A seat number",
+        ],
+        correctAnswer: "The cost of entering a place or event",
+        explanation:
+          "Admission is what you pay to enter — the concert's admission price was more than her pocket money.",
+      },
+      {
+        id: "q4",
+        type: "detail",
+        question:
+          "Why had the narrator never been to the group's concert?",
+        options: [
+          "Her parents did not allow it",
+          "Tickets cost more than her pocket money, and later they were all sold",
+          "The group never gave concerts",
+          "She did not really like them",
+        ],
+        correctAnswer:
+          "Tickets cost more than her pocket money, and later they were all sold",
+        explanation:
+          "The admission price was more than her pocket money, and when she finally tried to book, all the tickets had been sold.",
+      },
+      {
+        id: "q5",
+        type: "detail",
+        question: "What was on the big screen at the party?",
+        options: [
+          "An interview, recording-studio scenes, and a concert video",
+          "A football match",
+          "A movie about magic",
+          "The narrator's baby photos",
+        ],
+        correctAnswer:
+          "An interview, recording-studio scenes, and a concert video",
+        explanation:
+          "The screen showed a chat-show interview, scenes from a recording studio, and a full concert video.",
+      },
+      {
+        id: "q6",
+        type: "main_idea",
+        question: "What is the story mainly about?",
+        options: [
+          "Concert tickets are too expensive",
+          "Idols always disappoint their fans",
+          "Birthday parties need big screens",
+          "A friend who understands your dream gives the best surprise",
+        ],
+        correctAnswer:
+          "A friend who understands your dream gives the best surprise",
+        explanation:
+          "The friend secretly planned a party around the narrator's dream — that caring friendship is the heart of the story.",
+      },
+      {
+        id: "q7",
+        type: "tense",
+        question:
+          "\"I have been planning it for weeks.\" What does 'have been planning' stress?",
+        options: [
+          "The planning finished long ago",
+          "The planning started in the past and continued up to now",
+          "The planning will start soon",
+          "The planning never happened",
+        ],
+        correctAnswer:
+          "The planning started in the past and continued up to now",
+        explanation:
+          "Present perfect continuous (have been planning) stresses an action going on from the past right up to now.",
+      },
+      {
+        id: "q8",
+        type: "grammar",
+        question:
+          "\"...not just for their dancing but for their independent minds.\" What does 'not just ... but ...' show?",
+        options: [
+          "Only one of the reasons matters",
+          "A choice between two things",
+          "Both things are true, and the second is stressed",
+          "Neither thing is true",
+        ],
+        correctAnswer:
+          "Both things are true, and the second is stressed",
+        explanation:
+          "'not just A but B' means both A and B are true, and B is the part the speaker wants to stress.",
+      },
+      {
+        id: "q9",
+        type: "comparative",
+        question:
+          "\"A friend who knows your dream is better than any ticket.\" What form is 'better'?",
+        options: [
+          "The plural of 'good'",
+          "The comparative of 'good' — good → better → best",
+          "The past form of 'good'",
+          "A completely different word with no link to 'good'",
+        ],
+        correctAnswer:
+          "The comparative of 'good' — good → better → best",
+        explanation:
+          "'good' compares irregularly: good → better → best. Here 'better than' compares the friend with any ticket.",
+      },
+    ],
+  },
 ];
 
 // The 18-week Weekly Stories index. Weeks 1–5 are fully integrated and link
@@ -2875,13 +3396,15 @@ export const weeklyStories: WeeklyStory[] = [
     week: 6,
     titleEn: "A Policeman and His Diving Coach",
     titleZh: "警察和他的潜水教练",
-    theme: { zh: "勇气与救援", en: "Courage & rescue" },
+    theme: { zh: "职业与尊重", en: "Jobs & respect" },
+    articleId: "weekly-6-diving-coach",
   },
   {
     week: 7,
     titleEn: "A Cool Surprise Party",
     titleZh: "酷酷的惊喜派对",
     theme: { zh: "惊喜与友情", en: "A surprise party" },
+    articleId: "weekly-7-surprise-party",
   },
   {
     week: 8,
