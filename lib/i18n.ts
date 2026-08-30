@@ -143,6 +143,36 @@ export type Dict = {
     scopeLabel: string;
     allWords: string;
     ready: (n: number) => string;
+    // step 2: direction + answer mode
+    stepScope: string;
+    stepType: string;
+    directionLabel: string;
+    zhToEn: string;
+    zhToEnHint: string;
+    enToZh: string;
+    enToZhHint: string;
+    answerModeLabel: string;
+    typed: string;
+    typedHint: string;
+    multipleChoice: string;
+    multipleChoiceHint: string;
+    summary: (scope: string, direction: string, mode: string) => string;
+    // question screen
+    promptEnToZh: string;
+    inputPlaceholderZh: string;
+    chooseOne: string;
+    choiceFallback: string;
+    contextLabel: string;
+    contextMaskedNote: string;
+    answerLabelZh: string;
+    learnerNote: string;
+    userMeaningNote: string;
+    // hints
+    hintLetters: string;
+    hintAnswer: string;
+    hintAnswerZh: string;
+    hintUnmasked: string;
+    back: string;
   };
   myArticles: {
     title: string;
@@ -311,8 +341,9 @@ const zh: Dict = {
   },
   dictation: {
     title: "听写练习",
-    subtitle: "看中文，写出对应的英文单词或词组。",
-    intro: "把生词本里的词练一练：屏幕上出现中文意思，你把英文拼出来。",
+    subtitle: "把生词本里的词练熟：中英双向，可以自己写，也可以做选择题。",
+    intro:
+      "先选练哪些词，再选怎么练：看中文写英文，或看英文说中文；可以自己打字，也可以从选项里挑。",
     start: "开始练习 →",
     prompt: "这个中文意思对应的英文是什么？",
     inputPlaceholder: "在这里输入英文",
@@ -343,6 +374,33 @@ const zh: Dict = {
     scopeLabel: "练习范围",
     allWords: "全部生词",
     ready: (n) => `可以练习 ${n} 个词。`,
+    stepScope: "第一步：练哪些词",
+    stepType: "第二步：怎么练",
+    directionLabel: "练习方向",
+    zhToEn: "看中文 → 写英文",
+    zhToEnHint: "给出中文意思，你写出英文单词或词组。",
+    enToZh: "看英文 → 写中文",
+    enToZhHint: "给出英文单词或词组，你说出它的中文意思。",
+    answerModeLabel: "作答方式",
+    typed: "自己写",
+    typedHint: "自己把答案打出来，记得更牢。",
+    multipleChoice: "选择题",
+    multipleChoiceHint: "从几个选项里挑出正确答案。",
+    summary: (scope, direction, mode) => `本轮：${scope} · ${direction} · ${mode}`,
+    promptEnToZh: "这个英文词（或词组）是什么意思？",
+    inputPlaceholderZh: "在这里写中文意思",
+    chooseOne: "选出正确的答案",
+    choiceFallback: "这一题可选的词不够，改成自己写。",
+    contextLabel: "原句",
+    contextMaskedNote: "（要考的词已经遮住啦）",
+    answerLabelZh: "参考答案",
+    learnerNote: "我自己写的释义",
+    userMeaningNote: "这条释义是你自己写的。",
+    hintLetters: "看首字母",
+    hintAnswer: "直接看答案",
+    hintAnswerZh: "直接看中文意思",
+    hintUnmasked: "看完整原句",
+    back: "← 重新选择",
   },
   myArticles: {
     title: "我的文章",
@@ -517,9 +575,10 @@ const en: Dict = {
   },
   dictation: {
     title: "Dictation",
-    subtitle: "See the Chinese meaning, then write the English word or phrase.",
+    subtitle:
+      "Practise your saved words both ways — type the answer, or pick it from a few options.",
     intro:
-      "Practise the words in your notebook: a Chinese meaning appears, and you spell the English.",
+      "Choose which words to practise, then how: Chinese → English or English → Chinese, typing your answer or picking from options.",
     start: "Start practising →",
     prompt: "Which English word or phrase means this?",
     inputPlaceholder: "Type the English here",
@@ -551,6 +610,34 @@ const en: Dict = {
     scopeLabel: "Practise",
     allWords: "All words",
     ready: (n) => `${n} ${n === 1 ? "item" : "items"} ready to practise.`,
+    stepScope: "Step 1: which words",
+    stepType: "Step 2: how to practise",
+    directionLabel: "Direction",
+    zhToEn: "Chinese → English",
+    zhToEnHint: "You see the Chinese meaning and give the English word or phrase.",
+    enToZh: "English → Chinese",
+    enToZhHint: "You see the English word or phrase and give its Chinese meaning.",
+    answerModeLabel: "How you answer",
+    typed: "Type it",
+    typedHint: "Writing the answer yourself makes it stick.",
+    multipleChoice: "Multiple choice",
+    multipleChoiceHint: "Pick the right answer from a few options.",
+    summary: (scope, direction, mode) =>
+      `This round: ${scope} · ${direction} · ${mode}`,
+    promptEnToZh: "What does this English word or phrase mean?",
+    inputPlaceholderZh: "Type the Chinese meaning here",
+    chooseOne: "Pick the right answer",
+    choiceFallback: "Not enough options for this one — type it instead.",
+    contextLabel: "In context",
+    contextMaskedNote: "(the word you are practising is hidden)",
+    answerLabelZh: "Accepted answer",
+    learnerNote: "My own meaning",
+    userMeaningNote: "This meaning is one you wrote yourself.",
+    hintLetters: "Show first letters",
+    hintAnswer: "Show the answer",
+    hintAnswerZh: "Show the Chinese meaning",
+    hintUnmasked: "Show the full sentence",
+    back: "← Choose again",
   },
   myArticles: {
     title: "My Articles",

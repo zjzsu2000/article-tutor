@@ -54,9 +54,91 @@ export function displayMeaning(entry: WordEntry & UserEdits): string {
   return hasDictionaryMeaning(entry) ? entry.translation.trim() : "";
 }
 
-// Usable in dictation only once there is something to prompt with.
+// Usable in practice only once there is something to prompt with.
 export function hasMeaning(entry: WordEntry & UserEdits): boolean {
-  return displayMeaning(entry).length > 0;
+  return canonicalMeaning(entry).length > 0;
+}
+
+// ── Meaning / answer source rules ────────────────────────────────────────
+// One place decides which Chinese meaning is *the answer*, so no UI has to
+// re-derive it. Deliberately independent of localized copy: the placeholder
+// check goes through `hasDictionaryMeaning`, never a string comparison here.
+//
+//   dictionary meaning exists        → "dictionary" (the dictionary wins)
+//   no dictionary meaning, user wrote one → "user"
+//   neither                          → "none" (excluded from practice)
+//
+// `displayMeaning` above is a different question — what to *show* the learner
+// in the notebook, where their own wording leads. Grading never uses it.
+export type MeaningSource = "dictionary" | "user" | "none";
+
+export function meaningSource(entry: WordEntry & UserEdits): MeaningSource {
+  if (hasDictionaryMeaning(entry)) return "dictionary";
+  if ((entry.userTranslation?.trim() ?? "").length > 0) return "user";
+  return "none";
+}
+
+// The canonical Chinese meaning of an item: the dictionary's when there is
+// one, the learner's own only as a fallback, and "" when the item has no
+// meaning yet. A learner's note never silently replaces a dictionary answer.
+export function canonicalMeaning(entry: WordEntry & UserEdits): string {
+  switch (meaningSource(entry)) {
+    case "dictionary":
+      return entry.translation.trim();
+    case "user":
+      return (entry.userTranslation ?? "").trim();
+    default:
+      return "";
+  }
+}
+
+// ── Chinese answer handling ──────────────────────────────────────────────
+// Chinese grading is intentionally tolerant but dumb: no semantics, just
+// punctuation/whitespace normalization plus splitting multi-gloss dictionary
+// entries. Everything a learner may type is compared through here.
+
+// Normalize one Chinese answer: strip whitespace (including full-width
+// spaces), drop bracketed asides such as "（复数 policemen）", and remove
+// punctuation that carries no meaning. Latin letters are lowercased so an
+// entry like "full-time" still compares sensibly.
+export function normalizeChineseAnswer(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[（(][^）)]*[）)]/g, "") // parenthetical notes
+    .replace(/[\s\u3000]+/g, "")
+    .replace(/[。，、；;,.!！?？"'“”‘’·…\-—~～]+/g, "")
+    .trim();
+}
+
+// Split a dictionary meaning into the individual glosses a learner could
+// legitimately answer with: "船长；队长；首领" → three acceptable answers.
+// The whole string stays acceptable too, so typing the full entry is fine.
+export function chineseGlosses(text: string): string[] {
+  const whole = text.trim();
+  if (!whole) return [];
+  const parts = whole
+    .split(/[；;、,，/|]/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  const out = [whole, ...parts];
+  // Dedupe on the normalized form, keeping the first (most complete) spelling.
+  const seen = new Set<string>();
+  return out.filter((p) => {
+    const k = normalizeChineseAnswer(p);
+    if (!k || seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+}
+
+// Does a typed Chinese answer match any accepted meaning?
+export function chineseAnswerMatches(
+  input: string,
+  accepted: string[]
+): boolean {
+  const a = normalizeChineseAnswer(input);
+  if (!a) return false;
+  return accepted.some((candidate) => normalizeChineseAnswer(candidate) === a);
 }
 
 // A group key derived from a saved word's source metadata. Weekly Stories

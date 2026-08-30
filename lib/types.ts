@@ -118,6 +118,11 @@ export type WordSource = {
   track?: "weekly-stories";
   weekNumber?: number;
   sourceLabel?: string; // human-readable group label, e.g. "每周小故事 · 第 1 周"
+  // The sentence the item was saved from, kept verbatim so practice can show
+  // the word or phrase in context (with the target masked) without reopening
+  // the article. Optional: items saved before this field existed simply have
+  // no context, and practice degrades to a context-free prompt.
+  sourceSentence?: string;
 };
 
 export type SavedWord = WordEntry & WordSource & UserEdits & { savedAt: number };

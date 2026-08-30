@@ -60,8 +60,9 @@ export default function ArticleReader({
 
   // Source metadata attached to any word saved while reading this article, so
   // the vocabulary notebook can group saved words by week (Weekly Stories) or
-  // by article title (other articles).
-  const wordSource: WordSource = useMemo(
+  // by article title (other articles). The sentence the learner saved from is
+  // added per selection below, so practice can show the item in context.
+  const articleSource: WordSource = useMemo(
     () => ({
       articleId: article.id,
       articleTitle: article.title,
@@ -183,6 +184,15 @@ export default function ArticleReader({
     "sentenceIdx" in effectiveSelection
       ? effectiveSelection
       : null;
+
+  // The sentence behind the current selection, stored with anything saved from
+  // it. Words and phrases both keep the whole sentence verbatim.
+  const wordSource: WordSource = useMemo(() => {
+    const sentence = wordSelection
+      ? tokenized[wordSelection.sentenceIdx]?.sentence.text
+      : undefined;
+    return sentence ? { ...articleSource, sourceSentence: sentence } : articleSource;
+  }, [articleSource, wordSelection, tokenized]);
 
   const phraseControls: PhraseControls | undefined = wordSelection
     ? (() => {

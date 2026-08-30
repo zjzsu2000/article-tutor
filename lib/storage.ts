@@ -1,5 +1,11 @@
 import type { SavedWord, WordEntry, WordSource } from "./types";
 import { vocabKey, vocabKind } from "./vocab";
+import {
+  legacyStatKey,
+  practiceStatKey,
+  type PracticeDirection,
+  type PracticeStat,
+} from "./practice";
 
 const KEY = "english_study.savedWords";
 const DICTATION_KEY = "english_study.dictationStats";
@@ -103,12 +109,16 @@ function normalizeSavedWord(raw: unknown): SavedWord | null {
   if (typeof r.word !== "string" || r.word.length === 0) return null;
   const userTranslation =
     typeof r.userTranslation === "string" ? r.userTranslation : undefined;
+  // Practice reads this as text; anything else is dropped rather than trusted.
+  const sourceSentence =
+    typeof r.sourceSentence === "string" ? r.sourceSentence : undefined;
   return {
     ...(r as SavedWord),
     word: r.word,
     translation: typeof r.translation === "string" ? r.translation : "",
     savedAt: typeof r.savedAt === "number" ? r.savedAt : 0,
     userTranslation,
+    sourceSentence,
   };
 }
 
@@ -191,15 +201,20 @@ export function updateWordMeaning(
   return next;
 }
 
-// ── Dictation stats ──────────────────────────────────────────────────────
-// Per-item practice counters, keyed like the vocabulary list itself. Used to
-// put weaker items in front of the learner first; losing this data only
-// changes ordering, never content.
+// ── Practice stats ───────────────────────────────────────────────────────
+// Per-item, per-direction practice counters. Used to put weaker items in
+// front of the learner first; losing this data only changes ordering, never
+// content.
+//
+// The localStorage key keeps its original name (`english_study.dictationStats`)
+// so existing data is picked up untouched. Entries written before directions
+// existed are keyed by the bare vocab key; they are read as zh→en history —
+// the only direction that existed then — and are never rewritten.
 
-export type DictationStat = { right: number; wrong: number; lastAt: number };
-export type DictationStats = Record<string, DictationStat>;
+export type DictationStat = PracticeStat;
+export type DictationStats = Record<string, PracticeStat>;
 
-export function loadDictationStats(): DictationStats {
+export function loadPracticeStats(): DictationStats {
   if (typeof window === "undefined") return {};
   try {
     const raw = window.localStorage.getItem(DICTATION_KEY);
@@ -222,11 +237,33 @@ export function loadDictationStats(): DictationStats {
   }
 }
 
-export function recordDictationResult(word: string, correct: boolean): void {
+const EMPTY_STAT: PracticeStat = { right: 0, wrong: 0, lastAt: 0 };
+
+// Look up one item's history in one direction, falling back to the legacy
+// undirected entry for zh→en so pre-existing practice still counts.
+export function practiceStatOf(
+  stats: DictationStats,
+  word: string,
+  direction: PracticeDirection
+): PracticeStat {
+  const current = stats[practiceStatKey(word, direction)];
+  if (current) return current;
+  if (direction === "zh-to-en") {
+    const legacy = stats[legacyStatKey(word)];
+    if (legacy) return legacy;
+  }
+  return EMPTY_STAT;
+}
+
+export function recordPracticeResult(
+  word: string,
+  direction: PracticeDirection,
+  correct: boolean
+): void {
   if (typeof window === "undefined") return;
-  const stats = loadDictationStats();
-  const key = vocabKey(word);
-  const prev = stats[key] ?? { right: 0, wrong: 0, lastAt: 0 };
+  const stats = loadPracticeStats();
+  const key = practiceStatKey(word, direction);
+  const prev = stats[key] ?? practiceStatOf(stats, word, direction);
   stats[key] = {
     right: prev.right + (correct ? 1 : 0),
     wrong: prev.wrong + (correct ? 0 : 1),
