@@ -103,7 +103,20 @@ export function recordQuizHistory(articleId: string, ids: string[]): void {
 // the source metadata fields added later; entries from very old builds may
 // even lack `savedAt`. We keep anything with a usable `word` string and fill
 // safe defaults so the notebook never crashes on legacy data.
-function normalizeSavedWord(raw: unknown): SavedWord | null {
+// Optional text fields that come straight from storage and end up on screen.
+// Anything that is not a string is dropped rather than trusted.
+const TEXT_FIELDS = [
+  "pronunciation",
+  "partOfSpeech",
+  "definition",
+  "example",
+  "exampleTranslation",
+  "collocation",
+  "articleTitle",
+  "sourceLabel",
+] as const;
+
+export function normalizeSavedWord(raw: unknown): SavedWord | null {
   if (!raw || typeof raw !== "object") return null;
   const r = raw as Record<string, unknown>;
   if (typeof r.word !== "string" || r.word.length === 0) return null;
@@ -112,13 +125,21 @@ function normalizeSavedWord(raw: unknown): SavedWord | null {
   // Practice reads this as text; anything else is dropped rather than trusted.
   const sourceSentence =
     typeof r.sourceSentence === "string" ? r.sourceSentence : undefined;
+  const encounteredText =
+    typeof r.encounteredText === "string" ? r.encounteredText : undefined;
+  const text: Record<string, string | undefined> = {};
+  for (const field of TEXT_FIELDS) {
+    text[field] = typeof r[field] === "string" ? (r[field] as string) : undefined;
+  }
   return {
     ...(r as SavedWord),
+    ...text,
     word: r.word,
     translation: typeof r.translation === "string" ? r.translation : "",
     savedAt: typeof r.savedAt === "number" ? r.savedAt : 0,
     userTranslation,
     sourceSentence,
+    encounteredText,
   };
 }
 

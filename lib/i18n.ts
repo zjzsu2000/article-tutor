@@ -52,6 +52,7 @@ export type Dict = {
     notInDict: string;
     // phrases (multi-word vocabulary items)
     phrase: string;
+    metAs: string;
     phraseNoEntry: string;
     phraseParts: string;
     extendLeft: string;
@@ -164,6 +165,9 @@ export type Dict = {
     choiceFallback: string;
     contextLabel: string;
     contextMaskedNote: string;
+    contextWithheld: string;
+    noneInDirection: string;
+    someSkipped: (n: number) => string;
     answerLabelZh: string;
     learnerNote: string;
     userMeaningNote: string;
@@ -286,6 +290,7 @@ const zh: Dict = {
     noEntry: "暂无词条。当前为模拟数据，仅词典中的常用词有详细信息。",
     notInDict: "这个词还没有收录，后面会补充。",
     phrase: "词组",
+    metAs: "原文词形",
     phraseNoEntry: "词典里还没有这个词组，你可以自己写下中文意思。",
     phraseParts: "逐词看",
     extendLeft: "← 加左边的词",
@@ -393,6 +398,9 @@ const zh: Dict = {
     choiceFallback: "这一题可选的词不够，改成自己写。",
     contextLabel: "原句",
     contextMaskedNote: "（要考的词已经遮住啦）",
+    contextWithheld: "这句原文会露出答案，先不显示；答完就能看。",
+    noneInDirection: "这些词在这个方向暂时练不了（题目会露出答案）。换个方向或换个范围试试。",
+    someSkipped: (n) => `有 ${n} 个词在这个方向暂时练不了，本轮已跳过。`,
     answerLabelZh: "参考答案",
     learnerNote: "我自己写的释义",
     userMeaningNote: "这条释义是你自己写的。",
@@ -515,6 +523,7 @@ const en: Dict = {
       "No entry yet. This is mock data — only highlighted vocabulary has details.",
     notInDict: "This word is not in the dictionary yet.",
     phrase: "Phrase",
+    metAs: "As it appeared",
     phraseNoEntry:
       "This phrase is not in the dictionary yet — you can write your own meaning.",
     phraseParts: "Word by word",
@@ -630,6 +639,12 @@ const en: Dict = {
     choiceFallback: "Not enough options for this one — type it instead.",
     contextLabel: "In context",
     contextMaskedNote: "(the word you are practising is hidden)",
+    contextWithheld:
+      "The sentence would give the answer away, so it is hidden until you have answered.",
+    noneInDirection:
+      "These words cannot be practised in this direction yet — the question would give the answer away. Try the other direction or another group.",
+    someSkipped: (n) =>
+      `${n} ${n === 1 ? "item was" : "items were"} skipped: they cannot be asked this way without giving the answer away.`,
     answerLabelZh: "Accepted answer",
     learnerNote: "My own meaning",
     userMeaningNote: "This meaning is one you wrote yourself.",

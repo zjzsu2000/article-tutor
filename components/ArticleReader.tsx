@@ -29,6 +29,9 @@ type WordSelection = {
   kind: "word";
   entry: WordEntry;
   key: string;
+  // The selected text exactly as it appears in the sentence. The entry may
+  // carry a different headword: tapping "admired" resolves to "admire".
+  text: string;
   sentenceIdx: number;
   anchor: number; // token index of the originally tapped word
   start: number; // first token in the selection (inclusive)
@@ -166,6 +169,7 @@ export default function ArticleReader({
       kind: "word",
       entry,
       key: `w:${sentence.id}:${start}-${end}:${text}`,
+      text,
       sentenceIdx,
       anchor,
       start,
@@ -188,10 +192,15 @@ export default function ArticleReader({
   // The sentence behind the current selection, stored with anything saved from
   // it. Words and phrases both keep the whole sentence verbatim.
   const wordSource: WordSource = useMemo(() => {
-    const sentence = wordSelection
-      ? tokenized[wordSelection.sentenceIdx]?.sentence.text
-      : undefined;
-    return sentence ? { ...articleSource, sourceSentence: sentence } : articleSource;
+    if (!wordSelection) return articleSource;
+    const sentence = tokenized[wordSelection.sentenceIdx]?.sentence.text;
+    return {
+      ...articleSource,
+      ...(sentence ? { sourceSentence: sentence } : {}),
+      // Keep the form the learner tapped, which the dictionary may have
+      // normalized away ("admired" → the "admire" entry).
+      encounteredText: wordSelection.text,
+    };
   }, [articleSource, wordSelection, tokenized]);
 
   const phraseControls: PhraseControls | undefined = wordSelection

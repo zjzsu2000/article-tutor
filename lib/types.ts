@@ -123,6 +123,14 @@ export type WordSource = {
   // the article. Optional: items saved before this field existed simply have
   // no context, and practice degrades to a context-free prompt.
   sourceSentence?: string;
+  // The word exactly as it appeared in that sentence, before the dictionary
+  // normalized it: tapping "admired" stores the entry for "admire" and this
+  // field keeps "admired". Lets the notebook show which form the learner met,
+  // lets practice mask that form in the context, and lets it be the expected
+  // answer for a question built on that context. Recorded for every selection
+  // (it often equals the headword); absent only on items saved before this
+  // field existed.
+  encounteredText?: string;
 };
 
 export type SavedWord = WordEntry & WordSource & UserEdits & { savedAt: number };

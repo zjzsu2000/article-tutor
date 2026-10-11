@@ -59,6 +59,24 @@ export function hasMeaning(entry: WordEntry & UserEdits): boolean {
   return canonicalMeaning(entry).length > 0;
 }
 
+// The form the learner actually met, which is the headword itself unless the
+// dictionary normalized an inflection away ("admired" → "admire"), or the
+// item predates this field.
+export function encounteredForm(
+  entry: WordEntry & { encounteredText?: string }
+): string {
+  return entry.encounteredText?.trim() || entry.word.trim();
+}
+
+// True when the saved item was met in an inflected form, so the UI can show
+// both ("admire · 文中：admired") instead of silently dropping one.
+export function hasDistinctEncountered(
+  entry: WordEntry & { encounteredText?: string }
+): boolean {
+  const surface = entry.encounteredText?.trim() ?? "";
+  return surface.length > 0 && vocabKey(surface) !== vocabKey(entry.word);
+}
+
 // ── Meaning / answer source rules ────────────────────────────────────────
 // One place decides which Chinese meaning is *the answer*, so no UI has to
 // re-derive it. Deliberately independent of localized copy: the placeholder

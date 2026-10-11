@@ -10,6 +10,7 @@ import {
   recordPracticeResult,
 } from "@/lib/storage";
 import { groupKeyOf, isPhrase, vocabKey, type GroupKey } from "@/lib/vocab";
+import { withReadingContext } from "@/lib/practiceContext";
 import {
   buildRound,
   gradeAnswer,
@@ -45,12 +46,17 @@ export default function DictationClient({ locale }: { locale: Locale }) {
   const [checked, setChecked] = useState<boolean | null>(null);
   const [revealed, setRevealed] = useState<HintKind[]>([]);
   const [outcomes, setOutcomes] = useState<Outcome[]>([]);
+  // How many in-scope items this direction could not ask about safely, so a
+  // short or empty round is explained rather than silent.
+  const [skipped, setSkipped] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const t = getDict(locale);
   const { supported: ttsSupported } = useTTSState();
 
   useEffect(() => {
-    const sync = () => setWords(loadSavedWords());
+    // Words saved before reading context was recorded get it recovered from
+    // their article on read, so practice can show a sentence for them too.
+    const sync = () => setWords(loadSavedWords().map(withReadingContext));
     sync();
     window.addEventListener("savedWords:changed", sync);
     window.addEventListener("storage", sync);
@@ -123,6 +129,8 @@ export default function DictationClient({ locale }: { locale: Locale }) {
 
   // Randomization happens here, in an event handler — never during render —
   // so the statically exported page has no hydration mismatch.
+  useEffect(() => setSkipped(0), [direction, answerMode, scope]);
+
   const startRound = (items: SavedWord[]) => {
     const stats = loadPracticeStats();
     const questions = buildRound(
@@ -134,7 +142,8 @@ export default function DictationClient({ locale }: { locale: Locale }) {
         size: ROUND_SIZE,
       }
     );
-    if (questions.length === 0) return;
+    setSkipped(Math.max(0, Math.min(ROUND_SIZE, items.length) - questions.length));
+    if (questions.length === 0) return; // the notice below explains why
     setRound(questions);
     setIndex(0);
     setInput("");
@@ -302,6 +311,14 @@ export default function DictationClient({ locale }: { locale: Locale }) {
                 {t.dictation.summary(scopeLabel, directionLabel, modeLabel)}
               </p>
 
+              {skipped > 0 && (
+                <p className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-800">
+                  {skipped >= Math.min(ROUND_SIZE, inScope.length)
+                    ? t.dictation.noneInDirection
+                    : t.dictation.someSkipped(skipped)}
+                </p>
+              )}
+
               <button
                 type="button"
                 onClick={() => startRound(inScope)}
@@ -339,6 +356,7 @@ export default function DictationClient({ locale }: { locale: Locale }) {
           ttsSupported={ttsSupported}
           inputRef={inputRef}
           requestedMode={answerMode}
+          skippedNote={skipped > 0 ? t.dictation.someSkipped(skipped) : undefined}
           onInput={setInput}
           onSubmit={submitTyped}
           onChoose={chooseOption}
@@ -472,6 +490,7 @@ function QuestionView({
   ttsSupported,
   inputRef,
   requestedMode,
+  skippedNote,
   onInput,
   onSubmit,
   onChoose,
@@ -490,6 +509,8 @@ function QuestionView({
   // What the learner asked for, so a question that had to fall back to typing
   // can say so instead of silently changing shape.
   requestedMode: PracticeAnswerMode;
+  // Set when this round is shorter than asked for, so the learner is told why.
+  skippedNote?: string;
   onInput: (v: string) => void;
   onSubmit: () => void;
   onChoose: (option: string) => void;
@@ -518,10 +539,11 @@ function QuestionView({
     (h) => !revealed.includes(h) && !(h === "answer" && answered)
   );
   const openHints = nextHint ? [nextHint] : [];
-  const contextText =
-    revealed.includes("unmasked-context") || !question.contextMasked
-      ? question.sourceSentence
-      : question.maskedSentence;
+  // Never the raw sentence while the question is open: only what the question
+  // itself deemed safe, or the full sentence once that rung was climbed.
+  const contextText = revealed.includes("unmasked-context")
+    ? question.sourceSentence
+    : question.maskedSentence;
 
   return (
     <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -529,6 +551,11 @@ function QuestionView({
         <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-slate-600">
           {t.dictation.progress(index + 1, total)}
         </span>
+        {skippedNote && (
+          <span className="rounded-full bg-amber-50 px-2.5 py-0.5 text-amber-800">
+            {skippedNote}
+          </span>
+        )}
         <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-slate-600">
           {zhToEn ? t.dictation.zhToEn : t.dictation.enToZh}
         </span>
@@ -559,16 +586,31 @@ function QuestionView({
           </button>
         )}
       </div>
-      {question.item.partOfSpeech && (
+      {/* The screened copy, never `item.partOfSpeech`: malformed or
+          adversarial saved data must not walk past the question builder. */}
+      {question.partOfSpeech && (
         <p className="mt-1 text-sm italic text-slate-500">
-          {question.item.partOfSpeech}
+          {question.partOfSpeech}
         </p>
       )}
-      {/* The learner's own note, when the dictionary owns the answer. Shown as
-          a note, never graded against. */}
+      {/* The learner's own note, when the dictionary owns the answer. It is
+          not *the* canonical answer, though typing it is accepted. */}
       {zhToEn && question.learnerNote && (
         <p className="mt-1 text-sm text-slate-500">
           {t.dictation.learnerNote}: {question.learnerNote}
+        </p>
+      )}
+      {/* The form met in the article. Safe to show beside an English prompt;
+          in zh→en it *is* the answer, so it waits for the feedback block. */}
+      {!zhToEn && question.metAs && (
+        <p className="mt-1 text-sm text-slate-500">
+          {t.panel.metAs}: {question.metAs}
+        </p>
+      )}
+
+      {question.contextWithheld && !revealed.includes("unmasked-context") && (
+        <p className="mt-4 rounded-lg bg-slate-50 px-3 py-2 text-xs leading-relaxed text-slate-500">
+          {t.dictation.contextWithheld}
         </p>
       )}
 
@@ -757,6 +799,11 @@ function QuestionView({
               </button>
             )}
           </p>
+          {zhToEn && question.metAs && question.metAs !== question.item.word && (
+            <p className="mt-1 text-xs">
+              {t.panel.metAs}: {question.metAs}（{question.item.word}）
+            </p>
+          )}
           {/* When the canonical answer is the learner's own wording, say so —
               it is their note, not a dictionary entry. */}
           {!zhToEn && !question.learnerNote && question.item.userTranslation && (

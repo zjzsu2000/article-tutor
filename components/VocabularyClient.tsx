@@ -7,6 +7,7 @@ import { loadSavedWords, removeWords, updateWordMeaning } from "@/lib/storage";
 import {
   groupKeyOf,
   hasDictionaryMeaning,
+  hasDistinctEncountered,
   isPhrase,
   vocabKey,
   type GroupKey,
@@ -291,6 +292,11 @@ export default function VocabularyClient({ locale }: { locale: Locale }) {
                           {w.pronunciation && (
                             <p className="mt-0.5 text-xs text-slate-500">
                               {w.pronunciation}
+                            </p>
+                          )}
+                          {hasDistinctEncountered(w) && (
+                            <p className="mt-0.5 text-xs text-slate-500">
+                              {t.panel.metAs}: {w.encounteredText}
                             </p>
                           )}
                         </div>

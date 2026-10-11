@@ -8,7 +8,7 @@ import {
   saveWord,
   updateWordMeaning,
 } from "@/lib/storage";
-import { hasDictionaryMeaning, isPhrase } from "@/lib/vocab";
+import { hasDictionaryMeaning, isPhrase, vocabKey } from "@/lib/vocab";
 import { glossParts } from "@/lib/phrases";
 import { getDict, type Locale } from "@/lib/i18n";
 import { ttsSpeak, useTTSState } from "@/lib/tts";
@@ -101,6 +101,12 @@ export default function InfoPanel({
       {selection.kind === "word" ? (
         <WordView
           entry={selection.entry}
+          metAs={
+            wordSource?.encounteredText &&
+            vocabKey(wordSource.encounteredText) !== vocabKey(selection.entry.word)
+              ? wordSource.encounteredText
+              : undefined
+          }
           saved={saved}
           userTranslation={userTranslation}
           locale={locale}
@@ -142,6 +148,7 @@ export default function InfoPanel({
 
 function WordView({
   entry,
+  metAs,
   saved,
   userTranslation,
   locale,
@@ -151,6 +158,9 @@ function WordView({
   onSaveMeaning,
 }: {
   entry: WordEntry;
+  // The form the learner actually tapped, when the dictionary headword is a
+  // different form ("admired" → the "admire" entry).
+  metAs?: string;
   saved: boolean;
   userTranslation?: string;
   locale: Locale;
@@ -186,6 +196,11 @@ function WordView({
         {phrase && (
           <span className="rounded-full bg-brand-50 px-2 py-0.5 text-xs font-semibold text-brand-700">
             {t.panel.phrase}
+          </span>
+        )}
+        {metAs && (
+          <span className="text-sm text-slate-500">
+            {t.panel.metAs}: <span className="font-medium">{metAs}</span>
           </span>
         )}
       </div>
